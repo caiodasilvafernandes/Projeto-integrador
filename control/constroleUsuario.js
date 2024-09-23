@@ -52,7 +52,7 @@ router.put("/updateUser/:id", (req, res) => {
 
     var sql = "UPDATE usuario SET nome = ?, email = ?, senha=?, tipo=?, slug=? WHERE idUser = ?;";
 
-    conn.query(sql, [nome, email, senhaHash, tipo, slug(nome)], (err, result) => {
+    conn.query(sql, [nome, email, senhaHash, tipo, slug(nome),id], (err, result) => {
         if (err) throw err;
 
         res.status(200).json("funfa", result);

@@ -75,7 +75,6 @@ router.post("/favoritaProduto/:id",(req,res)=>{
 router.get("/verFavs",manipulaToken.verificaToken,(req,res)=>{
     let id = req.userId;
     let query = "SELECT * FROM pacotesfav_comp INNER JOIN pacote ON pacotesfav_comp.idFkPacote = pacote.idPacote WHERE pacotesfav_comp.tipo = 'fav' AND pacotesfav_comp.idFkCliente = ?;";
-console.log(id);
 
     conn.query(query,[id],(err,result)=>{
         console.log(result);
