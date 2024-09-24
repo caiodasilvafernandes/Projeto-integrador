@@ -1,0 +1,48 @@
+<%- include("partials/header")%>
+  <link rel="stylesheet" type="text/css" href="CSS/form.css"/>
+
+  <body>
+    <%- include("partials/hudAdm")%>
+
+    <div class="row g-0 imgDir">
+      <div class="col-md-6 d-flex justify-content-center align-items-center">
+    <form class="form-control pForm" method="post">
+
+      <h1 class="title">Edit your account</h1>
+      <p class="subTitle">🎵</p>
+      <div class="linha"></div>
+      <!-- nome -->
+      <div class="row">
+      <label class="text-start subTitle col-4">Username</label>
+      <input type="text" name="username" id="username" placeholder="username" class="inputForm form-control form-control-sm col">
+      </div>
+      <!-- senha -->
+      <div class="row">
+      <label class="text-start subTitle col-4">Password</label>
+      <input type="password" name="password" id="password" placeholder="password" class="inputForm form-control-sm form-control col">
+      </div>
+      <!-- bio -->
+      <div class="row">
+      <label class="text-start subTitle col-4">Bio</label>
+      <textarea type="text" name="bio" id="bio" placeholder="bio" class="inputForm form-control-sm form-control col" maxlength="256" style="resize: none; border-radius: 15px;"></textarea>
+      </div>
+      
+      <div class="linha"></div>
+
+      <div class="row">
+      <label class="text-start subTitle col">Change profile picture</label>
+      <input type="submit" name="pfp" id="pfp" class="inputForm form-control-sm form-control col" value="Submit">
+      </div>
+      <img src="./img/icons/profilepic.png" class="picEdit col">
+
+      <div class="row d-flex justify-content-center">
+        <button type="submit" class="btn btnBase">Finish</button>
+        </div>
+    </form>
+  </div>
+
+  <div class="col-md-6 d-flex justify-content-center align-items-center h-100 imgDiv ">
+    <img src="/img/illustrations/DJ.jpeg"  class="img-fluid h-100 w-100 " style="object-fit: cover; max-height: 100vh;"></img>
+  </div>
+  </div>
+  </body>

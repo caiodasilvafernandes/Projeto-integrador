@@ -19,23 +19,23 @@ router.use(methodOver((req, res) => {
     }
 }));
 
-router.get("/cadastraCliente", (req, res) => {
-    res.status(200).json("pppp");
-    res.end();
+router.get("/singUp", (req, res) => {
+    res.render("singUp");
 });
 
-router.post("/cadastraCliente", async (req, res) => {
-    let { nome, email, senha, dataNasc, bio, cidade } = req.body;
+router.post("/cadastrarCliente", async (req, res) => {
+    let { name, login, email, password, dataNasc, bio, city } = req.body;
 
     let salt = bcrypt.genSaltSync(10);
-    let senhaHash = bcrypt.hashSync(senha, salt);
+    let senhahash = bcrypt.hashSync(password, salt);
 
-    var query = "INSERT INTO cliente(nome,email,senha,dataNasc,bio,idcidade) Values (?,?,?,?,?,?);";
+    var query = "INSERT INTO cliente(nome,login, email,senha,dataNasc,bio,idCidade) Values (?,?,?,?,?,?,?);";
     
-    conn.query(query, [nome, email, senhaHash, dataNasc, bio, cidade], (err, result) => {
+    conn.query(query, [name, login, email, senhahash, dataNasc, bio, city], (err, result) => {
         if (err) throw err;
+
     });
-    manipulaToken.logarUser(email, senha, res);
+    manipulaToken.logarUser(email, password, res);
 });
 
 router.get("/updateCliente/:id", (req, res) => {

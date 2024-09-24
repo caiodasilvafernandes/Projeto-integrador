@@ -1,0 +1,39 @@
+<%- include("partials/header")%>
+  <link rel="stylesheet" type="text/css" href="CSS/form.css"/>
+
+  <body>
+    <%- include("partials/hudNoLog")%>
+
+    <div class="row g-0 imgDir">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+    <form class="form-control pForm" method="post">
+
+      <h1 class="title">Login</h1>
+      <p class="subTitle"> Good to see you again!</p>
+
+      <div class="linha"></div>
+      <!-- colocar o nome/email -->
+      <div class="row">
+      <label class="text-start subTitle col-4">Login/email</label> <input name="login" id="login" placeholder="login/email..." class="inputForm form-control form-control-sm col">
+      <!-- senha: -->
+      </div>
+      <div class="row">
+      <label class="text-start subTitle col-4">Password</label> <input name="password" id="password" placeholder="password..." class="inputForm form-control form-control-sm col">
+      </div>
+      <div class="row" style="width: fit-content;">
+        <a class="text-start subTitle col" href="/singUp" style="margin-bottom:15px;">Don't have an account?</a>
+      </div>         
+      <!-- botão do form-->
+      <div class="row d-flex justify-content-center">
+      <button type="submit" class="btn btnBase">Login</button>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="col-md-6 d-flex justify-content-center align-items-center h-100 imgDiv ">
+    <img src="/img/illustrations/DJ.jpeg"  class="img-fluid h-100 w-100 " style="object-fit: cover; max-height: 100vh;"></img>
+  </div>
+  </div>
+</div>
+  </body>

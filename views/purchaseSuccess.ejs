@@ -1,0 +1,29 @@
+<%- include("partials/header")%>
+<link rel="stylesheet" type="text/css" href="CSS/index.css" />
+<link rel="stylesheet" type="text/css" href="CSS/payment.css" />
+
+<style>
+
+  .subTitle {
+    padding: 0;
+    font-size: 25px;
+  }
+</style>
+
+<body>
+  <%- include("partials/hudAdm")%>
+
+  <form class="container">
+    <h1 class="title">Thank you for the purchase!</h1>
+    <div class="linha"></div>
+    <a class="subTitle underSAnima" style="color: #fff" href="/kitPage"
+      >Review the product</a
+    >
+    <br />
+    <p class="subTitle">or</p>
+    <br />
+    <a class="subTitle underSAnima" style="color: #fff" href="/">Go home</a>
+    <div class="linha"></div>
+    <img src="/img/illustrations/purchaseSuccess.png" class="imgSuccess" />
+  </form>
+</body>

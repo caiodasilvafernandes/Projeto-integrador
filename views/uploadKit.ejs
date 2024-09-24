@@ -1,0 +1,78 @@
+<%- include("partials/header")%>
+  <link rel="stylesheet" type="text/css" href="CSS/form.css"/>
+  <link rel="stylesheet" type="text/css" href="CSS/index.css"/>
+
+  <body style="overflow-y: auto !important; overflow-x: none !important;">
+    <%- include("partials/hudAdm")%>
+
+    <div class="row g-0 imgDir">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+    <form class="form-control pForm" method="post">
+
+      <h1 class="title">Upload a Kit!</h1>
+      <p class="subTitle"> Upload your kit and sell it.</p>
+
+      <div class="linha"></div>
+      <!-- titulo do kit, o nome do produto-->
+      <div class="row ">
+      <p class="text-start subTitle col-3 ">Title</p> <input name="title" id="title" placeholder="kit's title..." class="inputForm form-control form-control-sm col">
+      </div>
+
+      <!-- tipo do kit, gênero, oque vai conter nele: loops? bateria?-->
+      <div class="row">
+        <p class="text-start subTitle col-3">Kit type:</p><select name="type" id="type" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+          <option value="Loops" >Loops</option>
+          <option value="Drums" >Drums</option>
+          <option value="DL" >Drums and Loops</option>
+          <option value="other" >Other</option>
+          </select>
+      </div>
+
+      <!-- capa do kit -->
+      <div class="row">
+        <p class="text-start subTitle col">Cover</p> <input type="submit" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="...">
+      </div>  
+      <!-- input da imagem-->
+      <div class="row">
+      <img class="imgUpload"/>
+      </div>      
+      <!-- mostra o nome dos arquivos slecionados pelo user-->
+      <div class="row">
+        <p class="text-start subTitle col">Kit file: kit.zip </p> <input type="submit" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;">
+       </div>
+      <div class="row">
+        <p class="text-start subTitle col">Kit demo: demo.zip</p> <input type="submit" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;">
+      </div>
+      <div class="row">
+        <p class="text-start subTitle col-3">Price: </p> <input type="number" ame="price" id="price" placeholder="kit's price..." class="inputForm form-control form-control-sm col">
+      </div>
+      <!--botao do form-->
+      <div class="row d-flex justify-content-center">
+      <button type="submit" class="btn btnBase">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  
+
+    <div class="col-md-6 d-flex justify-content-center align-items-center imgUploadBack" style="background:none !important;">
+      <img src="/img/illustrations/manBox.png"  class="img-fluid" ></img>
+    </div>
+  </div>
+</div>
+
+<script>
+  //script do dropDownButton, fodaci
+  const selectElement = document.getElementById('type');
+
+  selectElement.addEventListener('click', function() {
+    this.classList.toggle('active');
+  });
+
+  document.addEventListener('click', function() {
+    if (!selectElement.contains(event.target)) {
+    selectElement.classList.remove('active');
+    }
+  });
+</script>
+</body>

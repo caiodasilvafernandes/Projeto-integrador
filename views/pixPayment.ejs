@@ -1,0 +1,49 @@
+<%- include("partials/header")%>
+<link rel="stylesheet" type="text/css" href="CSS/form.css" />
+<link rel="stylesheet" type="text/css" href="CSS/index.css" />
+<link rel="stylesheet" type="text/css" href="CSS/payment.css" />
+
+<style>
+  .qr {
+    width: 250px;
+    height: 250px;
+  }
+  .container {
+    margin: 0 auto;
+    text-align: center;
+    width: 600px;
+  }
+</style>
+
+<body>
+  <%- include("partials/hudAdm")%>
+
+  <div class="steps container">
+    <div class="step">1</div>
+    <div class="line step"></div>
+    <div class="step step">2</div>
+  </div>
+
+  <form class="container pForm form-control">
+    <h1 class="title">Pix</h1>
+    <p class="subTitle">Scan the QR code</p>
+
+    <div class="linha"></div>
+
+    <img class="qr" />
+    <p class="subTitle">00:00</p>
+
+    <div class="linha"></div>
+
+    <h1 class="subTitle">or</h1>
+    <p class="subTitle">
+      131232132132132132132131231313213132132132112321312312321
+    </p>
+  </form>
+
+  <script>
+    setTimeout(function () {
+      window.location.href = "/purchaseSuccess";
+    }, 5000);
+  </script>
+</body>

@@ -1,0 +1,54 @@
+<%- include("partials/header")%>
+  <link rel="stylesheet" type="text/css" href="CSS/index.css"/>
+  <link rel="stylesheet" type="text/css" href="CSS/adm.css"/>
+  <body>
+    <%- include("partials/hudAdm")%>
+    <div class="container">
+    <h1 align="center" style="color: #FFFF;"> ADM </h1>
+    <h1 align="center" class="subTitle"> User's control </h1>
+    
+    <br>
+    <div class="linha"></div>
+    <br>
+
+    <h1 class="subTitle text-start"> Filter users: </h1>
+    <form method="post" style="width: 250px; height: 15px;" class="input-group mb-1">
+      <input type="text" class="form-control form-control-sm inputSearch" placeholder="search..." aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button class="btn buttonSearch" type="button" id="btnSearch"><img src="./img/icons/search.png" class="searchIcon"></button>
+    </div>
+
+  </div>
+    <div class="container">
+    <table class="table tableAdm table-bordered" >
+      <thead>
+        <tr>
+          <th class="col">ID</th>
+          <th class="col">Nome</th>
+          <th class="col">Email</th>
+          <th class="col">Tipo</th>
+          <th class="col-1">Editar</th>
+          <th class="col-1">Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Fraga</td>
+          <td>marceloNucrear@gmail.com</td>
+          <td>adm</td>
+          <td><a href="#"><img src="img/icons/edit.png"  class="actionIcon"></a></td>
+          <td><a href="#"><img src="img/icons/delete.png" class="actionIcon"></a></td>
+        </tr>
+        <tr>
+          <td>2</th>
+          <td>Caio</td>
+          <td>dasilvafernandescaio@gmail.com</td>
+          <td>adm</td>
+          <td><a href="#"><img src="img/icons/edit.png"  class="actionIcon"></a></td>
+          <td><a href="#"><img src="img/icons/delete.png" class="actionIcon"></a></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </body>
+</html>

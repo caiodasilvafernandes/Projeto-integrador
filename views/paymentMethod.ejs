@@ -1,0 +1,45 @@
+<%- include("partials/header")%>
+<link rel="stylesheet" type="text/css" href="CSS/index.css" />
+<link rel="stylesheet" type="text/css" href="CSS/payment.css" />
+<link rel="stylesheet" type="text/css" href="CSS/form.css" />
+
+<style>
+  .qr {
+    width: 250px;
+    height: 250px;
+  }
+  .container {
+    margin: 0 auto;
+    text-align: center;
+    width: fit-content;
+    height: 500px;
+  }
+</style>
+
+<body>
+  <%- include("partials/hudAdm")%>
+
+  <div class="steps container">
+    <div class="step">1</div>
+  </div>
+
+  <form class="container pForm form-control">
+    <h1 class="title" style="color: #fff">Choose Your Payment Method</h1>
+    <div class="linha"></div>
+    
+  <div class="float-start method">
+  <input type="radio" id="pix" name="paymentMethod" value="pix" class="bola" required>
+    <label for="pix" class="subTitle">Pix</label>
+  </div>
+  <br><br>
+  <div class="float-start method">
+  <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" class="bola" required>
+    <label for="creditCard" class="subTitle">Debit Card</label>
+  </div>
+
+</div>
+<div class="row">
+</div>
+
+  </form>
+</body>
