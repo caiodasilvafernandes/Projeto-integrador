@@ -5,27 +5,10 @@ const slug = require("slug");
 const methodOver = require("method-override");
 const conn = require("../database/bd");
 const manipulaToken = require("../model/token");
-const axios = require("axios");
-const fs = require("fs");
-const path = require("path");
-const https = require("https");
-const { url } = require("inspector");
-const { log } = require("console");
+const GNRequest = require("../model/gerencianet");
+const reqGNAlready = GNRequest;
 
 require("dotenv").config();
-
-const cert = fs.readFileSync(
-    path.resolve(__dirname, `../certs/${process.env.GN_CERT_DEV}`)
-);
-
-const agent = new https.Agent({
-    pfx: cert,
-    passphrase: ""
-});
-
-const credentials = Buffer.from(
-    `${process.env.GN_DEV_CLIENT_ID}:${process.env.GN_DEV_CLIENT_SECRET}`
-).toString("base64");
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(express.json());
@@ -101,30 +84,9 @@ router.get("/verFavs", manipulaToken.verificaToken, (req, res) => {
         res.status(200).json("vd s voiewnvwe");
     });
 });
+
 router.get("/pagamentoPix", async (req, res) => {
-    const authResponse = await axios({
-        method: "POST",
-        url: `${process.env.GN_ENDPOINT}/oauth/token`,
-        headers: {
-            Authorization: `basic ${credentials}`,
-            "Content-Type": "application/json"
-        },
-        httpsAgent: agent,
-        data: {
-            grant_type: "client_credentials"
-        }
-    });
-
-    const accessToken = authResponse.data?.access_token;
-    const reqGN = axios.create({
-        baseURL: process.env.GN_ENDPOINT,
-        httpsAgent: agent,
-        headers: {
-            Authorization: `bearer ${accessToken}`,
-            "Content-Type": "application/json"
-        }
-    });
-
+    const reqGN = await reqGNAlready;
     const dataCob = {
         "calendario": {
             "expiracao": 3600
@@ -137,10 +99,10 @@ router.get("/pagamentoPix", async (req, res) => {
     };
 
     const cobResponse = await reqGN.post("/v2/cob", dataCob);
-    const qrcodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`).then((qr) => {
-        console.log(qr);
 
-    });
+    const qrcodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`);
+    res.send(qrcodeResponse.data)
+
 });
 
 module.exports = router
