@@ -6,6 +6,7 @@ const controleUsuario = require("./control/constroleUsuario");
 const controleCliente = require("./control/controleCliente");
 const controlePacote = require("./control/controlePacote")
 const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
 app.set("view engine","ejs");
 app.use(express.static("public"));
@@ -24,3 +25,10 @@ app.use("/", controleCliente);
 app.use("/", controlePacote);
 
 app.listen(port);
+
+/*curl --location 'https://pix-h.api.efipay.com.br/oauth/token' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+    "grant_type":"client_credentials"
+}' */

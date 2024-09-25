@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const secret = "advu9dvnuiwebvoadvoiewbvibewvniewnviwenvoiewnviwebivbwwh";
 const conn = require("../database/bd");
 const bcrypt = require("bcryptjs");
 
@@ -12,7 +11,7 @@ class manipulaJWT {
             res.status(500).json("err");
             return;
         }
-        jwt.verify(verificaToken, secret, (err, decoded) => {
+        jwt.verify(verificaToken, process.env.SECRET_TOKEN, (err, decoded) => {
             if (err) {
                 res.status(500).send({ auth: false, message: "Token inválido." });
                 return;
@@ -30,7 +29,7 @@ class manipulaJWT {
             let verificaSenha = bcrypt.compareSync(senha, result[0].senha);
 
             if (verificaSenha) {
-                const token = await jwt.sign({ id: result[0].idCliente }, secret);
+                const token = await jwt.sign({ id: result[0].idCliente }, process.env.SECRET_TOKEN);
                 await res.cookie("jwToken", token, { maxAge: 14444440, overwrite: true });
 
                 res.redirect("/");
