@@ -1,0 +1,21 @@
+.pfp {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+
+  margin-right: 20px;
+}
+
+.bio {
+  width: 300px;
+  height: fit-content;
+  word-wrap: break-word;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.userTitle {
+  color: #ffff;
+  margin-top: 0px;
+  font-size: 50px;
+}

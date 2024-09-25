@@ -23,24 +23,22 @@ class manipulaJWT {
         });
         next();
     }
-    async logarUser(email, senha, res) {
-        var query = "SELECT * FROM cliente WHERE email = ?;";
+    async logarUser(login, senha, res) {
+        var query = "SELECT * FROM cliente WHERE email = ? OR login = ?;";
 
-        conn.query(query, [email], async (err, result) => {
-
+        conn.query(query, [login,login], async (err, result) => {
             let verificaSenha = bcrypt.compareSync(senha, result[0].senha);
 
             if (verificaSenha) {
-                const token = jwt.sign({ id: result[0].idCliente }, secret);
-                res.cookie("jwToken", token, { maxAge: 144440, overwrite: true });
+                const token = await jwt.sign({ id: result[0].idCliente }, secret);
+                await res.cookie("jwToken", token, { maxAge: 14444440, overwrite: true });
 
-                res.status(200).json("Login realizado com sucesso!");
+                res.redirect("/");
                 return;
             }
-            res.status(401).json("Email ou senha inválidos!");
+            res.redirect("login");
         });
     }
 }
-
 manipulaToken = new manipulaJWT;
 module.exports = manipulaToken;

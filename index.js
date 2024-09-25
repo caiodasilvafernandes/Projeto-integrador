@@ -7,11 +7,16 @@ const controleCliente = require("./control/controleCliente");
 const controlePacote = require("./control/controlePacote")
 const cookieParser = require("cookie-parser");
 
+app.set("view engine","ejs");
+app.use(express.static("public"));
 app.use(cookieParser());
 
 app.get("/", (req,res)=>{
-    res.status(200).json("funfa");
-    res.end();
+    if(req.cookies["jwToken"] == undefined){
+        res.render("index");
+    }
+    res.render("indexLog");
+    res.status(200);
 });
 
 app.use("/", controleUsuario);

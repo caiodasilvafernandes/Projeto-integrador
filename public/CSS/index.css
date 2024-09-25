@@ -1,0 +1,56 @@
+  body{
+    font-family: "League Spartan", sans-serif;
+    padding-top: 100px;
+  }
+h1{
+    color: #00C6E0; 
+    font-size: 70px;
+    font-weight: bolder;
+  }
+
+  .indexDiv{
+    height: 350px;
+
+  }
+
+  .welcomeSubtitle{
+    color: #FFFF;
+    margin-top: 52px !important;
+    font-size: 25px;
+    padding: 15px !important;
+
+  }
+  .imgWelcome{
+   width: 450px;
+   height: 350px;
+   margin-bottom: 56px;
+   /*margin-left: 26px;*/
+   margin-right: 26px;
+  }
+
+  .indexDiv{
+    width: auto;
+    height: 350px;
+    margin-bottom: 50px;
+  }
+
+  .prodRow{
+    width: 100%;
+    height: fit-content;
+  }
+
+  @media (max-width: 995px) {
+    h1{
+      font-size: 50px;
+      margin-bottom: 20px;
+      /*margin-left: 20px;*/
+    }
+    .imgWelcome{
+      width: 200px;
+      height: 150px;
+      margin-bottom: 28px !important;
+      /*margin-left: 13px !important;*/
+      margin-right: 13px !important;
+     }
+   
+  }

@@ -1,0 +1,103 @@
+
+.navbar{
+    background-color: #121212;
+    padding: 0px;
+  }
+
+  .ulDropdownNav{
+    /*margin-top: 25px !important;*/
+    position: absolute !important;
+    border-end-end-radius: 20px !important;
+    border-start-start-radius: 20px !important;
+    border-end-start-radius: 20px !important;
+    border-start-end-radius: 0px !important;
+    border-color: #606060;
+    background-color: #121212;
+  }
+
+  .liDropdownNav{
+    color: #606060;
+    outline-color: #606060 !important;
+    outline-width: 1px !important;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    text-decoration: none !important;
+  }
+
+  
+  .dropdownIcon{
+    width: 22px;
+    height: 22px;
+    margin: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .liDropdownNav:hover{
+    .dropdownIcon{
+      transform: scale(1.25); 
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .dropdownNav{
+    border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
+        background-color: #121212;
+        outline-style: none;
+        border-width: 0px;
+  }
+  .profileBar:empty{
+    background-color:#606060;
+    color: #606060;
+    width: 1px;
+  }
+    .logo{
+        color: #00C6E0;
+        margin-left: 45px;
+        width: 150px;
+        height: 75px;
+    }
+  .searchBar{
+    width: 500px;
+  }
+  .inputSearch{
+    border-start-start-radius: 20px;
+    border-end-start-radius: 20px;
+    background-color: #121212;
+    color: #606060;
+    border-color: #606060;
+  }
+  .buttonSearch{
+    border-start-end-radius: 20px;
+    border-end-end-radius: 20px;
+    background-color: #606060;
+    outline-color: #606060;
+    color: #121212;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .searchIcon{
+    width: 22px;
+    height: 22px;
+  }
+
+
+  .profileBarColumns{
+  width: 2px;
+  height: 25px;
+  margin: 5px;
+  border: 1px solid #606060;
+  }
+
+  .btnLog{
+  
+    transition: box-shadow 1s ease, transform 0.3s ease !important;
+  }
+  
+  .btnLog:hover{
+    box-shadow: 0px 0px 30px rgba(0, 0198, 224, 1);
+  }

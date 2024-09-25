@@ -6,7 +6,7 @@
 
     <div class="row g-0 imgDir">
       <div class="col-md-6 d-flex justify-content-center align-items-center">
-    <form class="form-control pForm" method="post">
+    <form class="form-control pForm" method="post" enctype="multipart/form-data">
 
       <h1 class="title">Edit your account</h1>
       <p class="subTitle">🎵</p>
@@ -14,7 +14,7 @@
       <!-- nome -->
       <div class="row">
       <label class="text-start subTitle col-4">Username</label>
-      <input type="text" name="username" id="username" placeholder="username" class="inputForm form-control form-control-sm col">
+      <input type="text" name="username" id="username" value="<%= result[0].login %>" class="inputForm form-control form-control-sm col">
       </div>
       <!-- senha -->
       <div class="row">

@@ -1,0 +1,26 @@
+.tableAdm {
+  border-color: #606060;
+  margin-top: 35px;
+}
+.tableAdm th {
+  background-color: #121212;
+  text-align: start !important;
+  color: #ffff;
+}
+
+.tableAdm td {
+  background-color: #252525;
+  text-align: start !important;
+  color: #ffff;
+}
+
+.actionIcon {
+  width: 25px;
+  height: 25px;
+
+  transition: transform 0.3s ease;
+}
+
+.actionIcon:hover {
+  transform: scale(1.2);
+}
