@@ -40,10 +40,9 @@ body {
   color: #fff;
 }
 
-.imgDir {
-  display: flex;
-  height: 100vh;
-  margin: 0;
+.inputForm::placeholder {
+  color: #606060;
+  opacity: 1;
 }
 
 .birthInput {
@@ -82,6 +81,12 @@ body {
   top: 0%;
   bottom: 0%;
   left: 0%;
+}
+
+.imgDir {
+  display: flex;
+  height: 100vh;
+  margin: 0;
 }
 
 .imgUploadBack {
@@ -162,29 +167,13 @@ body {
   background-color: #606060;
 }
 
-.popover {
-  background-color: #343a40; /* Cor de fundo */
-  color: #ffffff; /* Cor do texto */
-  border: 1px solid #00c6e0; /* Cor da borda */
-  border-radius: 5px; /* Bordas arredondadas */
-  padding: 10px; /* Padding interno */
-  font-size: 14px; /* Tamanho da fonte */
-}
-
-
-/* Estilizando a seta do popover */
-.popover .arrow {
-  border-top-color: #00c6e0; /* Cor da seta */
-  color: #121212;
-}
-
 .custom-popover {
-  background-color: #007bff; /* Cor de fundo personalizada */
-  color: #fff; /* Cor do texto personalizada */
-  border: 1px solid #fff; /* Cor da borda personalizada */
+  background-color: #121212;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo da seta do popover personalizado */
-.custom-popover .arrow {
-  border-top-color: #007bff; /* Cor da seta personalizada */
+.popover-body {
+  color: #fff;
 }
