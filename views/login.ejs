@@ -14,18 +14,18 @@
       <div class="linha"></div>
       <!-- colocar o nome/email -->
       <div class="row">
-      <label class="text-start subTitle col-4">Login/email</label> <input name="login" id="login" placeholder="login/email..." class="inputForm form-control form-control-sm col">
+      <label class="text-start subTitle col-4">Login/email</label> <input name="login" id="login" placeholder="login/email..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="nomeeeee">
       <!-- senha: -->
       </div>
       <div class="row">
-      <label class="text-start subTitle col-4">Password</label> <input name="password" id="password" placeholder="password..." class="inputForm form-control form-control-sm col">
+      <label class="text-start subTitle col-4">Password</label> <input name="password" id="password" placeholder="password..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="senhaaaa">
       </div>
       <div class="row" style="width: fit-content;">
         <a class="text-start subTitle col" href="/singUp" style="margin-bottom:15px;">Don't have an account?</a>
       </div>         
       <!-- botão do form-->
       <div class="row d-flex justify-content-center">
-      <button type="submit" class="btn btnBase">Login</button>
+      <button type="submit" class="btn btnBase" id="btnLogin">Login</button>
       </div>
     </form>
   </div>
@@ -36,4 +36,47 @@
   </div>
   </div>
 </div>
+
+ <!-- caso credenciais incorretas: -->
+ <div class="toast-container position-fixed top-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Invalid credentials, please try again!</strong>
+
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Make sure that your info are correct!
+    </div>
+  </div>
+</div>
+
+<script>
+// ativar os popovers do bootstrap
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+
+// funçao para mostrar os popovers
+function showPopovers() {
+popoverTriggerList.forEach(popoverTriggerEl => {
+  const popoverInstance = bootstrap.Popover.getOrCreateInstance(popoverTriggerEl);
+  popoverInstance.show(); // exibe o popover
+});
+}
+
+const toastTrigger = document.getElementById('btnLogin');
+const toastLiveExample = document.getElementById('liveToast');
+
+if (toastTrigger) {
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+toastTrigger.addEventListener('click', (e) => {
+  e.preventDefault(); 
+  showPopovers(); 
+  toastBootstrap.show();
+});
+}
+
+
+</script>
   </body>
