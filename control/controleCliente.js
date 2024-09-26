@@ -105,8 +105,6 @@ router.get("/profile", manipulaToken.verificaToken, (req, res) => {
         conn.query(queryPacote, [id], (err, pacote) => {
             if (err) throw err;
 
-            console.log(cliente, pacote);
-
             res.render("myProfile", { cliente, pacote });
         });
     });

@@ -20,19 +20,20 @@ router.use(methodOver((req, res) => {
     }
 }));
 
-router.get("/cadastraPacote", manipulaToken.verificaToken, (req, res) => {
+router.get("/uploadKit", manipulaToken.verificaToken, (req, res) => {
     res.render("uploadKit");
 });
 
-router.post("/cadastraPacote", (req, res) => {
-    let { nome, dirImg, dirPacote, idCliente, dirDemo, preco } = req.body;
+router.post("/uploadKit", (req, res) => {
+    let { nome, dirImg, dirPacote, dirDemo, preco } = req.body;
+    let idCliente = req.userId;
 
     var query = "INSERT INTO pacote (nome,dirImg,dirPacote,dirDemo,idCliente,preco,slug) VALUES (?,?,?,?,?,?,?);";
 
     conn.query(query, [nome, dirImg, dirPacote, dirDemo, idCliente, preco, slug(nome)], (err, result) => {
         if (err) throw err;
 
-        res.status(200).json("funfa");
+        res.redirect;
     });
 
 });
@@ -75,13 +76,13 @@ router.post("/favoritaProduto/:id", (req, res) => {
     });
 });
 
-router.get("/verFavs", manipulaToken.verificaToken, (req, res) => {
+router.get("/favs", manipulaToken.verificaToken, (req, res) => {
     let id = req.userId;
     let query = "SELECT * FROM pacotesfav_comp INNER JOIN pacote ON pacotesfav_comp.idFkPacote = pacote.idPacote WHERE pacotesfav_comp.tipo = 'fav' AND pacotesfav_comp.idFkCliente = ?;";
 
     conn.query(query, [id], (err, result) => {
         console.log(result);
-        res.status(200).json("vd s voiewnvwe");
+        res.render("favs",{ result });
     });
 });
 
@@ -105,4 +106,9 @@ router.get("/pagamentoPix", async (req, res) => {
 
 });
 
+router.post("/webhook(/pix)?",(req,res)=>{
+    console.log(req.body);
+    res.status(200);
+    
+})
 module.exports = router

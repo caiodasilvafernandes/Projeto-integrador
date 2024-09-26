@@ -6,7 +6,7 @@ const https = require("https");
 require("dotenv").config();
 
 const cert = fs.readFileSync(
-    path.resolve(__dirname, `../certs/${process.env.GN_CERT_DEV}`)
+    path.resolve(__dirname, `../certs/${process.env.GN_CERT}`)
 );
 
 const agent = new https.Agent({
@@ -15,7 +15,7 @@ const agent = new https.Agent({
 });
 
 const credentials = Buffer.from(
-    `${process.env.GN_DEV_CLIENT_ID}:${process.env.GN_DEV_CLIENT_SECRET}`
+    `${process.env.GN_CLIENT_ID}:${process.env.GN_CLIENT_SECRET}`
 ).toString("base64");
 
 const authenticate = () => {

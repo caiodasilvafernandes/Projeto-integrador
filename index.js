@@ -15,6 +15,7 @@ app.use(cookieParser());
 app.get("/", (req,res)=>{
     if(req.cookies["jwToken"] == undefined){
         res.render("index");
+        return;
     }
     res.render("indexLog");
     res.status(200);
@@ -25,10 +26,3 @@ app.use("/", controleCliente);
 app.use("/", controlePacote);
 
 app.listen(port);
-
-/*curl --location 'https://pix-h.api.efipay.com.br/oauth/token' \
---header 'Content-Type: application/json' \
---header 'Authorization: ••••••' \
---data '{
-    "grant_type":"client_credentials"
-}' */
