@@ -82,7 +82,7 @@ router.get("/favs", manipulaToken.verificaToken, (req, res) => {
 
     conn.query(query, [id], (err, result) => {
         console.log(result);
-        res.render("favs",{ result });
+        res.render("favs", { result });
     });
 });
 
@@ -102,13 +102,26 @@ router.get("/pagamentoPix", async (req, res) => {
     const cobResponse = await reqGN.post("/v2/cob", dataCob);
 
     const qrcodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`);
-    res.send(qrcodeResponse.data)
+    res.render("pixPayment");
+    console.log(qrcodeResponse.data);
+});
+
+router.post("/webhook(/pix)?", (req, res) => {
+    console.log(req.body);
+    res.status(200);
 
 });
 
-router.post("/webhook(/pix)?",(req,res)=>{
-    console.log(req.body);
-    res.status(200);
-    
-})
+router.get("/kitPage",(req,res)=>{
+    res.render("")
+});
+
+router.get("/paymentMethod",(req,res)=>{
+    res.render("paymentMethod");
+});
+
+router.get("/debitpayment",(req,res)=>{
+    res.render("debitPayment");
+});
+
 module.exports = router

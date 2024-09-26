@@ -16,6 +16,10 @@ router.use(methodOver((req, res) => {
     }
 }));
 
+router.get("/about",(req,res)=>{
+    res.render("about");
+});
+
 router.get("/cadastraUser", (req, res) => {
     res.status(200).json("F");
     res.end();
@@ -71,4 +75,5 @@ router.delete("/deleteUser/:id", (req, res) => {
     });
 
 });
+
 module.exports = router;

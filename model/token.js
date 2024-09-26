@@ -30,7 +30,7 @@ class manipulaJWT {
 
             if (verificaSenha) {
                 const token = await jwt.sign({ id: result[0].idCliente }, process.env.SECRET_TOKEN);
-                await res.cookie("jwToken", token, { maxAge: 14444440, overwrite: true });
+                await res.cookie("jwToken", token, { maxAge: 3600000, overwrite: true });
 
                 res.redirect("/");
                 return;
