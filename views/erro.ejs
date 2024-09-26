@@ -1,0 +1,39 @@
+<%- include("partials/header")%>
+<link rel="stylesheet" type="text/css" href="CSS/index.css" />
+
+<style>
+    body {
+        overflow: hidden;
+    }
+
+    .imgDir {
+        display: flex;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .subTitle{
+        font-size: 35px;
+    }
+</style>
+<body>
+  <%- include("partials/hudAdm")%>
+
+  
+
+  <div class="row g-0 imgDir">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+        <div class="row container">
+            <h1>Oops! Looks like an error...</h1>
+            <p class="subTitle">An error occurred, we apologize :(</p>
+        </div>
+  </div>
+
+
+  <div class="col-md-6 d-flex justify-content-center align-items-center h-100 imgDiv ">
+    <img src="/img/illustrations/empty-box.png"  class="img-fluid h-70 w-100 " style="object-fit: cover; max-height: 100vh;"></img>
+  </div>
+
+  </div>
+
+</body>

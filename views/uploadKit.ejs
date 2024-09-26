@@ -3,11 +3,11 @@
   <link rel="stylesheet" type="text/css" href="CSS/index.css"/>
 
   <body style="overflow-y: auto !important; overflow-x: none !important;">
-    <%- include("partials/hudLog")%>
+    <%- include("partials/hudAdm")%>
 
     <div class="row g-0 imgDir">
     <div class="col-md-6 d-flex justify-content-center align-items-center">
-    <form class="form-control pForm" method="post" action="/uploadKit">
+      <form class="form-control pForm" method="post" action="/uploadKit">
 
       <h1 class="title">Upload a Kit!</h1>
       <p class="subTitle"> Upload your kit and sell it.</p>
@@ -15,7 +15,7 @@
       <div class="linha"></div>
       <!-- titulo do kit, o nome do produto-->
       <div class="row ">
-      <p class="text-start subTitle col-3 ">Title</p> <input name="title" id="title" placeholder="kit's title..." class="inputForm form-control form-control-sm col">
+      <p class="text-start subTitle col-3 ">Title</p> <input name="title" id="title" placeholder="kit's title..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="nomeeeee do pacoteeeeeeeeeeee">
       </div>
 
       <!-- tipo do kit, gênero, oque vai conter nele: loops? bateria?-->
@@ -30,7 +30,7 @@
 
       <!-- capa do kit -->
       <div class="row">
-        <p class="text-start subTitle col">Cover</p> <input type="submit" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="...">
+        <p class="text-start subTitle col">Cover</p> <input type="file" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="capaaaa">
       </div>  
       <!-- input da imagem-->
       <div class="row">
@@ -38,17 +38,17 @@
       </div>      
       <!-- mostra o nome dos arquivos slecionados pelo user-->
       <div class="row">
-        <p class="text-start subTitle col">Kit file: kit.zip </p> <input type="submit" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;">
+        <p class="text-start subTitle col">Kit file: kit.zip </p> <input type="file" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="arquivo do pacoteeeeee">
        </div>
       <div class="row">
-        <p class="text-start subTitle col">Kit demo: demo.zip</p> <input type="submit" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;">
+        <p class="text-start subTitle col">Kit demo: demo.zip</p> <input type="file" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="demo do pacoteeee">
       </div>
       <div class="row">
-        <p class="text-start subTitle col-3">Price: </p> <input type="number" ame="price" id="price" placeholder="kit's price..." class="inputForm form-control form-control-sm col">
+        <p class="text-start subTitle col-3">Price: </p> <input type="number" ame="price" id="price" placeholder="kit's price..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="precooooooooooooooo">
       </div>
       <!--botao do form-->
       <div class="row d-flex justify-content-center">
-      <button type="submit" class="btn btnBase">Submit</button>
+      <button type="submit" class="btn btnBase" id="btnKitpost">Submit</button>
       </div>
     </form>
   </div>
@@ -61,18 +61,59 @@
   </div>
 </div>
 
+<!-- caso credenciais incorretas: -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Invalid credentials, please try again!</strong>
+
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Make sure that your info are correct!
+    </div>
+  </div>
+</div>
+
 <script>
-  //script do dropDownButton, fodaci
-  const selectElement = document.getElementById('type');
+// ativar os popovers do bootstrap
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
 
-  selectElement.addEventListener('click', function() {
-    this.classList.toggle('active');
-  });
+// funçao para mostrar os popovers
+function showPopovers() {
+popoverTriggerList.forEach(popoverTriggerEl => {
+  const popoverInstance = bootstrap.Popover.getOrCreateInstance(popoverTriggerEl);
+  popoverInstance.show(); // exibe o popover
+});
+}
 
-  document.addEventListener('click', function() {
-    if (!selectElement.contains(event.target)) {
-    selectElement.classList.remove('active');
-    }
-  });
+const toastTrigger = document.getElementById('btnKitpost');
+const toastLiveExample = document.getElementById('liveToast');
+
+if (toastTrigger) {
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+toastTrigger.addEventListener('click', (e) => {
+  e.preventDefault(); 
+  showPopovers(); 
+  toastBootstrap.show();
+});
+}
+
+//script do dropDownButton, fodaci
+const selectElement = document.getElementById('type');
+
+selectElement.addEventListener('click', function() {
+  this.classList.toggle('active');
+});
+
+document.addEventListener('click', function() {
+  if (!selectElement.contains(event.target)) {
+  selectElement.classList.remove('active');
+  }
+});
+
 </script>
+
 </body>

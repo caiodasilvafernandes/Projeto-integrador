@@ -6,7 +6,7 @@
 
     <div class="row g-0 imgDir">
     <div class="col-md-6 d-flex justify-content-center align-items-center">
-        <form class="form-control pForm" method="post" action="/cadastrarCliente">
+        <form class="form-control pForm" method="post">
     
           <h1 class="title">Account Creation</h1>
           <p class="subTitle"> Create you account!</p>
@@ -14,43 +14,62 @@
           <div class="linha"></div>
           <!-- nome real -->
           <div class="row">
-          <label class="text-start subTitle col-4">Full name</label> 
-          <input type="text" name="name" id="name" placeholder="your real name..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="popover" data-bs-content="nomeee">
+          <label class="text-start subTitle col-4">Name</label> 
+          <input type="text" name="name" id="name" placeholder="your real name..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="nomeee">
           </div>
           <!-- nome de exibição/login-->
           <div class="row">
           <label class="text-start subTitle col-4">Login</label>
-          <input type="text" name="login" id="login" placeholder="create a username..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="popover" data-bs-content="login">
+          <input type="text" name="login" id="login" placeholder="create a username..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="login">
           </div>
           <!--email-->
           <div class="row">
           <label class="text-start subTitle col-4">Email</label>
-          <input type="text" name="email" id="email" placeholder="your email..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="popover" data-bs-content="Insert a valid email">
+          <input type="text" name="email" id="email" placeholder="your email..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid email">
           </div>
           <!--senha-->
           <div class="row">
           <label class="text-start subTitle col-4">Password</label>
-          <input type="password" name="password" id="password" placeholder="create a password" class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="popover"data-bs-content="Your password must contain at least 8 characters">
+          <input type="text" name="password" id="password" placeholder="create a password" class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover"data-bs-content="Your password must contain at least 8 characters">
           </div>
           <!--confirmação da senha-->
           <div class="row">
           <label class="text-start subTitle col-4">Confirm</label>
-          <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="confirm your password..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="popover" data-bs-content="Repeat the password above">
+          <input type="text" name="passwordConfirm" id="passwordConfirm" placeholder="confirm your password..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Repeat the password above">
           </div>
           <!-- aniversario -->
           <div class="row">
           <label class="text-start subTitle col-4">Birth Date</label>
-          <input type="date" name="dataNasc" id="dataNasc" class="inputForm form-control-sm form-control col-2 birthInput float-start">
+          <input type="date" name="dataNasc" id="dataNasc" class="inputForm form-control-sm form-control col-2 birthInput float-start" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Select a valid date">
+          </div>         
+          <!--país-->
+          <div class="row">
+            <p class="text-start subTitle col-4">Country:</p><select name="pais" id="pais" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+              <option value="pais1" >País</option>
+              </select>
           </div>
+          <!--estado-->
+          <div class="row">
+              <p class="text-start subTitle col-4">Estate:</p><select name="estate" id="estate" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+              <option value="estado1" >Estado1</option>
+              </select>
+          </div>
+          <!--cidade-->
+          <div class="row">
+            <p class="text-start subTitle col-4">City:</p><select name="city" id="city" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+            <option value="city1" >cidade1</option>
+            </select>
+        </div>
+          <!--ja tem  conta-->
           <div class="row" style="width: fit-content;">
             <a class="text-start subTitle col" href="/login" style="margin-bottom:15px;">Already have an account?</a>
           </div>
+
           <!-- botão do form -->
           <div class="row d-flex justify-content-center">
           <button type="submit" class="btn btnBase" id="singUpBtn">Sing Up</button>
           </div>
-          <input type="hidden" name="city" value=1>
-          <input type="hidden" name="method" value="POST">
+          
           
         </form>
   </div>
@@ -75,4 +94,44 @@
       </div>
     </div>
   </div>
+
+  <script>
+// ativar os popovers do bootstrap
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+
+// funçao para mostrar os popovers
+function showPopovers() {
+  popoverTriggerList.forEach(popoverTriggerEl => {
+    const popoverInstance = bootstrap.Popover.getOrCreateInstance(popoverTriggerEl);
+    popoverInstance.show(); // exibe o popover
+  });
+}
+
+const toastTrigger = document.getElementById('singUpBtn');
+const toastLiveExample = document.getElementById('liveToast');
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastTrigger.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    showPopovers(); 
+    toastBootstrap.show();
+  });
+}
+
+//script do dropDownButton, fodaci
+const selectElement = document.getElementById('type');
+
+selectElement.addEventListener('click', function() {
+  this.classList.toggle('active');
+});
+
+document.addEventListener('click', function() {
+  if (!selectElement.contains(event.target)) {
+  selectElement.classList.remove('active');
+  }
+});
+
+  </script>
   </body>
