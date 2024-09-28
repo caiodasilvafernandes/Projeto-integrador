@@ -7,7 +7,7 @@
 
     <div class="row g-0 imgDir">
     <div class="col-md-6 d-flex justify-content-center align-items-center">
-      <form class="form-control pForm" method="post" action="/uploadKit">
+      <form class="form-control pForm" method="post" action="/uploadKit" enctype="multipart/form-data">
 
       <h1 class="title">Upload a Kit!</h1>
       <p class="subTitle"> Upload your kit and sell it.</p>
@@ -23,8 +23,8 @@
         <p class="text-start subTitle col-3">Kit type:</p><select name="type" id="type" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
           <option value="Loops" >Loops</option>
           <option value="Drums" >Drums</option>
-          <option value="DL" >Drums and Loops</option>
-          <option value="other" >Other</option>
+          <option value="Drums and Loops" >Drums and Loops</option>
+          <option value="Others" >Other</option>
           </select>
       </div>
 
@@ -38,13 +38,13 @@
       </div>      
       <!-- mostra o nome dos arquivos slecionados pelo user-->
       <div class="row">
-        <p class="text-start subTitle col">Kit file: kit.zip </p> <input type="file" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="arquivo do pacoteeeeee">
+        <p class="text-start subTitle col">Kit file: kit.zip </p> <input type="file" name="pack" id="pack" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="arquivo do pacoteeeeee">
        </div>
       <div class="row">
-        <p class="text-start subTitle col">Kit demo: demo.zip</p> <input type="file" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="demo do pacoteeee">
+        <p class="text-start subTitle col">Kit demo: demo.zip</p> <input type="file" name="demo" id="demo" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="demo do pacoteeee">
       </div>
       <div class="row">
-        <p class="text-start subTitle col-3">Price: </p> <input type="number" ame="price" id="price" placeholder="kit's price..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="precooooooooooooooo">
+        <p class="text-start subTitle col-3">Price: </p> <input type="number" name="price" id="price" placeholder="kit's price..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="precooooooooooooooo">
       </div>
       <!--botao do form-->
       <div class="row d-flex justify-content-center">
@@ -76,7 +76,7 @@
   </div>
 </div>
 
-<script>
+<!--<script>
 // ativar os popovers do bootstrap
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
@@ -114,6 +114,6 @@ document.addEventListener('click', function() {
   }
 });
 
-</script>
+</script> -->
 
 </body>

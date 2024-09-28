@@ -7,7 +7,7 @@ const manipulaToken = require("../model/token");
 const conn = require("../database/bd");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
-const { SELECT } = require("sequelize/lib/query-types");
+const selects = require("../model/selects");
 
 router.use(cookieParser());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -51,10 +51,10 @@ router.post("/login", (req, res) => {
 
 router.get("/editProfile", manipulaToken.verificaToken, (req, res) => {
     let id = req.userId
-    
+
     var query = "SELECT * FROM cliente WHERE idCliente = ?;";
 
-    conn.query(query,[id],(err,result)=>{
+    conn.query(query, [id], (err, result) => {
         res.render("editProfile", { result });
     })
 });
@@ -97,29 +97,19 @@ router.get("/profile", manipulaToken.verificaToken, (req, res) => {
     let id = req.userId;
 
     var queryCliente = "SELECT nome,login,email,dataNasc,bio,idCidade,imgPerfil FROM cliente WHERE idCliente = ?;";
-    var queryPacote = "SELECT * FROM pacote WHERE idCliente = ?;"
+    var queryPacote = "SELECT * FROM pacote WHERE idCliente = ?;";
 
     conn.query(queryCliente, [id], (err, cliente) => {
         if (err) throw err;
 
+        if (cliente[0].bio == null) {
+            cliente[0].bio = "Crie uma bio na edição de perfil"
+        }
         conn.query(queryPacote, [id], (err, pacote) => {
             if (err) throw err;
-
+            
             res.render("myProfile", { cliente, pacote });
         });
-    });
-});
-
-router.get("/pacotesFav", manipulaToken.verificaToken, (req, res) => {
-    let id = req.userId;
-    var query = "SELECT * FROM pacotesFav JOIN pacote ON pacote.idPacote = pacotesfav.idFkPacote WHERE pacotesfav_comp.tipo = 'fav' AND cliente.idCliente = ?;";
-
-    conn.query(query, [id], (err, result) => {
-        if (err) throw err;
-
-        console.log(result);
-        res.status(200).json("vdunsv");
-
     });
 });
 
