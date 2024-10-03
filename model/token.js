@@ -6,11 +6,11 @@ class manipulaJWT {
     verificaToken(req, res, next) {
         const verificaToken = req.cookies["jwToken"];
 
-
         if (!verificaToken) {
             res.status(500).json("err");
-            return;
+            return next();
         }
+
         jwt.verify(verificaToken, process.env.SECRET_TOKEN, (err, decoded) => {
             if (err) {
                 res.status(500).send({ auth: false, message: "Token inválido." });
@@ -18,9 +18,8 @@ class manipulaJWT {
             }
 
             req.userId = decoded.id;
-            return;
         });
-        next();
+        return next();
     }
     async logarUser(login, senha, res) {
         var query = "SELECT * FROM cliente WHERE email = ? OR login = ?;";

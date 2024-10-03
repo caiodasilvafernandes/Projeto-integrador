@@ -1,30 +1,44 @@
 const conn = require("../database/bd");
 
 class Select {
-    mediaAvalia(idPacote) {
-        let query = "SELECT avaliacao,count(idAvalia) AS total FROM avaliacao WHERE idPacote = ?;";
-        let somaMedia = 0;
-        let media = 0;
+    async getMediaETotal(pacote) {
+        let queryMedia = "SELECT (SELECT sum(avaliacao))/(SELECT count(idAvalia)) AS media FROM avaliacao WHERE idPacote = ?;";
+        let queryTotalCompra = "SELECT idPacoteFav,count(idPacoteFav) AS totalCompra FROM pacotesfav_comp WHERE idFkPacote = ? AND tipo = ?;";
 
-        conn.query(query, [idPacote], (err, avalia) => {
-            if (err) throw err;
-            
-            avalia.forEach((ava) => {
-                somaMedia += parseInt(ava.avaliacao);
-            })
+        for (let i = 0; i <= pacote.length - 1; i++) {
 
-            media = somaMedia / avalia.total;
+            new Promise((resolve, reject) => {
+                conn.query(queryMedia, [pacote[i].idPacote], (err, avalia) => {
+                    if (err) throw reject(err);
 
-            return media;
-        });
-    }
-    totalCompras(idPacote) {
-        let query = "SELECT count(idAvalia) FROM pacotefavs_comp WHERE idFkPacote = ? AND tipo = ?;"
+                    for (let j = 0; j <= avalia.length - 1; j++) {
+                        if (avalia[j].media == "NaN" || avalia[j].media == undefined) {
+                            pacote[i].media = 0;
+                        } else {
+                            pacote[i].media = avalia[j].media;
+                        }
+                    }
+                    resolve(pacote);
+                });
+            });
 
-        conn.query(query, [idPacote, "fav"], (err, result) => {
+            var getTotal = new Promise((resolve, reject) => {
+                conn.query(queryTotalCompra, [pacote[i].idPacote, "comp"], (err, comp) => {
+                    if (err) throw reject(err);
 
-            return result.total;
-        });
+                    for (let j = 0; j <= comp.length - 1; j++) {
+                        if (comp[j].idPacoteFav == null || comp[j].totalCompras == "NaN") {
+                            pacote[i].totalCompras = 0;
+                        } else {
+                            pacote[i].totalCompras = comp[j].totalCompra;
+                        }
+                    }
+                    resolve(pacote)
+                });
+            });
+        }
+        
+        return await getTotal;
     }
 }
 

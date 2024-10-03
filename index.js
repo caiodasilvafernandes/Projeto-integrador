@@ -18,7 +18,6 @@ app.get("/", (req,res)=>{
         return;
     }
     res.render("indexLog");
-    res.status(200);
 });
 
 app.use("/", controleUsuario);

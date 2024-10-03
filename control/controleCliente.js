@@ -34,7 +34,6 @@ router.post("/cadastrarCliente", async (req, res) => {
 
     conn.query(query, [name, login, email, senhahash, dataNasc, bio, city], (err, result) => {
         if (err) throw err;
-
     });
     manipulaToken.logarUser(email, password, res);
 });
@@ -67,9 +66,9 @@ router.put("/editProfile", manipulaToken.verificaToken, (req, res) => {
     let senhaHash = bcrypt.hashSync(password, salt);
 
     var query = "UPDATE cliente SET login = ?, senha = ?" +
-        ", bio = ?, slug = ? WHERE idCliente = ?;";
+        ", bio = ?, slug = ?, imgPerfil WHERE idCliente = ?;";
 
-    conn.query(query, [login, senhaHash, bio, slug(nome), id], (err, result) => {
+    conn.query(query, [login, senhaHash, bio, slug(nome), imgPerfil, id], (err, result) => {
         if (err) throw err;
 
         res.redirect("/profile");
@@ -93,24 +92,32 @@ router.post("/loginCliente", (req, res) => {
     manipulaToken.logarUser(email, senha, res);
 })
 
-router.get("/profile", manipulaToken.verificaToken, (req, res) => {
+router.get("/profile", manipulaToken.verificaToken, async(req, res) => {
     let id = req.userId;
 
     var queryCliente = "SELECT nome,login,email,dataNasc,bio,idCidade,imgPerfil FROM cliente WHERE idCliente = ?;";
     var queryPacote = "SELECT * FROM pacote WHERE idCliente = ?;";
 
-    conn.query(queryCliente, [id], (err, cliente) => {
-        if (err) throw err;
 
-        if (cliente[0].bio == null) {
-            cliente[0].bio = "Crie uma bio na edição de perfil"
-        }
-        conn.query(queryPacote, [id], (err, pacote) => {
-            if (err) throw err;
-            
-            res.render("myProfile", { cliente, pacote });
+    var cliente = await new Promise((resolve, reject) => {
+        conn.query(queryCliente, [id], (err, cliente) => {
+            if (err) throw reject(err);
+
+            if (cliente[0].bio == null) {
+                cliente[0].bio = "Crie uma bio na edição de perfil"
+            }
+            resolve(cliente)
         });
     });
+
+    var pacote = await new Promise((resolve, reject) => {
+        conn.query(queryPacote, [id], (err, pack) => {
+            if (err) throw reject(err);
+
+            resolve(selects.getMediaETotal(pack));
+        });
+    });
+    res.render("myProfile", { cliente, pacote });
 });
 
 router.get("/logOut", (req, res) => {

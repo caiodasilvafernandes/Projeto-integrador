@@ -128,7 +128,7 @@ router.post("/webhook(/pix)?", (req, res) => {
 router.get("/kitPage/:id/:slug",(req,res)=>{
     let { slug,id } = req.params;
 
-    let query = "SELECT * FROM pacote WHERE  idPacote= ? AND slug = ?;";
+    let query = "SELECT * FROM pacote WHERE idPacote= ? AND slug = ?;";
 
         conn.query(query,[id,slug],(err,pacote) =>{
             if (err) throw err;
