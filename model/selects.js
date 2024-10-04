@@ -15,7 +15,7 @@ class Select {
                         if (avalia[j].media == "NaN" || avalia[j].media == undefined) {
                             pacote[i].media = 0;
                         } else {
-                            pacote[i].media = avalia[j].media;
+                            pacote[i].media = parseFloat(avalia[j].media).toFixed(2);
                         }
                     }
                     resolve(pacote);

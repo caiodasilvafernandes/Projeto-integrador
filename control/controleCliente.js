@@ -8,17 +8,12 @@ const conn = require("../database/bd");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const selects = require("../model/selects");
+const upload = require("../model/multer");
 
 router.use(cookieParser());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(express.json());
-router.use(methodOver((req, res) => {
-    if (req.body || "method" in req.body) {
-        var method = req.body.method;
-        delete req.body.method;
-        return method;
-    }
-}));
+router.use(methodOver("method"));
 
 router.get("/singUp", (req, res) => {
     res.render("singUp");
@@ -58,17 +53,18 @@ router.get("/editProfile", manipulaToken.verificaToken, (req, res) => {
     })
 });
 
-router.put("/editProfile", manipulaToken.verificaToken, (req, res) => {
-    let { login, password, bio, imgPerfil } = req.body;
-    let { id } = req.userId;
+router.put("/editProfile", manipulaToken.verificaToken,upload.single("pfp"), (req, res) => {
+    let { username, password, bio } = req.body;
+    
+    let imgPerfil = req.file.filename;
+    let id = req.userId;    
 
     let salt = bcrypt.genSaltSync(10);
     let senhaHash = bcrypt.hashSync(password, salt);
 
-    var query = "UPDATE cliente SET login = ?, senha = ?" +
-        ", bio = ?, slug = ?, imgPerfil WHERE idCliente = ?;";
+    var query = "UPDATE cliente SET login = ?, senha = ?, bio = ?, slug = ?, imgPerfil = ? WHERE idCliente = ?;";
 
-    conn.query(query, [login, senhaHash, bio, slug(nome), imgPerfil, id], (err, result) => {
+    conn.query(query, [username, senhaHash, bio, slug(username), imgPerfil, id], (err, result) => {
         if (err) throw err;
 
         res.redirect("/profile");
