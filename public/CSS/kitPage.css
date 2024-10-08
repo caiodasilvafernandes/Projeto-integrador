@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 .cover {
   width: 400px;
   height: 400px;
@@ -143,12 +147,27 @@
   margin-right: 15px;
 }
 
-.kitInfo{
+.kitInfo {
   margin-left: 410px;
 }
 
-@media(max-width: 1403px){
+@media (max-width: 1403px) {
   .kitInfo {
     width: 150px;
   }
+}
+
+@keyframes commentAnima {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.commentPost {
+  animation: commentAnima 0.5s ease forwards; /* Duração e suavização da animação */
 }
