@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Set-2024 às 18:49
+-- Tempo de geração: 09-Out-2024 às 00:07
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.1.12
 
@@ -69,7 +69,7 @@ CREATE TABLE `cliente` (
   `email` varchar(255) NOT NULL,
   `bio` text DEFAULT NULL,
   `idCidade` int(11) NOT NULL,
-  `dataNasc` datetime NOT NULL,
+  `dataNasc` date NOT NULL,
   `slug` varchar(256) NOT NULL,
   `imgPerfil` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -79,7 +79,7 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `nome`, `login`, `senha`, `email`, `bio`, `idCidade`, `dataNasc`, `slug`, `imgPerfil`) VALUES
-(1, 'Caio da Silva Fernandes', 'capysman', '$2a$10$RUM4DoDULBgl6oDcBs1pYec/A9wawczpO7AR.2QnzQ2bNPEKDeaGa', 'caio@gmail.com', NULL, 1, '2006-12-08 00:00:00', '', NULL);
+(1, 'Caio da Silva Fernandes', 'capysman2', '$2a$10$nI2mM25AVKDUmqa4TYemP.I8PC1JJxSUrEcoxDCUDZqwAKNgA9rh2', 'caio@gmail.com', 'brockhampton', 1, '2006-12-08', 'capysman2', '98Captura de Tela (33).png');
 
 -- --------------------------------------------------------
 
@@ -121,24 +121,26 @@ CREATE TABLE `pacote` (
   `dirDemo` varchar(256) NOT NULL,
   `preco` double NOT NULL,
   `slug` varchar(256) NOT NULL,
-  `tipo` enum('Loops','Drums','Drums and Loops','Others') DEFAULT NULL
+  `tipo` enum('Loops','Drums','Drums and Loops','Others') DEFAULT NULL,
+  `dataCriacao` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Extraindo dados da tabela `pacote`
 --
 
-INSERT INTO `pacote` (`idPacote`, `nome`, `dirImg`, `dirPacote`, `idCliente`, `dirDemo`, `preco`, `slug`, `tipo`) VALUES
-(1, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL),
-(2, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL),
-(3, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL),
-(4, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL),
-(5, 'gsdgdss', '200Captura de Tela (28).png', '200808.zip', 1, '200808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 2, 'gsdgdss', 'Loops'),
-(6, 'Cfigvi', '897Captura de Tela (35).png', '897808.zip', 1, '897808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', ''),
-(7, 'Cfigvi', '334Captura de Tela (35).png', '334808.zip', 1, '334808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', ''),
-(8, 'Cfigvi', '634Captura de Tela (35).png', '634808.zip', 1, '634808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', ''),
-(9, 'Cfigvi', '240Captura de Tela (35).png', '240808.zip', 1, '240808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', ''),
-(10, 'vanvá', '614Captura de Tela (28).png', '614808.zip', 1, '614808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 3, 'vanva', 'Others');
+INSERT INTO `pacote` (`idPacote`, `nome`, `dirImg`, `dirPacote`, `idCliente`, `dirDemo`, `preco`, `slug`, `tipo`, `dataCriacao`) VALUES
+(1, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
+(2, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
+(3, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
+(4, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
+(5, 'gsdgdss', '200Captura de Tela (28).png', '200808.zip', 1, '200808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 2, 'gsdgdss', 'Loops', '2024-10-06 17:48:19'),
+(6, 'Cfigvi', '897Captura de Tela (35).png', '897808.zip', 1, '897808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', '', '2024-10-06 17:48:19'),
+(7, 'Cfigvi', '334Captura de Tela (35).png', '334808.zip', 1, '334808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', '', '2024-10-06 17:48:19'),
+(8, 'Cfigvi', '634Captura de Tela (35).png', '634808.zip', 1, '634808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', '', '2024-10-06 17:48:19'),
+(9, 'Cfigvi', '240Captura de Tela (35).png', '240808.zip', 1, '240808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', '', '2024-10-06 17:48:19'),
+(10, 'vanvá', '614Captura de Tela (28).png', '614808.zip', 1, '614808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 3, 'vanva', 'Others', '2024-10-06 17:48:19'),
+(11, 'fasfjasf', '604Captura de Tela (32).png', '604808.zip', 1, '604808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 23, 'fasfjasf', 'Loops', '2024-10-06 17:48:19');
 
 -- --------------------------------------------------------
 
@@ -153,6 +155,18 @@ CREATE TABLE `pacotesfav_comp` (
   `dataCompra` timestamp NOT NULL DEFAULT current_timestamp(),
   `tipo` enum('fav','comp') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `pacotesfav_comp`
+--
+
+INSERT INTO `pacotesfav_comp` (`idPacoteFav`, `idFkPacote`, `idFkCliente`, `dataCompra`, `tipo`) VALUES
+(4, 8, 1, '2024-09-30 19:39:16', 'comp'),
+(5, 8, 1, '2024-09-30 19:39:16', 'comp'),
+(6, 8, 1, '2024-09-30 19:39:16', 'comp'),
+(16, 9, 1, '2024-09-30 19:52:34', 'comp'),
+(17, 9, 1, '2024-09-30 19:52:34', 'comp'),
+(18, 9, 1, '2024-09-30 19:52:34', 'comp');
 
 -- --------------------------------------------------------
 
@@ -283,13 +297,13 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de tabela `pacote`
 --
 ALTER TABLE `pacote`
-  MODIFY `idPacote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idPacote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `pacotesfav_comp`
 --
 ALTER TABLE `pacotesfav_comp`
-  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `pais`

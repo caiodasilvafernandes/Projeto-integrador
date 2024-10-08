@@ -37,7 +37,7 @@ class Select {
                 });
             });
         }
-        
+
         return await getTotal;
     }
 }

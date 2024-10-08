@@ -8,6 +8,7 @@ const manipulaToken = require("../model/token");
 const GNRequest = require("../model/gerencianet");
 const reqGNAlready = GNRequest;
 const upload = require("../model/multer");
+const selects = require("../model/selects");
 
 require("dotenv").config();
 
@@ -25,23 +26,23 @@ router.get("/uploadKit", manipulaToken.verificaToken, (req, res) => {
     res.render("uploadKit");
 });
 
-router.post("/uploadKit",upload.fields([{ name:"cover" },{ name:"pack" },{ name:"demo" }]),manipulaToken.verificaToken, (req, res) => {
-    let { title, type,  price } = req.body;
-    
+router.post("/uploadKit", upload.fields([{ name: "cover" }, { name: "pack" }, { name: "demo" }]), manipulaToken.verificaToken, (req, res) => {
+    let { title, type, price } = req.body;
+
     let idCliente = req.userId;
     let dirImg = req.files.cover[0].filename;
     let dirPacote = req.files.pack[0].filename;
     let dirDemo = req.files.demo[0].filename;
-    
+
 
     var queryInsert = "INSERT INTO pacote (nome,dirImg,dirPacote,dirDemo,idCliente,preco,slug,tipo) VALUES (?,?,?,?,?,?,?,?);";
 
-    conn.query(queryInsert, [title, dirImg, dirPacote, dirDemo, idCliente, price, slug(title),type], (err, result) => {
+    conn.query(queryInsert, [title, dirImg, dirPacote, dirDemo, idCliente, price, slug(title), type], (err, result) => {
         if (err) throw err;
-        
+
         var queryVerPack = "SELECT * FROM pacote WHERE idPacote= ? AND slug = ?;";
 
-        conn.query(queryVerPack,[result.insertId,slug(title)],(err,pacote) =>{
+        conn.query(queryVerPack, [result.insertId, slug(title)], (err, pacote) => {
             if (err) throw err;
 
             res.redirect(`/kitPage/${result.insertId}/${slug(title)}`)
@@ -94,7 +95,7 @@ router.get("/favs", manipulaToken.verificaToken, (req, res) => {
 
     conn.query(query, [id], (err, pacote) => {
         if (err) throw err;
-        
+
         res.render("favs", { pacote });
     });
 });
@@ -125,23 +126,47 @@ router.post("/webhook(/pix)?", (req, res) => {
 
 });
 
-router.get("/kitPage/:id/:slug",(req,res)=>{
-    let { slug,id } = req.params;
+router.get("/kitPage/:id/:slug", async (req, res) => {
+    let { slug, id } = req.params;
+    //SELECT idPacote,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug,tipo,dataCriacao,cliente.login,cliente.slug FROM pacote WHERE idPacote= 8;
 
-    let query = "SELECT * FROM pacote WHERE idPacote= ? AND slug = ?;";
+    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
+    let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
+    let criterio = "WHERE idPacote= ? AND pacote.slug = ?;"
+    let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
+    let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ?"
 
-        conn.query(query,[id,slug],(err,pacote) =>{
-            if (err) throw err;
-            
-            res.render("kitPage",{ pacote })
+    let pacote = new Promise((resolve, reject) => {
+        conn.query(query, [id, slug], (err, pacote) => {
+            if (err) throw reject(err);
+
+            resolve(selects.getMediaETotal(pacote));
         });
+    });
+
+    pacote = await pacote;
+    
+    let pacotesUsuario = new Promise((resolve, reject) => {
+        conn.query(queryPacotes, [pacote[0].idCliente], (err, pacotes) => {
+            if (err) throw reject(err);
+
+            pacotes.reverse();
+
+            resolve(selects.getMediaETotal(pacotes))
+        });
+    });
+
+    pacotesUsuario = await pacotesUsuario;
+
+    res.render("kitPage", { pacote, pacotesUsuario });
+
 });
 
-router.get("/paymentMethod",(req,res)=>{
+router.get("/paymentMethod", (req, res) => {
     res.render("paymentMethod");
 });
 
-router.get("/debitpayment",(req,res)=>{
+router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
 

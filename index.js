@@ -34,10 +34,6 @@ app.get("/", async (req, res) => {
     for(let i = 1; i <= 8;i++){
         pacoteRecente[i] = pacoteR[i];
     }
-
-   while(pacotePopular.length <= 8){
-        
-   }
    
     if (req.cookies["jwToken"] == undefined) {
         res.render("index", { pacoteRecente });
