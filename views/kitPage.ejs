@@ -1,14 +1,16 @@
 <%- include("partials/header")%>
-<link rel="stylesheet" type="text/css" href="CSS/index.css" />
-<link rel="stylesheet" type="text/css" href="CSS/kitPage.css" />
+
+<!-- Erro ao puxar o css -->
+<link rel="stylesheet" type="text/css" href="/CSS/index.css"/>
+<link rel="stylesheet" type="text/css" href="/CSS/kitPage.css"/>
 <body>
-  <%- include("partials/hudAdm")%>
+  <%- include("partials/hudLog")%>
 
   <div class="container">
     <br />
 
     <!-- página de pacote(produto) -->
-    <h1 class="topicsTitles text-start">Pacote</h1>
+    <h1 class="topicsTitles text-start"><%= pacote.nome %></h1>
     <div class="linha"></div>
   </div>
 
@@ -30,9 +32,9 @@
           
           <div class="linha"></div>
   
-          <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
+          <img src="/img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
         
-          <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
+          <img src="/img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
           <br>
         </div>
       </div>
@@ -48,9 +50,9 @@
               
               <div class="linha"></div>
     
-              <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
+              <img src="/img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
             
-              <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
+              <img src="/img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
               <br>
             </div>
           </div>
@@ -66,9 +68,9 @@
                 
                 <div class="linha"></div>
       
-                <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
+                <img src="/img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
               
-                <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
+                <img src="/img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
                 <br>
               </div>
             </div>
@@ -122,7 +124,7 @@
     <a class="text-start heart a" valor="0"></a><br>
 
     <a class="btn btnBase" href="/paymentMethod">$XX,XX</a><br>
-    <a class="btn btnBase">Download Demo</a>
+    <a class="btn btnBase" href="<%= pacote.dirDemo %>">Download Demo</a>
   </div>
 
   <!--comentários-->
@@ -140,25 +142,11 @@
 
     <!-- onde ficam os comentários -->
     <div class="roller" id="commentSection">
-    <div class="controler">
-    <a class="subTitle" href="/user">
-      <!--foto do usuario e o nome -->
-    <img src="/img/icons/profilepic.png" class="pfp"/>User</a>
-    <!-- texto do comentário -->
-    <p class="subTitle text-start comment">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-      molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-      recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-      aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-      molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-      recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-      aut.
-    </p>
-    <div class="linha float-start" style="width: 635px;"></div><br>
-    </div>
-
-    <a class="subTitle" href="/user">
+      <div class="controler">
+      <a class="subTitle" href="/user">
+        <!--foto do usuario e o nome -->
       <img src="/img/icons/profilepic.png" class="pfp"/>User</a>
+      <!-- texto do comentário -->
       <p class="subTitle text-start comment">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
         molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
@@ -169,7 +157,8 @@
         aut.
       </p>
       <div class="linha float-start" style="width: 635px;"></div><br>
-
+      </div>
+  
       <a class="subTitle" href="/user">
         <img src="/img/icons/profilepic.png" class="pfp"/>User</a>
         <p class="subTitle text-start comment">
@@ -182,13 +171,26 @@
           aut.
         </p>
         <div class="linha float-start" style="width: 635px;"></div><br>
+  
+        <a class="subTitle" href="/user">
+          <img src="/img/icons/profilepic.png" class="pfp"/>User</a>
+          <p class="subTitle text-start comment">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
+            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
+            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
+            aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
+            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
+            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
+            aut.
+          </p>
+          <div class="linha float-start" style="width: 635px;"></div><br>
+        
+        </div>
+        
+        </div>
+    </div>
       
-      </div>
-      
-      </div>
-  </div>
-    
-  </div>
+    </div>
 
 <!-- scrpit das avaliações -->
   <script>
@@ -233,8 +235,8 @@
       }
     })
 
-    //***********************comentarios**************************
-    document.getElementById('commentForm').addEventListener('submit', function(event) {
+//***********************comentarios**************************
+document.getElementById('commentForm').addEventListener('submit', function(event) {
     //como é sem consulta, isso aqui é pra cortar o envio padrao do formulario, n ficar atualizando a pagina pra sempre
     event.preventDefault();
 
@@ -258,6 +260,7 @@
     }
   });
 
+      
   </script>
 </body>
 </html>
