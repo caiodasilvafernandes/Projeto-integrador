@@ -1,16 +1,14 @@
 <%- include("partials/header")%>
-
-<!-- Erro ao puxar o css -->
-<link rel="stylesheet" type="text/css" href="CSS/index.css"/>
-<link rel="stylesheet" type="text/css" href="CSS/kitPage.css"/>
+<link rel="stylesheet" type="text/css" href="CSS/index.css" />
+<link rel="stylesheet" type="text/css" href="CSS/kitPage.css" />
 <body>
-  <%- include("partials/hudLog")%>
+  <%- include("partials/hudAdm")%>
 
   <div class="container">
     <br />
 
     <!-- página de pacote(produto) -->
-    <h1 class="topicsTitles text-start"><%= pacote.nome %></h1>
+    <h1 class="topicsTitles text-start">Pacote</h1>
     <div class="linha"></div>
   </div>
 
@@ -124,7 +122,7 @@
     <a class="text-start heart a" valor="0"></a><br>
 
     <a class="btn btnBase" href="/paymentMethod">$XX,XX</a><br>
-    <a class="btn btnBase" href="<%= pacote.dirDemo %>">Download Demo</a>
+    <a class="btn btnBase">Download Demo</a>
   </div>
 
   <!--comentários-->
@@ -133,15 +131,15 @@
     <div class="linha float-start" style="width: 635px;"></div><br>
 
     <!--area pra escrever o comentário-->
-    <form method="post">
-    <button class="sendComment float-start"><img src="/img/icons/send.png" style="width: 25px;height: 25px;"/></button>
+    <form id="commentForm">
+    <button type="submit" class="sendComment float-start" id="btnComment"><img src="/img/icons/send.png" style="width: 25px;height: 25px;"/></button>
     
-    <textarea type="text" name="comment" id="comment" placeholder="comment..." class="inputForm form-control-sm commentInput text-start" maxlength="256"></textarea>
+    <textarea type="text" name="comment" id="comment" placeholder="comment..." class="inputForm form-control-sm commentInput text-start"></textarea>
     </form>
     <div class="linha float-start" style="width: 635px;"></div><br>
 
     <!-- onde ficam os comentários -->
-    <div class="roller">
+    <div class="roller" id="commentSection">
     <div class="controler">
     <a class="subTitle" href="/user">
       <!--foto do usuario e o nome -->
@@ -235,7 +233,31 @@
       }
     })
 
-      
+    //***********************comentarios**************************
+    document.getElementById('commentForm').addEventListener('submit', function(event) {
+    //como é sem consulta, isso aqui é pra cortar o envio padrao do formulario, n ficar atualizando a pagina pra sempre
+    event.preventDefault();
+
+    var commentInput = document.getElementById('comment');
+    //pega o texto do comentario
+    var commentText = commentInput.value.trim(); 
+
+    if (commentText) {
+      var commentSection = document.getElementById('commentSection');
+
+      var newComment = document.createElement('div');
+      newComment.classList.add('controler', 'commentPost');
+      newComment.innerHTML = `
+        <a class="subTitle" href="/user">
+          <img src="/img/icons/profilepic.png" class="pfp"/>User</a>
+        <p class="subTitle text-start comment">${commentText}</p>
+        <div class="linha float-start" style="width: 635px;"></div><br>
+      `;
+      commentSection.prepend(newComment);
+      commentInput.value = '';
+    }
+  });
+
   </script>
 </body>
 </html>
