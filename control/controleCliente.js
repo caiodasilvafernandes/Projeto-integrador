@@ -16,6 +16,33 @@ router.use(express.json());
 router.use(methodOver("method"));
 
 router.get("/singUp", (req, res) => {
+    let queryPais = "SELECT * FROM pais";
+    let queryEstado = "SELECT * FROM estado";
+    let queryCidade = "SELECT * FROM cidade";
+
+    let pais = new Promise((resolve,reject)=>{
+        conn.query(queryPais,(err,pais)=>{
+            if(err) throw resolve(err);
+
+            resolve(pais);
+        });
+    });
+
+    let estado = new Promise((resolve,reject)=>{
+        conn.query(queryEstado,(err,estado)=>{
+            if(err) throw resolve(err);
+
+            resolve(estado);
+        });
+    });
+
+    let cidade = new Promise((resolve,reject)=>{
+        conn.query(queryCidade,(err,cidade)=>{
+            if(err) throw resolve(err);
+
+            resolve(cidade);
+        })
+    })
     res.render("singUp");
 });
 

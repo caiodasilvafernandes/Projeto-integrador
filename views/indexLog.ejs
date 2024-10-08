@@ -26,91 +26,25 @@
       <div class="row container">
 
         <!-- isso é um pacote (comeco) -->
-      <a href="/kitPage" class="col" style="text-decoration: none;">
-      <div class="card pacoteCard" style="width: 18rem;">
-        <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-        <div class="cardBody">
-          <h5 class="cardTitle">Pacote</h5>
-          
-          <div class="linha"></div>
-
-          <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-        
-          <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-          <br>
-        </div>
-      </div>
-      </a>
-        <!-- isso é um pacote (fim) -->
-
-        <!-- isso é um pacote (comeco) -->
-        <a href="/kitPage" class="col" style="text-decoration: none;">
-          <div class="card pacoteCard" style="width: 18rem;">
-            <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-            <div class="cardBody">
-              <h5 class="cardTitle">Pacote</h5>
-              
-              <div class="linha"></div>
-    
-              <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
+        <% pacoteRecente.forEach((packR)=>{ %>
+          <!-- isso é um pacote (comeco) -->
+        <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col" style="text-decoration: none;">
+        <div class="card pacoteCard" style="width: 18rem;">
+          <img src="/uploads/img/kitCover/<%= packR.dirImg %>" class="imgCard" alt="...">
+          <div class="cardBody">
+            <h5 class="cardTitle"><%= packR.nome %></h5>
             
-              <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-              <br>
-            </div>
+            <div class="linha"></div>
+  
+            <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt"><%= packR.media %></p>
+          
+            <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"><%= packR.totalCompras %></p>
+            <br>
           </div>
-          </a>
-          <!-- isso é um pacote (fim) -->
-
-          <!-- isso é um pacote (comeco) -->
-          <a href="/kitPage" class="col" style="text-decoration: none;">
-            <div class="card pacoteCard" style="width: 18rem;">
-              <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-              <div class="cardBody">
-                <h5 class="cardTitle">Pacote</h5>
-                
-                <div class="linha"></div>
-      
-                <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-              
-                <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-                <br>
-              </div>
-            </div>
-            </a>
-          <!-- isso é um pacote (fim) -->
-
-          <!-- isso é um pacote (comeco) -->
-          <a href="/kitPage" class="col" style="text-decoration: none;">
-            <div class="card pacoteCard" style="width: 18rem;">
-              <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-              <div class="cardBody">
-                <h5 class="cardTitle">Pacote</h5>
-                
-                <div class="linha"></div>
-      
-                <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-              
-                <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-                <br>
-              </div>
-            </div>
-            </a>
-          <!-- isso é um pacote (fim) -->
-          <a href="/kitPage" class="col" style="text-decoration: none;">
-            <div class="card pacoteCard" style="width: 18rem;">
-              <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-              <div class="cardBody">
-                <h5 class="cardTitle">Pacote</h5>
-                
-                <div class="linha"></div>
-      
-                <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-              
-                <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-                <br>
-              </div>
-            </div>
-            </a>
+        </div>
+        </a>
+        <% }); %>
+        <!-- isso é um pacote (fim) -->
 
       </div>
 

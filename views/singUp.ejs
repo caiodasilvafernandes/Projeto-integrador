@@ -44,8 +44,9 @@
           </div>         
           <!--país-->
           <div class="row">
-            <p class="text-start subTitle col-4">Country:</p><select name="pais" id="pais" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
-              <option value="pais1" >País</option>
+            <p class="text-start subTitle col-4">Country:</p>
+              <select name="pais" id="pais" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+              <option value="0" >Selecione um país</option>
               </select>
           </div>
           <!--estado-->
@@ -95,7 +96,9 @@
     </div>
   </div>
 
-  <script>
+
+
+<script>
 // ativar os popovers do bootstrap
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
