@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09-Out-2024 às 00:07
+-- Tempo de geração: 11-Out-2024 às 22:31
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.1.12
 
@@ -156,18 +156,6 @@ CREATE TABLE `pacotesfav_comp` (
   `tipo` enum('fav','comp') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `pacotesfav_comp`
---
-
-INSERT INTO `pacotesfav_comp` (`idPacoteFav`, `idFkPacote`, `idFkCliente`, `dataCompra`, `tipo`) VALUES
-(4, 8, 1, '2024-09-30 19:39:16', 'comp'),
-(5, 8, 1, '2024-09-30 19:39:16', 'comp'),
-(6, 8, 1, '2024-09-30 19:39:16', 'comp'),
-(16, 9, 1, '2024-09-30 19:52:34', 'comp'),
-(17, 9, 1, '2024-09-30 19:52:34', 'comp'),
-(18, 9, 1, '2024-09-30 19:52:34', 'comp');
-
 -- --------------------------------------------------------
 
 --
@@ -303,7 +291,7 @@ ALTER TABLE `pacote`
 -- AUTO_INCREMENT de tabela `pacotesfav_comp`
 --
 ALTER TABLE `pacotesfav_comp`
-  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `pais`

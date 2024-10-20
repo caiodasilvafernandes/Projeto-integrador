@@ -57,7 +57,7 @@ router.post("/cadastrarCliente", async (req, res) => {
     conn.query(query, [name, login, email, senhahash, dataNasc, bio, city], (err, result) => {
         if (err) throw err;
     });
-    manipulaToken.logarUser(email, password, res);
+    manipulaToken.logarUser(email, password, req, res);
 });
 
 router.get("/login", (req, res) => {
@@ -67,7 +67,7 @@ router.get("/login", (req, res) => {
 router.post("/login", (req, res) => {
     let { login, password } = req.body;
 
-    manipulaToken.logarUser(login, password, res);
+    manipulaToken.logarUser(login, password, req, res);
 });
 
 router.get("/editProfile", manipulaToken.verificaToken, (req, res) => {
@@ -145,6 +145,7 @@ router.get("/profile", manipulaToken.verificaToken, async(req, res) => {
 
 router.get("/logOut", (req, res) => {
     res.clearCookie("jwToken");
+    res.clearCookie("jwRefreshToken")
     res.redirect("/")
 });
 

@@ -3,11 +3,55 @@ const conn = require("../database/bd");
 const bcrypt = require("bcryptjs");
 
 class manipulaJWT {
-    verificaToken(req, res, next) {
+    async accessToken(id, req, res) {
+        const token = await jwt.sign({ id: id }, process.env.SECRET_TOKEN);
+
+        if (!req.cookies["jwToken"]) {
+            await res.cookie("jwToken", token, { maxAge: 604800016.56, overwrite: true });
+            return;
+        } else {
+            res.clearCookie("jwToken");
+            await res.cookie("jwToken", token, { maxAge: 604800016.56, overwrite: true });
+        }
+        return;
+    }
+
+    async refreshToken(id, req, res) {
+        const token = await jwt.sign({ id: id }, process.env.SECRET_TOKEN);
+
+        if (!req.cookies["jwRefreshToken"]) {
+            await res.cookie("jwRefreshToken", token, { maxAge: 604800016.56, overwrite: true });
+            return
+        } else {
+            res.clearCookie("jwRefreshToken");
+            await res.cookie("jwRefreshToken", token, { maxAge: 604800016.56, overwrite: true });
+        };
+        return;
+    }
+
+    async logarUser(login, senha, req, res) {
+        var query = "SELECT * FROM cliente WHERE email = ? OR login = ?;";
+
+        conn.query(query, [login, login], async (err, result) => {
+            let verificaSenha = bcrypt.compareSync(senha, result[0].senha);
+
+            if (verificaSenha) {
+                await this.accessToken(result[0].idCliente, req, res);
+                await this.refreshToken(result[0].idCliente, req, res);
+
+                res.redirect("/");
+                return;
+            }
+            res.redirect("/login");
+        });
+    }
+
+    async verificaToken(req, res, next) {
         const verificaToken = req.cookies["jwToken"];
+        const verificaRefresh = req.cookies["jwRefreshToken"];
 
         if (!verificaToken) {
-            res.status(500).json("err");
+            res.redirect("/");
             return next();
         }
 
@@ -16,26 +60,17 @@ class manipulaJWT {
                 res.status(500).send({ auth: false, message: "Token inválido." });
                 return;
             }
-
-            req.userId = decoded.id;
         });
-        return next();
-    }
-    async logarUser(login, senha, res) {
-        var query = "SELECT * FROM cliente WHERE email = ? OR login = ?;";
 
-        conn.query(query, [login,login], async (err, result) => {
-            let verificaSenha = bcrypt.compareSync(senha, result[0].senha);
-
-            if (verificaSenha) {
-                const token = await jwt.sign({ id: result[0].idCliente }, process.env.SECRET_TOKEN);
-                await res.cookie("jwToken", token, { maxAge: 3600000, overwrite: true });
-
-                res.redirect("/");
+        jwt.verify(verificaRefresh, process.env.SECRET_TOKEN, async (err, decoded) => {
+            if (err) {
+                res.status(500).send({ auth: false, message: "Token inválido." });
                 return;
             }
-            res.redirect("login");
+            req.userId = decoded.id;
         });
+        
+        return next();
     }
 }
 manipulaToken = new manipulaJWT;

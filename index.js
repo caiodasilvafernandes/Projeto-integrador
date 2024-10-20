@@ -7,6 +7,7 @@ const controleCliente = require("./control/controleCliente");
 const controlePacote = require("./control/controlePacote")
 const cookieParser = require("cookie-parser");
 const selects = require("./model/selects");
+const controleXML = require("./control/controleXML");
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -18,7 +19,7 @@ app.get("/", async (req, res) => {
     let pacoteRecente = [];
     let pacoteR = [];
     let pacotePopular = [];
-    let dataAtual = new Date()
+    let dataAtual = new Date();
 
     let packR = new Promise((resolve, reject) => {
         conn.query(query, (err, pacote) => {
@@ -29,21 +30,24 @@ app.get("/", async (req, res) => {
         });
     });
 
-    pacoteR = await packR;
+    packR = await packR;
+    
 
-    for(let i = 1; i <= 8;i++){
-        pacoteRecente[i] = pacoteR[i];
+    for(let i = 0; i <= 7;i++){
+        pacoteRecente[i] = packR[i];
     }
    
     if (req.cookies["jwToken"] == undefined) {
         res.render("index", { pacoteRecente });
         return;
     }
+    
     res.render("indexLog", { pacoteRecente });
 });
 
 app.use("/", controleUsuario);
 app.use("/", controleCliente);
 app.use("/", controlePacote);
+app.use("/", controleXML);
 
 app.listen(port);

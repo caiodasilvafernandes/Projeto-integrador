@@ -127,39 +127,33 @@ router.post("/webhook(/pix)?", (req, res) => {
 });
 
 router.get("/kitPage/:id/:slug", async (req, res) => {
-    let { slug, id } = req.params;
-    //SELECT idPacote,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug,tipo,dataCriacao,cliente.login,cliente.slug FROM pacote WHERE idPacote= 8;
+    var { slug, id } = req.params;
+
+    console.log('Rota chamada:', new Date().toISOString());
 
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let criterio = "WHERE idPacote= ? AND pacote.slug = ?;"
     let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
-    let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ?"
+    let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ?";
 
-    let pacote = new Promise((resolve, reject) => {
-        conn.query(query, [id, slug], (err, pacote) => {
+    var pacote = await new Promise((resolve, reject) => {
+        conn.query(query, [id, slug], (err, pack) => {
             if (err) throw reject(err);
 
-            resolve(selects.getMediaETotal(pacote));
+            resolve(selects.getMediaETotal(pack));
         });
     });
 
-    pacote = await pacote;
-    
-    let pacotesUsuario = new Promise((resolve, reject) => {
-        conn.query(queryPacotes, [pacote[0].idCliente], (err, pacotes) => {
+    var pacotesUsuario = await new Promise((resolve, reject) => {
+        conn.query(queryPacotes, [pacote[0].idCliente], (err, pacoteUser) => {
             if (err) throw reject(err);
 
-            pacotes.reverse();
-
-            resolve(selects.getMediaETotal(pacotes))
+            resolve(selects.getMediaETotal(pacoteUser));
         });
     });
 
-    pacotesUsuario = await pacotesUsuario;
-
-    res.render("kitPage", { pacote, pacotesUsuario });
-
+    res.render("kitPage", { pacote, pacotesUsuario })
 });
 
 router.get("/paymentMethod", (req, res) => {
@@ -170,4 +164,4 @@ router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
 
-module.exports = router
+module.exports = router;

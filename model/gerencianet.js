@@ -47,4 +47,23 @@ const GNRequest = async () => {
     });
 };
 
+/* router.get("/pagamentoPix", async (req, res) => {
+    const reqGN = await reqGNAlready;
+    const dataCob = {
+        "calendario": {
+            "expiracao": 3600
+        },
+        "valor": {
+            "original": "2.50"
+        },
+        "chave": "(48)99672-9147",
+        "solicitacaoPagador": "Cobrança dos serviços prestados."
+    };
+
+    const cobResponse = await reqGN.post("/v2/cob", dataCob);
+
+    const qrcodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`);
+    res.render("pixPayment");
+    console.log(qrcodeResponse.data);
+}); */
 module.exports = GNRequest();
