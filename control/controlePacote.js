@@ -100,38 +100,10 @@ router.get("/favs", manipulaToken.verificaToken, (req, res) => {
     });
 });
 
-router.get("/pagamentoPix", async (req, res) => {
-    const reqGN = await reqGNAlready;
-    const dataCob = {
-        "calendario": {
-            "expiracao": 3600
-        },
-        "valor": {
-            "original": "2.50"
-        },
-        "chave": "(48)99672-9147",
-        "solicitacaoPagador": "Cobrança dos serviços prestados."
-    };
-
-    const cobResponse = await reqGN.post("/v2/cob", dataCob);
-
-    const qrcodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`);
-    res.render("pixPayment");
-    console.log(qrcodeResponse.data);
-});
-
-router.post("/webhook(/pix)?", (req, res) => {
-    console.log(req.body);
-    res.status(200);
-
-});
-
 router.get("/kitPage/:id/:slug", async (req, res) => {
     var { slug, id } = req.params;
 
-    console.log('Rota chamada:', new Date().toISOString());
-
-    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
+    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let criterio = "WHERE idPacote= ? AND pacote.slug = ?;"
     let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
@@ -156,8 +128,64 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     res.render("kitPage", { pacote, pacotesUsuario })
 });
 
-router.get("/paymentMethod", (req, res) => {
-    res.render("paymentMethod");
+router.get("/paymentMethod/:idPacote/:slug", (req, res) => {
+    let pacote = req.params;
+    res.render("paymentMethod", { pacote });
+});
+
+router.post("/tipoPagamento/:idPacote/:slug",(req,res)=>{
+    let { metodo } = req.body;
+    let pacote = req.params;
+
+    if(metodo === "pix"){
+        res.redirect(`/pagamentoPix/${pacote.idPacote}/${pacote.slug}`);
+        return;
+    }
+});
+
+router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
+    const reqGN = await reqGNAlready;
+    let { idPacote,packSlug } = req.params;
+    let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";
+
+    let pacote = await new Promise((resolve,reject)=>{
+        conn.query(query,[idPacote,packSlug],(err,pacote)=>{
+            if(err) throw reject(err);
+            
+            resolve(pacote)
+        });
+    });
+
+    let preco = pacote[0].preco;
+    preco = preco.toFixed(2);    
+
+    const dataCob = {
+        "calendario": {
+            "expiracao": 300
+        },
+        "valor": {
+            "original": `${preco}`
+        },
+        "chave": "(48)99672-9147",
+        "solicitacaoPagador": "Cobrança da venda."
+    };
+
+    const cobResponse = await reqGN.post("/v2/cob", dataCob);
+
+    const qrcodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`);
+
+    let qrCode = qrcodeResponse.data;
+    let cobranca = cobResponse.data;
+
+    console.log(cobranca);
+    
+    res.render("pixPayment", {qrCode, cobranca});
+});
+
+router.post("/webhook(/pix)?", (req, res) => {
+    console.log(req.body);
+    res.status(200);
+
 });
 
 router.get("/debitpayment", (req, res) => {

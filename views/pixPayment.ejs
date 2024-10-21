@@ -1,7 +1,7 @@
 <%- include("partials/header")%>
-<link rel="stylesheet" type="text/css" href="CSS/form.css" />
-<link rel="stylesheet" type="text/css" href="CSS/index.css" />
-<link rel="stylesheet" type="text/css" href="CSS/payment.css" />
+<link rel="stylesheet" type="text/css" href="/CSS/form.css" />
+<link rel="stylesheet" type="text/css" href="/CSS/index.css" />
+<link rel="stylesheet" type="text/css" href="/CSS/payment.css" />
 
 <style>
   .qr {
@@ -16,7 +16,7 @@
 </style>
 
 <body>
-  <%- include("partials/hudAdm")%>
+  <%- include("partials/hudLog")%>
 
   <div class="steps container">
     <div class="step">1</div>
@@ -30,14 +30,14 @@
 
     <div class="linha"></div>
 
-    <img class="qr" />
-    <p class="subTitle">00:00</p>
+    <img class="qr" src="<%= qrCode.imagemQrcode%>"/>
+    <p class="subTitle">A cobrança do pix ficara disponivel por 5 minutos.</p>
 
     <div class="linha"></div>
 
     <h1 class="subTitle">or</h1>
     <p class="subTitle">
-      131232132132132132132131231313213132132132112321312312321
+      <%= cobranca.pixCopiaECola %>
     </p>
   </form>
 </body>

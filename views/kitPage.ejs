@@ -12,7 +12,7 @@
 
         <!-- página de pacote(produto) -->
         <h1 class="topicsTitles text-start">
-          <%= pacote.nome %>
+          <%= pacote[0].nome %>
         </h1>
         <div class="linha"></div>
       </div>
@@ -71,7 +71,7 @@
 
           <!--perfil do merdao q fez o kit-->
           <a class="subTitle username userAnim" href="/profile">
-            <img src="/uploads/img/pfp/<%= pacote.imgPerfil %>" class="pfp" />
+            <img src="/uploads/img/pfp/<%= pacote[0].imgPerfil %>" class="pfp" />
             <%= pacote.login %>
           </a>
           <br><br>
@@ -79,10 +79,10 @@
           <a class="subTitle username aling-items-center">
             <!--média das avaliações-->
             <img src="/img/icons/star.png" class="pfp" />
-            <%= pacote.media%>
+            <%= pacote[0].media%>
               <!--quantos compraram o produto-->
               <img src="/img/icons/buyers.png" class="pfp" />
-              <%= pacote.totalCompras %>
+              <%= pacote[0].totalCompras %>
           </a>
 
         </div>
@@ -100,10 +100,10 @@
         </ul>
 
         <!--favoritar-->
-        <a id="fav" class="text-start heart a"  valor="0" onclick="controleFav('POST','/ControleFavorita/<%= pacote.idPacote %>')"></a><br>
+        <a id="fav" class="text-start heart a"  valor="0" onclick="controleFav('POST','<%= pacote[0].idPacote %>')"></a><br>
 
-        <a class="btn btnBase" href="/paymentMethod">$<%= pacote.preco %></a><br>
-        <a class="btn btnBase" href="/uploads/pack/<%= pacote.dirDemo %>">Download Demo</a>
+        <a class="btn btnBase" href="/paymentMethod/<%= pacote[0].idPacote %>/<%= pacote[0].slugPack %>">$<%= pacote[0].preco %></a><br>
+        <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>
       </div>
 
       <!--comentários-->
@@ -243,7 +243,7 @@
 
 
       </script>
-      
+      <script type="text/javascript" src="js/kitPageAjax.js"></script>
   </body>
 
   </html>

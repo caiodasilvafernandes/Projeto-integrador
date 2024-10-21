@@ -7,11 +7,13 @@ const manipulaToken = require("../model/token");
 
 router.post("/ControleFavorita/:idPack/:fav", manipulaToken.verificaToken, (req, res) => {
     let { fav, idPack } = req.params;
+    console.log("Chega");
+    
 
     if (fav === "1") {
         res.redirect(`/favoritaPack/${idPack}`);
     }
-    res.redirect(`/desfavoritaPack/${idCliente}`);
+    res.redirect(`/desfavoritaPack/${idpack}`);
 });
 
 router.post("/favoritaPack/:idPack", (req, res) => {
@@ -29,10 +31,10 @@ router.post("/favoritaPack/:idPack", (req, res) => {
 router.post("/desfavoritaPack/:idPack", (req, res) => {
     let { idPack } = req.params;
     let idCliente = req.userId;
-    let queryDeleteFav = "DELETE pacotesFav_Comp WHERE idFkPacote = ?, idFkCliente = ?;";
+    let queryDeleteFav = "DELETE pacotesFav_Comp WHERE idFkPacote = ? AND idFkCliente = ? AND tipo = ?;";
 
     try{
-        conn.query(queryDeleteFav, [idPack, idCliente]);
+        conn.query(queryDeleteFav, [idPack, idCliente, "fav"]);
     }catch(err){
         console.log(err);
     }
