@@ -34,6 +34,7 @@ body {
   margin-left: 0px;
   padding-top: 7.5px;
   padding-bottom: 7.5px;
+  width: 300px !important;
 }
 
 .userAnim img {
@@ -85,6 +86,7 @@ body {
   height: 60px;
   padding-left: 0px;
   width: 250px;
+  margin-bottom: 15px;
 }
 
 /* li estrelas */
@@ -99,7 +101,7 @@ body {
 }
 
 .star:hover {
-  transform: scale(0.85);
+  transform: scale(1.15);
 }
 
 .star::before {
@@ -115,6 +117,9 @@ body {
   content: "\2606";
 }
 
+.star:active {
+  transform: scale(0.85);
+}
 /* fav */
 
 .heart {
@@ -122,8 +127,14 @@ body {
   color: #00c6e0;
   font-size: 40px;
   text-decoration: none;
-
+  width: fit-content;
+  width: 40px;
+  height: 40px;
+  margin-right: 25px;
+  margin-bottom: 15px;
   transition: transform 0.3s ease !important;
+  padding: 0px;
+  align-self: center;
 }
 
 .heart:hover {
@@ -132,6 +143,10 @@ body {
 
 .heart::before {
   content: "\2764";
+}
+
+.heart:active {
+  transform: scale(1.1);
 }
 
 .a {
@@ -149,11 +164,15 @@ body {
 
 .kitInfo {
   margin-left: 410px;
+  margin-right: fit-content;
 }
 
-@media (max-width: 1403px) {
+@media (max-width: 1405px) {
   .kitInfo {
     width: 150px;
+  }
+  .username{
+    font-size: 15px;
   }
 }
 
@@ -170,4 +189,31 @@ body {
 
 .commentPost {
   animation: commentAnima 0.5s ease forwards; /* Duração e suavização da animação */
+}
+
+/* cart */
+.cart {
+  cursor: pointer;
+  font-size: 40px;
+  text-decoration: none;
+  width: 40px;
+  height: 38px;
+  margin-right: 25px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease !important;
+  padding: 0px;
+  background-image: url("/img/icons/addG.png");
+  background-size: cover;
+}
+
+.cart:hover {
+  transform: scale(1.25);
+}
+
+.cart:active {
+  transform: scale(1.1);
+}
+
+.ca{
+  background-image: url("/img/icons/addB.png") !important;
 }
