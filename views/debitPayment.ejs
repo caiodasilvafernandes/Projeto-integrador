@@ -1,7 +1,85 @@
 <%- include("partials/header")%>
-  <link rel="stylesheet" type="text/css" href="CSS/index.css"/>
+<link rel="stylesheet" type="text/css" href="CSS/form.css" />
+<link rel="stylesheet" type="text/css" href="CSS/index.css" />
+<link rel="stylesheet" type="text/css" href="CSS/payment.css" />
 
-  <body>
-    <%- include("partials/hudLog")%>
-  
-  </body>
+<style>
+  .qr {
+    width: 250px;
+    height: 250px;
+  }
+  .container {
+    margin: 0 auto;
+    text-align: center;
+    width: 600px;
+  }
+</style>
+
+<body>
+  <%- include("partials/hudAdm")%>
+
+  <!--etapa de pagamento-->
+  <div class="steps container">
+    <div class="step">1</div>
+    <div class="line step"></div>
+    <div class="step step">2</div>
+    <div class="line stepF"></div>
+    <div class="step stepF">3</div>
+  </div>
+
+  <!--form do cartao-->
+  <form class="container pForm form-control" style="height: fit-content !important;">
+    <h1 class="title">Crédito</h1>
+    <div class="linha"></div>
+
+    <!--numero do cartao-->
+    <div class="row">
+      <label class="text-start subTitle col-3">Número:</label> <input name="cNumber" id="cNumber" placeholder="Número do cartão..." class="inputForm form-control form-control-sm col" maxlength="16" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid card number">
+    </div>
+
+    <!--titular do cartao-->
+    <div class="row">
+      <label class="text-start subTitle col-3">Titular do cartão:</label> <input name="name" id="name" placeholder="Nome do titular..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid name">
+    </div>
+
+    <!--cvv-->
+    <div class="row">
+      <label class="text-start subTitle col-3">CVV:</label> <input name="cvv" id="cvv" placeholder="CVV" class="inputForm form-control form-control-sm col" maxlength="3" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid CVV">
+    
+      <label class="text-start subTitle col-3">Validade:</label> <input name="validade" id="validade" placeholder="XX/XX" class="inputForm form-control form-control-sm col" maxlength="5" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid date">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <button type="submit" class="btn btnBase" id="btnDebit">Prosseguir</button>
+    </div>
+  </form>
+
+
+  <script>
+    // ativar os popovers do bootstrap
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    
+    // funçao para mostrar os popovers
+    function showPopovers() {
+    popoverTriggerList.forEach(popoverTriggerEl => {
+      const popoverInstance = bootstrap.Popover.getOrCreateInstance(popoverTriggerEl);
+      popoverInstance.show(); // exibe o popover
+    });
+    }
+    
+    const toastTrigger = document.getElementById('btnDebit');
+    const toastLiveExample = document.getElementById('liveToast');
+    
+    if (toastTrigger) {
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    toastTrigger.addEventListener('click', (e) => {
+      e.preventDefault(); 
+      showPopovers(); 
+      toastBootstrap.show();
+    });
+    }
+    
+    
+    </script>
+</body>
