@@ -105,7 +105,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
 
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
-    let criterio = "WHERE idPacote= ? AND pacote.slug = ?;"
+    let criterio = "WHERE idPacote= ? AND pacote.slug = ?;";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
     let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ?";
 
@@ -141,6 +141,7 @@ router.post("/tipoPagamento/:idPacote/:slug",(req,res)=>{
         res.redirect(`/pagamentoPix/${pacote.idPacote}/${pacote.slug}`);
         return;
     }
+    res.redirect(`/pagamentoCartao/${pacote.idPacote}/${pacote.slug}`)
 });
 
 router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
@@ -180,6 +181,13 @@ router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
     console.log(cobranca);
     
     res.render("pixPayment", {qrCode, cobranca});
+});
+
+router.get("/pagamentoCartao/:idPacote/:packSlug", (req,res)=>{
+    let { idPacote,packSlug } = req.params;
+    let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";
+
+    res.render("debitPayment")
 });
 
 router.post("/webhook(/pix)?", (req, res) => {

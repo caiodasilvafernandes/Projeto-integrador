@@ -27,29 +27,34 @@
           <!-- div que contém os pacotes-->
           <div class="container">
 
-            <% for(let i = 0;i < 3 - 1;i++){ %><!-- isso é um pacote (comeco) -->
-              <a href="/kitPage/<%= pacotesUsuario[i].idPacote %>/<%= pacotesUsuario[i].slug %>" class="row" style="text-decoration: none;">
+            <% for(let i=0;i <=3 - 1;i++){ %><!-- isso é um pacote (comeco) -->
+              <a href="/kitPage/<%= pacotesUsuario[i].idPacote %>/<%= pacotesUsuario[i].slug %>" class="row"
+                style="text-decoration: none;">
                 <div class="card pacoteCard" style="width: 18rem;">
-                  <img
-                    src="/uploads/img/kitCover/<%= pacotesUsuario[i].dirImg %>"
-                    class="imgCard" alt="...">
+                  <img src="/uploads/img/kitCover/<%= pacotesUsuario[i].dirImg %>" class="imgCard" alt="...">
                   <div class="cardBody">
-                    <h5 class="cardTitle"><%= pacotesUsuario[i].nome %></h5>
+                    <h5 class="cardTitle">
+                      <%= pacotesUsuario[i].nome %>
+                    </h5>
 
                     <div class="linha"></div>
 
                     <img src="/img/icons/star.png" class="cardStar float-start">
-                    <p class="cardTxt"><%= pacotesUsuario[i].media %></p>
+                    <p class="cardTxt">
+                      <%= pacotesUsuario[i].media %>
+                    </p>
 
                     <img src="/img/icons/buyers.png" class="cardStar float-start">
-                    <p class="cardTxt"> <%= pacotesUsuario[i].totalCompras %></p>
+                    <p class="cardTxt">
+                      <%= pacotesUsuario[i].totalCompras %>
+                    </p>
                     <br>
                   </div>
                 </div>
               </a>
               <!-- isso é um pacote (fim) -->
               <% } %>
- 
+
           </div>
         </div>
 
@@ -100,9 +105,10 @@
         </ul>
 
         <!--favoritar-->
-        <a id="fav" class="text-start heart a"  valor="0" onclick="controleFav('POST','<%= pacote[0].idPacote %>')"></a><br>
+        <a id="fav" class="text-start heart a" value="0"></a><br>
 
-        <a class="btn btnBase" href="/paymentMethod/<%= pacote[0].idPacote %>/<%= pacote[0].slugPack %>">$<%= pacote[0].preco %></a><br>
+        <a class="btn btnBase" href="/paymentMethod/<%= pacote[0].idPacote %>/<%= pacote[0].slugPack %>">$<%=
+            pacote[0].preco %></a><br>
         <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>
       </div>
 
@@ -199,22 +205,26 @@
 
         //***********************favorito**************************
         document.addEventListener('click', function (fc) {
-
           var theart = fc.target.classList
+          
           //verifica se o elemento tem a class heart carlos maia passou por aq
           if (theart.contains('heart')) {
             //se o elemento tiver a classe a, ele remove a classe e troca o valor do atributo valorkkkk
             if (theart.contains('a')) {
               theart.remove('a');
               //mudando o valor
-              fc.target.setAttribute('valor', '1');
+              controleFav('POST','<%= pacote[0].idPacote %>', 1);
 
+              fc.target.setAttribute('value', '1');
             } else if (!theart.contains('a')) {
               theart.add('a');
-              fc.target.setAttribute('valor', '0');
+
+              controleFav('POST','<%= pacote[0].idPacote %>',0);
+
+              fc.target.setAttribute('value', '0');
             }
           }
-        })
+        });
 
         //***********************comentarios**************************
         document.getElementById('commentForm').addEventListener('submit', function (event) {
@@ -243,7 +253,7 @@
 
 
       </script>
-      <script type="text/javascript" src="js/kitPageAjax.js"></script>
+      <script type="text/javascript" src="/js/kitPageAjax.js"></script>
   </body>
 
   </html>
