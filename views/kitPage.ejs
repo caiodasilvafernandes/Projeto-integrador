@@ -106,8 +106,8 @@
 
         <!--favoritar-->
         <div class="row">
-          <a id="fav" class="text-start heart a"  valor="0" onclick="controleFav('POST','/ControleFavorita/<%= pacote.idPacote %>')"></a><br>
-          <a class="text-start cart " valor="0"></a><br>        
+          <a id="fav" class="text-start heart a" valor="0"></a><br>
+          <a class="text-start cart " valor="0"></a><br>
         </div>
 
         <a class="btn btnBase" href="/paymentMethod/<%= pacote[0].idPacote %>/<%= pacote[0].slugPack %>">$<%=
@@ -187,84 +187,88 @@
         //***********************avaliacao**************************
         //tá puxando as tags com a classe star, vulgo as estrelakkkk
         var stars = document.querySelectorAll('.star');
-    
+        var nota = 0;
+
         document.addEventListener('click', function (fc) {
           //verifica se o elemento tem a classe star, se n ele sai adicionando t em todos os outro elemento da pagina
           if (fc.target.classList.contains('star')) {
-          var tstar = fc.target.classList;
-    
-          //verifica se a estrela nao tem a classe t(essa é a classe css que faz as estrelas ficarem preenchidas, é por aí)
-          if (!tstar.contains('t')) {
-            //se a estrela clicada nao tem a classe t, ela recebe essa classe e todas as outras perdem
-            stars.forEach(function (star) {
-              star.classList.remove('t');
-            });
-            //adionando t
-            tstar.add('t');
-            console.log(fc.target.getAttribute('nota'));
-          }
+            var tstar = fc.target.classList;
+
+            //verifica se a estrela nao tem a classe t(essa é a classe css que faz as estrelas ficarem preenchidas, é por aí)
+            if (!tstar.contains('t')) {
+              //se a estrela clicada nao tem a classe t, ela recebe essa classe e todas as outras perdem
+              stars.forEach(function (star) {
+                star.classList.remove('t');
+              });
+              //adionando t
+              tstar.add('t');
+              nota = fc.target.getAttribute('nota');
+              controleAvalia("POST",)
+
+            }
           }
         });
-    
+
         //***********************favorito**************************
-        document.addEventListener('click', function(fc){
-          
+        document.addEventListener('click', function (fc) {
+
           var verClass = fc.target.classList
+
           //verifica se o elemento tem a class heart
-          if (verClass.contains('heart')){
+          if (verClass.contains('heart')) {
             //se o elemento tiver a classe a, ele remove a classe e troca o valor do atributo valorkkkk
-            if(verClass.contains('a')){
+            if (verClass.contains('a')) {
               verClass.remove('a');
               //mudando o valor
               fc.target.setAttribute('valor', '1');
               
-            }else if(!verClass.contains('a')){
+              controleFav('POST', "<%= pacote[0].idPacote %>",1);
+
+            } else if (!verClass.contains('a')) {
               verClass.add('a');
               fc.target.setAttribute('valor', '0');
+              controleFav('POST', "<%= pacote[0].idPacote %>", 0);
             }
           }
-          if (verClass.contains('cart')){
-            if(verClass.contains('ca')){
+          if (verClass.contains('cart')) {
+            if (verClass.contains('ca')) {
               verClass.remove('ca');
               fc.target.setAttribute('valor', '1');
-              
-            }else if(!verClass.contains('ca')){
+
+            } else if (!verClass.contains('ca')) {
               verClass.add('ca');
               fc.target.setAttribute('valor', '0');
             }
           }
-    
-    
-    
         })
-    
+
         //***********************comentarios**************************
-    document.getElementById('commentForm').addEventListener('submit', function(event) {
-        //como é sem consulta, isso aqui é pra cortar o envio padrao do formulario, n ficar atualizando a pagina pra sempre
-        event.preventDefault();
-    
-        var commentInput = document.getElementById('comment');
-        //pega o texto do comentario
-        var commentText = commentInput.value.trim(); 
-    
-        if (commentText) {
-          var commentSection = document.getElementById('commentSection');
-    
-          var newComment = document.createElement('div');
-          newComment.classList.add('controler', 'commentPost');
-          newComment.innerHTML = `
+        document.getElementById('commentForm').addEventListener('submit', function (event) {
+          //como é sem consulta, isso aqui é pra cortar o envio padrao do formulario, n ficar atualizando a pagina pra sempre
+          event.preventDefault();
+
+          var commentInput = document.getElementById('comment');
+          //pega o texto do comentario
+          var commentText = commentInput.value.trim();
+
+          if (commentText) {
+            var commentSection = document.getElementById('commentSection');
+
+            var newComment = document.createElement('div');
+            newComment.classList.add('controler', 'commentPost');
+            newComment.innerHTML = `
             <a class="subTitle" href="/user">
               <img src="/img/icons/profilepic.png" class="pfp"/>User</a>
             <p class="subTitle text-start comment">${commentText}</p>
             <div class="linha float-start" style="width: 635px;"></div><br>
           `;
-          commentSection.prepend(newComment);
-          commentInput.value = '';
-        }
-      });
-    
-    
-          
+            commentSection.prepend(newComment);
+            commentInput.value = '';
+          }
+        });
+
+
+
       </script>
       <script type="text/javascript" src="/js/kitPageAjax.js"></script>
   </body>
