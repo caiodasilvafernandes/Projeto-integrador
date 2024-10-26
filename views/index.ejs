@@ -26,26 +26,26 @@
         <br>
         <!-- fileira 1 dos pacotes -->
         <div class="row container">
-          <% for(let i = 0;i <= 7; i++){%>
+          <% for(packR of pacoteRecente){%>
             <!-- isso é um pacote (comeco) -->
-            <a href="/kitPage/<%= pacoteRecente[i].idPacote %>/<%= pacoteRecente[i].slug %>" class="col" style="text-decoration: none;">
+            <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col" style="text-decoration: none;">
               <div class="card pacoteCard" style="width: 18rem;">
-                <img src="/uploads/img/kitCover/<%= pacoteRecente[i].dirImg %>" class="imgCard" alt="...">
+                <img src="/uploads/img/kitCover/<%= packR.dirImg %>" class="imgCard" alt="...">
                 <div class="cardBody">
                   <h5 class="cardTitle">
-                    <%= pacoteRecente[i].nome %>
+                    <%= packR.nome %>
                   </h5>
 
                   <div class="linha"></div>
 
                   <img src="img/icons/star.png" class="cardStar float-start">
                   <p class="cardTxt">
-                    <%= pacoteRecente[i].media %>
+                    <%= packR.media %>
                   </p>
 
                   <img src="img/icons/buyers.png" class="cardStar float-start">
                   <p class="cardTxt">
-                    <%= pacoteRecente[i].totalCompras %>
+                    <%= packR.totalCompras %>
                   </p>
                   <br>
                 </div>
@@ -63,9 +63,34 @@
         <!-- fileira 1 dos pacotes -->
         <div class="row container">
           <!-- isso é um pacote (comeco) -->
+          <% for(packP of pacotesPopulares){ %>
+            <a href="/kitPage/<%= packP.idPacote %>/<%= packP.slug %>" class="col" style="text-decoration: none;">
+              <div class="card pacoteCard" style="width: 18rem;">
+                <img src="/uploads/img/kitCover/<%= packP.dirImg %>" class="imgCard" alt="...">
+                <div class="cardBody">
+                  <h5 class="cardTitle">
+                    <%= packP.nome %>
+                  </h5>
 
-         
+                  <div class="linha"></div>
+
+                  <img src="img/icons/star.png" class="cardStar float-start">
+                  <p class="cardTxt">
+                    <%= packP.media %>
+                  </p>
+
+                  <img src="img/icons/buyers.png" class="cardStar float-start">
+                  <p class="cardTxt">
+                    <%= packP.totalCompras %>
+                  </p>
+                  <br>
+                </div>
+              </div>
+            </a>
+            <% } %>
+
         </div>
       </div>
   </body>
+
   </html>

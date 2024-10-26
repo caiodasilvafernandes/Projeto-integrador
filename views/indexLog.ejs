@@ -28,27 +28,27 @@
         <div class="row container">
 
           <!-- isso é um pacote (comeco) -->
-          <% for(let i=0;i <=7; i++){%>
+          <% for(packR of pacoteRecente){%>
             <!-- isso é um pacote (comeco) -->
-            <a href="/kitPage/<%= pacoteRecente[i].idPacote %>/<%= pacoteRecente[i].slug %>" class="col"
+            <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col"
               style="text-decoration: none;">
               <div class="card pacoteCard" style="width: 18rem;">
-                <img src="/uploads/img/kitCover/<%= pacoteRecente[i].dirImg %>" class="imgCard" alt="...">
+                <img src="/uploads/img/kitCover/<%= packR.dirImg %>" class="imgCard" alt="...">
                 <div class="cardBody">
                   <h5 class="cardTitle">
-                    <%= pacoteRecente[i].nome %>
+                    <%= packR.nome %>
                   </h5>
 
                   <div class="linha"></div>
 
                   <img src="img/icons/star.png" class="cardStar float-start">
                   <p class="cardTxt">
-                    <%= pacoteRecente[i].media %>
+                    <%= packR.media %>
                   </p>
 
                   <img src="img/icons/buyers.png" class="cardStar float-start">
                   <p class="cardTxt">
-                    <%= pacoteRecente[i].totalCompras %>
+                    <%= packR.totalCompras %>
                   </p>
                   <br>
                 </div>
@@ -67,30 +67,34 @@
         <div class="row container">
 
           <!-- isso é um pacote (comeco) -->
-          <a href="/kitPage" class="col" style="text-decoration: none;">
-            <div class="card pacoteCard" style="width: 18rem;">
-              <img
-                src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg"
-                class="imgCard" alt="...">
-              <div class="cardBody">
-                <h5 class="cardTitle">Pacote</h5>
+          <% for(packP of pacotesPopulares){ %>
+            <a href="/kitPage/<%= packP.idPacote %>/<%= packP.slug %>" class="col"
+              style="text-decoration: none;">
+              <div class="card pacoteCard" style="width: 18rem;">
+                <img src="/uploads/img/kitCover/<%= packP.dirImg %>" class="imgCard" alt="...">
+                <div class="cardBody">
+                  <h5 class="cardTitle">
+                    <%= packP.nome %>
+                  </h5>
 
-                <div class="linha"></div>
+                  <div class="linha"></div>
 
-                <img src="img/icons/star.png" class="cardStar float-start">
-                <p class="cardTxt">00</p>
+                  <img src="img/icons/star.png" class="cardStar float-start">
+                  <p class="cardTxt">
+                    <%= packP.media %>
+                  </p>
 
-                <img src="img/icons/buyers.png" class="cardStar float-start">
-                <p class="cardTxt"> 00</p>
-                <br>
+                  <img src="img/icons/buyers.png" class="cardStar float-start">
+                  <p class="cardTxt">
+                    <%= packP.totalCompras %>
+                  </p>
+                  <br>
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
+            <% } %>
           <!-- isso é um pacote (fim) -->
         </div>
-
-
-
       </div>
 
 

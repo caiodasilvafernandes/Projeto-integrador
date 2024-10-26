@@ -15,12 +15,14 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 app.get("/", async (req, res) => {
-    let query = "SELECT * FROM pacote;";
+    let query = "SELECT * FROM pacote order by idPacote desc LIMIT 8;";
 
+    //SELECT *,pacotesfav_comp.dataCompra,pacotesfav_comp.tipo FROM pacote INNER JOIN pacotesfav_comp ON pacote.idPacote = pacotesfav_comp.idFkPacote 
+    //WHERE MONTH(CURRENT_TIMESTAMP()) > MONTH(dataCompra) - 1 AND pacotesfav_comp.tipo = "comp";
     //select dos pacotes populares recentes
-    let select = "SELECT *,pacotesFav_Comp.dataCompra FROM pacote" ;
+    let select = "SELECT *,pacotesfav_comp.dataCompra,pacotesfav_comp.tipo FROM pacote" ;
     let innerJoin = "INNER JOIN pacotesfav_comp ON pacote.idPacote = pacotesfav_comp.idFkPacote";
-    let criterio = "WHERE dataCompra >= MONTH(dataCompra) - 1;";
+    let criterio = "WHERE MONTH(CURRENT_TIMESTAMP()) > MONTH(dataCompra) - 1 AND pacotesfav_comp.tipo = 'comp' order by idFkPacote desc LIMIT 8;";
 
     let queryPopular = `${select} ${innerJoin} ${criterio}`;
 
@@ -36,7 +38,6 @@ app.get("/", async (req, res) => {
         conn.query(query, (err, pacote) => {
             if (err) throw reject(err);
 
-            pacote.reverse();
             resolve(selects.getMediaETotal(pacote));
         });
     });
