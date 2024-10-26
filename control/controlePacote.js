@@ -76,27 +76,16 @@ router.delete("/deletePacote/:id", (req, res) => {
     })
 });
 
-router.post("/favoritaProduto/:id", (req, res) => {
-    let { id } = req.params;
-    var query = "INSERT INTO pacotesFav_comp(idFkPacote,idFkCliente,tipo) VALUES (?,?,?);";
-
-
-    conn.query(query, [2, 2, "fav"], (err, result) => {
-        if (err) throw err;
-
-
-        res.status(200).json("cadatro");
-    });
-});
-
 router.get("/favs", manipulaToken.verificaToken, (req, res) => {
     let id = req.userId;
     let query = "SELECT * FROM pacotesfav_comp INNER JOIN pacote ON pacotesfav_comp.idFkPacote = pacote.idPacote WHERE pacotesfav_comp.tipo = 'fav' AND pacotesfav_comp.idFkCliente = ?;";
 
-    conn.query(query, [id], (err, pacote) => {
+    conn.query(query, [id], async (err, pacote) => {
         if (err) throw err;
 
-        res.render("favs", { pacote });
+        pacote = await selects.getMediaETotal(pacote);
+
+        res.render("favs",{ pacote });
     });
 });
 

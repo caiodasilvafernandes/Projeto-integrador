@@ -8,7 +8,6 @@ function controleFav(method, id, fav) {
 }
 
 function controleAvalia(method, id, nota) {
-    id = parseInt(id);
     xhttp.open(method, `/ControleAvalia/${id}/${nota}`);
     xhttp.send();
 }

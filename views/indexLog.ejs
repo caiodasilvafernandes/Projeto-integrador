@@ -1,158 +1,99 @@
 <%- include("partials/header")%>
-  <link rel="stylesheet" type="text/css" href="CSS/index.css"/>
+  <link rel="stylesheet" type="text/css" href="CSS/index.css" />
 
   <body>
     <%- include("partials/hudLog")%>
 
-    <!-- O texto com a foto, Welcome to the drumbay -->
-    <div class="container indexDiv" >
-      <div>
-        <img src="/img/illustrations/welcomeImage.png" class="float-start imgWelcome"/><br><h1>Welcome to the drum bay!</h1>
-        <p class="welcomeSubtitle"><strong>Take a look on the fresh
-          kits that we have today!</strong><p>
-      </div>
-    </div>
-
-    <!-- parte dos produtos -->
-
-    <div class="container">
-      <br>
-
-    <!-- novos pacotes: -->
-      <h1 class="topicsTitles text-start">Brand New</h1>
-      <div class="linha"></div>
-      <br>
-      <!-- fileira 1 dos pacotes -->
-      <div class="row container">
-
-        <!-- isso é um pacote (comeco) -->
-        <% pacoteRecente.forEach((packR)=>{ %>
-          <!-- isso é um pacote (comeco) -->
-        <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col" style="text-decoration: none;">
-        <div class="card pacoteCard" style="width: 18rem;">
-          <img src="/uploads/img/kitCover/<%= packR.dirImg %>" class="imgCard" alt="...">
-          <div class="cardBody">
-            <h5 class="cardTitle"><%= packR.nome %></h5>
-            
-            <div class="linha"></div>
-  
-            <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt"><%= packR.media %></p>
-          
-            <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"><%= packR.totalCompras %></p>
-            <br>
-          </div>
+      <!-- O texto com a foto, Welcome to the drumbay -->
+      <div class="container indexDiv">
+        <div>
+          <img src="/img/illustrations/welcomeImage.png" class="float-start imgWelcome" /><br>
+          <h1>Welcome to the drum bay!</h1>
+          <p class="welcomeSubtitle"><strong>Take a look on the fresh
+              kits that we have today!</strong>
+          <p>
         </div>
-        </a>
-        <% }); %>
-        <!-- isso é um pacote (fim) -->
-
       </div>
 
-      <!-- popular pacotes: -->
-      <h1 class="topicsTitles text-start">Popular</h1>
-      <div class="linha"></div>
-      <br>
-      <!-- fileira 1 dos pacotes -->
-      <div class="row container">
+      <!-- parte dos produtos -->
 
-        <!-- isso é um pacote (comeco) -->
-        <a href="/kitPage" class="col" style="text-decoration: none;">
-          <div class="card pacoteCard" style="width: 18rem;">
-            <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-            <div class="cardBody">
-              <h5 class="cardTitle">Pacote</h5>
-              
-              <div class="linha"></div>
-    
-              <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-            
-              <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-              <br>
-            </div>
-          </div>
-          </a>
-        <!-- isso é um pacote (fim) -->
+      <div class="container">
+        <br>
 
-        <!-- isso é um pacote (comeco) -->
-        <a href="/kitPage" class="col" style="text-decoration: none;">
-          <div class="card pacoteCard" style="width: 18rem;">
-            <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-            <div class="cardBody">
-              <h5 class="cardTitle">Pacote</h5>
-              
-              <div class="linha"></div>
-    
-              <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-            
-              <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-              <br>
-            </div>
-          </div>
-          </a>
-          <!-- isso é um pacote (fim) -->
+        <!-- novos pacotes: -->
+        <h1 class="topicsTitles text-start">Brand New</h1>
+        <div class="linha"></div>
+        <br>
+        <!-- fileira 1 dos pacotes -->
+        <div class="row container">
+
+          <!-- isso é um pacote (comeco) -->
+          <% for(let i=0;i <=7; i++){%>
+            <!-- isso é um pacote (comeco) -->
+            <a href="/kitPage/<%= pacoteRecente[i].idPacote %>/<%= pacoteRecente[i].slug %>" class="col"
+              style="text-decoration: none;">
+              <div class="card pacoteCard" style="width: 18rem;">
+                <img src="/uploads/img/kitCover/<%= pacoteRecente[i].dirImg %>" class="imgCard" alt="...">
+                <div class="cardBody">
+                  <h5 class="cardTitle">
+                    <%= pacoteRecente[i].nome %>
+                  </h5>
+
+                  <div class="linha"></div>
+
+                  <img src="img/icons/star.png" class="cardStar float-start">
+                  <p class="cardTxt">
+                    <%= pacoteRecente[i].media %>
+                  </p>
+
+                  <img src="img/icons/buyers.png" class="cardStar float-start">
+                  <p class="cardTxt">
+                    <%= pacoteRecente[i].totalCompras %>
+                  </p>
+                  <br>
+                </div>
+              </div>
+            </a>
+            <% } %>
+              <!-- isso é um pacote (fim) -->
+
+        </div>
+
+        <!-- popular pacotes: -->
+        <h1 class="topicsTitles text-start">Popular</h1>
+        <div class="linha"></div>
+        <br>
+        <!-- fileira 1 dos pacotes -->
+        <div class="row container">
 
           <!-- isso é um pacote (comeco) -->
           <a href="/kitPage" class="col" style="text-decoration: none;">
             <div class="card pacoteCard" style="width: 18rem;">
-              <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
+              <img
+                src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg"
+                class="imgCard" alt="...">
               <div class="cardBody">
                 <h5 class="cardTitle">Pacote</h5>
-                
-                <div class="linha"></div>
-      
-                <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-              
-                <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-                <br>
-              </div>
-            </div>
-            </a>
-        </a>
-          <!-- isso é um pacote (fim) -->
 
-           <!-- isso é um pacote (comeco) -->
-           <a href="/kitPage" class="col" style="text-decoration: none;">
-            <div class="card pacoteCard" style="width: 18rem;">
-              <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-              <div class="cardBody">
-                <h5 class="cardTitle">Pacote</h5>
-                
                 <div class="linha"></div>
-      
-                <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-              
-                <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
-                <br>
-              </div>
-            </div>
-            </a>
-          <!-- isso é um pacote (fim) -->
 
-          <!-- isso é um pacote (comeco) -->
-          <a href="/kitPage" class="col" style="text-decoration: none;">
-            <div class="card pacoteCard" style="width: 18rem;">
-              <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
-              <div class="cardBody">
-                <h5 class="cardTitle">Pacote</h5>
-                
-                <div class="linha"></div>
-      
-                <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-              
-                <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
+                <img src="img/icons/star.png" class="cardStar float-start">
+                <p class="cardTxt">00</p>
+
+                <img src="img/icons/buyers.png" class="cardStar float-start">
+                <p class="cardTxt"> 00</p>
                 <br>
               </div>
             </div>
-            </a>
+          </a>
           <!-- isso é um pacote (fim) -->
-           
+        </div>
+
+
 
       </div>
 
-
-
-    </div>
-    
 
   </body>
-</html>
+
+  </html>
