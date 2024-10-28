@@ -192,4 +192,8 @@ router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
 
+router.get("/results", (req, res) => {
+    res.render("searchResults");
+});
+
 module.exports = router;

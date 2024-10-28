@@ -84,6 +84,14 @@ body {
   color: #606060;
 }
 
+.cardPfp{
+  border-radius: 50% !important;
+}
+
+.cardBio{
+  height: 50px;
+}
+
 .subTitle {
   font-size: 15px;
   color: #f2f2f2;
