@@ -106,6 +106,9 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
         });
     });
 
+    console.log(pacote);
+    
+
     var pacotesUsuario = await new Promise((resolve, reject) => {
         conn.query(queryPacotes, [pacote[0].idCliente], (err, pacoteUser) => {
             if (err) throw reject(err);
