@@ -64,18 +64,6 @@ router.put("/updatePacote/:id", (req, res) => {
     });
 });
 
-router.delete("/deletePacote/:id", (req, res) => {
-    let { id } = req.params;
-
-    var query = "DELETE FROM pacote WHERE IDPacote = ?;";
-
-    conn.query(query, [id], (err, result) => {
-        if (err) throw err;
-
-        res.status(200).json("funfa", result);
-    })
-});
-
 router.get("/favs", manipulaToken.verificaToken, (req, res) => {
     let id = req.userId;
     let query = "SELECT * FROM pacotesfav_comp INNER JOIN pacote ON pacotesfav_comp.idFkPacote = pacote.idPacote WHERE pacotesfav_comp.tipo = 'fav' AND pacotesfav_comp.idFkCliente = ?;";
@@ -106,9 +94,6 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
         });
     });
 
-    console.log(pacote);
-    
-
     var pacotesUsuario = await new Promise((resolve, reject) => {
         conn.query(queryPacotes, [pacote[0].idCliente], (err, pacoteUser) => {
             if (err) throw reject(err);
@@ -134,6 +119,12 @@ router.post("/tipoPagamento/:idPacote/:slug",(req,res)=>{
         return;
     }
     res.redirect(`/pagamentoCartao/${pacote.idPacote}/${pacote.slug}`)
+});
+
+router.post("/pesquisa", async (req,res)=>{
+    let { pesquisa } = req.body;
+
+    
 });
 
 router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {

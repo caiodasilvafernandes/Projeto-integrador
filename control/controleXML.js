@@ -67,4 +67,16 @@ router.post("/ControleAvalia/:idPack/:nota", manipulaToken.verificaToken, async 
     return;
 });
 
+router.delete("/deletaPacote/:id", (req,res)=>{
+    let { id } = req.params;
+
+    let query = "DELETE FROM pacote WHERE = ?";
+
+    try{
+        conn.query(query,[id]);
+    }catch(err){
+        console.log(err);
+    }
+});
+
 module.exports = router;
