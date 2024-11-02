@@ -1,6 +1,13 @@
 <%- include("partials/header")%>
   <link rel="stylesheet" type="text/css" href="CSS/index.css"/>
 
+  <style>
+    .resultsFor{
+      margin-bottom: 15px;
+      font-size: 25px;
+    }
+  </style>
+
   <body>
     <%- include("partials/hudAdm")%>
 
@@ -11,7 +18,7 @@
 
     <!-- resultados da pesquisa: -->
       
-      <p class="subTitle text-start" style="margin-left: 26px; font-size: 25px;">Results for:</p>
+      <h1 class="subTitle text-start resultsFor">Resultados para: LASANHA</h1>
       <div class="linha"></div>
       <br>
       <!-- fileira 1 dos pacotes -->
@@ -38,15 +45,14 @@
         <!-- isso é um pacote (comeco) -->
         <a href="/kitPage" class="col" style="text-decoration: none;">
           <div class="card pacoteCard" style="width: 18rem;">
-            <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard" alt="...">
+            <img src="https://www.jornaljoca.com.br/wp-content/uploads/2023/09/GettyImages-185095684-scaled-e1694031399314.jpg" class="imgCard cardPfp" alt="...">
             <div class="cardBody">
-              <h5 class="cardTitle">Pacote</h5>
+              <h5 class="cardTitle">Username</h5>
               
               <div class="linha"></div>
     
-              <img src="img/icons/star.png" class="cardStar float-start"><p class="cardTxt">00</p>
-            
-              <img src="img/icons/buyers.png" class="cardStar float-start"><p class="cardTxt"> 00</p>
+              <img src="img/icons/pack.png" class="cardStar float-start"><p class="cardTxt">00</p>
+              <p class="cardTxt cardBio" maxlength="50">"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"</p>
               <br>
             </div>
           </div>
