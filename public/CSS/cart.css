@@ -1,0 +1,18 @@
+.productRow {
+    padding: 15px 0;
+}
+.price {
+    color: #00C6E0;
+    font-weight: bold;
+}
+.contCart{
+    overflow: hidden;
+    height: fit-content;
+}
+.kitCart{
+    width: 70px;
+    height: 70px;
+}
+.total{
+    height: 35px;
+}
