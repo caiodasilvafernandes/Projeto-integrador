@@ -67,14 +67,30 @@ router.post("/ControleAvalia/:idPack/:nota", manipulaToken.verificaToken, async 
     return;
 });
 
-router.delete("/deletaPacote/:id", (req,res)=>{
+router.post("/controleComent/:idPack/:coment", manipulaToken.verificaToken, (req, res) => {
+    let { idPack, coment } = req.params;
+
+    idPack = parseInt(idPack)
+
+    if (req.userId != null) {
+        let query = "INSERT INTO comentario (comentario,idPacote,idFkCliente) VALUES (?,?,?);";
+        let idCliente = req.userId;
+        try {
+            conn.query(query, [coment, idPack, idCliente]);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+});
+
+router.delete("/deletaPacote/:id", (req, res) => {
     let { id } = req.params;
 
     let query = "DELETE FROM pacote WHERE = ?";
 
-    try{
-        conn.query(query,[id]);
-    }catch(err){
+    try {
+        conn.query(query, [id]);
+    } catch (err) {
         console.log(err);
     }
 });

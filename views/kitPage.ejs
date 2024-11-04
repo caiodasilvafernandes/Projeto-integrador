@@ -133,46 +133,18 @@
         <!-- onde ficam os comentários -->
         <div class="roller" id="commentSection">
           <div class="controler">
+            <% for(coment of comentario){ %>
             <a class="subTitle" href="/user">
               <!--foto do usuario e o nome -->
-              <img src="/img/icons/profilepic.png" class="pfp" />User</a>
+              <img src="/uploads/img/pfp/<%= coment.imgPerfil %>" class="pfp" /><%= coment.nome %></a>
             <!-- texto do comentário -->
             <p class="subTitle text-start comment">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-              molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-              recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-              aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-              molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-              recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-              aut.
+              <%= coment.comentario %>
             </p>
             <div class="linha float-start" style="width: 635px;"></div><br>
+            <% } %>
           </div>
 
-          <a class="subTitle" href="/user">
-            <img src="/img/icons/profilepic.png" class="pfp" />User</a>
-          <p class="subTitle text-start comment">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-            aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-            aut.
-          </p>
-          <div class="linha float-start" style="width: 635px;"></div><br>
-
-          <a class="subTitle" href="/user">
-            <img src="/img/icons/profilepic.png" class="pfp" />User</a>
-          <p class="subTitle text-start comment">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-            aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-            aut.
-          </p>
           <div class="linha float-start" style="width: 635px;"></div><br>
 
         </div>
@@ -203,7 +175,7 @@
               //adionando t
               tstar.add('t');
               nota = fc.target.getAttribute('nota');
-              controleAvalia("POST","<%= pacote[0].idPacote %>", nota);
+              controleAvalia("<%= pacote[0].idPacote %>", nota);
 
             }
           }
@@ -222,12 +194,12 @@
               //mudando o valor
               fc.target.setAttribute('valor', '1');
               
-              controleFav('POST', "<%= pacote[0].idPacote %>",1);
+              controleFav("<%= pacote[0].idPacote %>",1);
 
             } else if (!verClass.contains('a')) {
               verClass.add('a');
               fc.target.setAttribute('valor', '0');
-              controleFav('POST', "<%= pacote[0].idPacote %>", 0);
+              controleFav("<%= pacote[0].idPacote %>", 0);
             }
           }
           if (verClass.contains('cart')) {
@@ -242,8 +214,8 @@
           }
         })
 
-        //***********************comentarios**************************
-        document.getElementById('commentForm').addEventListener('submit', function (event) {
+         //***********************comentarios**************************
+         document.getElementById('commentForm').addEventListener('submit', function (event) {
           //como é sem consulta, isso aqui é pra cortar o envio padrao do formulario, n ficar atualizando a pagina pra sempre
           event.preventDefault();
 
@@ -258,12 +230,13 @@
             newComment.classList.add('controler', 'commentPost');
             newComment.innerHTML = `
             <a class="subTitle" href="/user">
-              <img src="/img/icons/profilepic.png" class="pfp"/>User</a>
+              <img src="/uploads/img/pfp/<%= user[0].imgPerfil %>" class="pfp"/>User</a>
             <p class="subTitle text-start comment">${commentText}</p>
             <div class="linha float-start" style="width: 635px;"></div><br>
           `;
             commentSection.prepend(newComment);
             commentInput.value = '';
+            controleComent("<%= pacote[0].idPacote %>", commentText);
           }
         });
 
