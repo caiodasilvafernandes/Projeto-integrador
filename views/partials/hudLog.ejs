@@ -7,10 +7,17 @@
       
       </div>
     
+<<<<<<< HEAD
+      <form class="input-group mb-1 searchBar justify-content-center col" method="post">
+        <input type="text" id="search" class="form-control form-control-sm inputSearch sug" placeholder="search...">
+        
+=======
       <form class="input-group mb-1 searchBar justify-content-center col" action="/pesquisa" method="post">
         <input type="text" id="pesquisa" name="pesquisa" class="form-control form-control-sm inputSearch" placeholder="search...">
+>>>>>>> 13fc4215b0880a98f2ce62631988eb230077a5fc
         <button class="btn buttonSearch" type="submit" id="btnSearch" ><img src="/img/icons/search.png" class="searchIcon"></button>
       </form>
+      
 
       <div class="col d-flex justify-content-end align-items-center">
       
@@ -21,7 +28,7 @@
         <div class="profileBar profileBarColumns mx-2"></div>
         
         <div class="btn-group">
-          <button class="btn dropdown dropdownNav d-flex justify-content-center align-items-center" type="button" data-bs-toggle="dropdown">
+          <button class="liDropdownNav btn dropdown dropdownNav d-flex justify-content-center align-items-center" type="button" data-bs-toggle="dropdown">
             <img src="/img/icons/options.png" class="dropdownIcon">
           </button>
           <ul class="dropdown-menu dropdown-menu-end ulDropdownNav">
@@ -34,11 +41,13 @@
         <div class="profileBar profileBarColumns mx-2"></div>
       
         <div class="profile">
-          <a href="/logOut"><img src="/img/icons/logoff.png" class="dropdownIcon"></a>
+          <a href="/logOut" class="liDropdownNav"><img src="/img/icons/logoff.png" class="dropdownIcon"></a>
         </div>
       </div>
       
 
       </div>
     </div>
+    <ul class="kit"></ul>
 </navbar>
+<script src="\js\pesquisa.js"></script>
