@@ -8,67 +8,67 @@
     <div class="col-md-6 d-flex justify-content-center align-items-center">
         <form action="/cadastrarCliente" class="form-control pForm" method="post">
     
-          <h1 class="title">Account Creation</h1>
-          <p class="subTitle"> Create you account!</p>
+          <h1 class="title">Criação de conta</h1>
+          <p class="subTitle"> Crie sua conta!</p>
 
           <div class="linha"></div>
           <!-- nome real -->
           <div class="row">
-          <label class="text-start subTitle col-4">Name</label> 
-          <input type="text" name="name" id="name" placeholder="your real name..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="nomeee">
+          <label class="text-start subTitle col-4">Nome</label> 
+          <input type="text" name="name" id="name" placeholder="seu nome real..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Seu nome real">
           </div>
           <!-- nome de exibição/login-->
           <div class="row">
           <label class="text-start subTitle col-4">Login</label>
-          <input type="text" name="login" id="login" placeholder="create a username..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="login">
+          <input type="text" name="login" id="login" placeholder="crie um username..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="login">
           </div>
           <!--email-->
           <div class="row">
           <label class="text-start subTitle col-4">Email</label>
-          <input type="text" name="email" id="email" placeholder="your email..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid email">
+          <input type="text" name="email" id="email" placeholder="seu email..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Informe um email valído">
           </div>
           <!--senha-->
           <div class="row">
-          <label class="text-start subTitle col-4">Password</label>
-          <input type="text" name="password" id="password" placeholder="create a password" class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover"data-bs-content="Your password must contain at least 8 characters">
+          <label class="text-start subTitle col-4">Senha</label>
+          <input type="text" name="password" id="password" placeholder="crie uma senha..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover"data-bs-content="Senha com no minímo 8 caractéres">
           </div>
           <!--confirmação da senha-->
           <div class="row">
-          <label class="text-start subTitle col-4">Confirm</label>
-          <input type="text" name="passwordConfirm" id="passwordConfirm" placeholder="confirm your password..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Repeat the password above">
+          <label class="text-start subTitle col-4">Confirme</label>
+          <input type="text" name="passwordConfirm" id="passwordConfirm" placeholder="confirme sua senha..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Repita a senha a cima">
           </div>
           <!-- aniversario -->
           <div class="row">
-          <label class="text-start subTitle col-4">Birth Date</label>
-          <input type="date" name="dataNasc" id="dataNasc" class="inputForm form-control-sm form-control col-2 birthInput float-start" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Select a valid date">
+          <label class="text-start subTitle col-4" style="text-wrap:nowrap;">Data de nascença</label>
+          <input type="date" name="dataNasc" id="dataNasc" class="inputForm form-control-sm form-control col-2 birthInput float-start" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Selecione uma data válida">
           </div>         
           <!--país-->
           <div class="row">
-            <p class="text-start subTitle col-4">Country:</p>
+            <p class="text-start subTitle col-4">País</p>
               <select name="pais" id="pais" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
               <option value="0" >Selecione um país</option>
               </select>
           </div>
           <!--estado-->
           <div class="row">
-              <p class="text-start subTitle col-4">Estate:</p><select name="estate" id="estate" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+              <p class="text-start subTitle col-4">Estado</p><select name="estate" id="estate" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
               <option value="estado1" >Estado1</option>
               </select>
           </div>
           <!--cidade-->
           <div class="row">
-            <p class="text-start subTitle col-4">City:</p><select name="city" id="city" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
-            <option value="1" >cidade1</option>
+            <p class="text-start subTitle col-4">Cidade</p><select name="city" id="city" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+            <option value="city1" >cidade1</option>
             </select>
         </div>
           <!--ja tem  conta-->
           <div class="row" style="width: fit-content;">
-            <a class="text-start subTitle col" href="/login" style="margin-bottom:15px;">Already have an account?</a>
+            <a class="text-start subTitle col" href="/login" style="margin-bottom:15px; text-decoration: underline;">Já possuí uma conta?</a>
           </div>
 
           <!-- botão do form -->
           <div class="row d-flex justify-content-center">
-          <button type="submit" class="btn btnBase" id="singUpBtn">Sing Up</button>
+          <button type="submit" class="btn btnBase btnLog" id="singUpBtn">Cadastre-se</button>
           </div>
           
           
@@ -86,12 +86,12 @@
     <div id="liveToast" class="toast" role="alert">
       <div class="toast-header">
         <img src="..." class="rounded me-2" alt="...">
-        <strong class="me-auto">Invalid credentials, please try again!</strong>
+        <strong class="me-auto">Credênciais inválidas, tente novamente!</strong>
 
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        Make sure that your info are correct!
+        Certifique-se que as credênciais estão corretas!
       </div>
     </div>
   </div>

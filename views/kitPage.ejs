@@ -22,7 +22,7 @@
         <!-- mais do autor, minimiza essa div mano-->
         <div class="float-end moreFrom">
           <div class="float-start linhaV"></div>
-          <h1 class="topicsTitles" style="font-size: 25px;">More from: User</h1>
+          <h1 class="topicsTitles" style="font-size: 25px;">Mais de: User</h1>
           <div class="linha"></div><br>
           <!-- div que contém os pacotes-->
           <div class="container">
@@ -61,7 +61,7 @@
         <img src="/uploads/img/kitCover/<%= pacote[0].dirImg %>" class="cover float-start" />
         <!--descrição do kit-->
         <div class="container kitInfo">
-          <h1 class="subTitle text-start description">About:</h1>
+          <h1 class="subTitle text-start description">Sobre:</h1>
           <p class="subTitle text-start description" style="height: 200px;">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
             molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
@@ -94,6 +94,14 @@
       </div>
       <!--parte das avaliações-->
       <div class="container">
+        <div class="linha float-start" style="width: 700px;"></div><br>
+        <h1 class="subTitle text-start">Avalie esse kit!</h1>
+        <ul class="rate">
+          <li class="star t" nota="1"></li>
+          <li class="star" nota="2"></li>
+          <li class="star" nota="3"></li>
+          <li class="star" nota="4"></li>
+          <li class="star" nota="5"></li>
         </ul>
         <br>
         <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>
@@ -101,7 +109,17 @@
 
       <!--comentários-->
       <div class="container mt-5" style="margin-bottom: 25px;">
-        <h1 class="subTitle text-start">Comment Section:</h1>
+        <h1 class="subTitle text-start">Sessão de comentários:</h1>
+        <div class="linha float-start" style="width: 635px;"></div><br>
+
+        <!--area pra escrever o comentário-->
+        <form id="commentForm">
+          <button type="submit" class="sendComment float-start" id="btnComment"><img src="/img/icons/send.png"
+              style="width: 25px;height: 25px;" /></button>
+
+          <textarea type="text" name="comment" id="comment" placeholder="comment..."
+            class="inputForm form-control-sm commentInput text-start"></textarea>
+        </form>
         <div class="linha float-start" style="width: 635px;"></div><br>
 
         <!-- onde ficam os comentários -->

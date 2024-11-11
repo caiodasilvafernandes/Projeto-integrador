@@ -94,8 +94,9 @@
   }
 
   .btnLog{
-  
+    width: fit-content !important;
     transition: box-shadow 1s ease, transform 0.3s ease !important;
+    text-wrap: nowrap;
   }
   
   .btnLog:hover{
