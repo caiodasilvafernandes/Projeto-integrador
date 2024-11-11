@@ -22,7 +22,7 @@
         <!-- mais do autor, minimiza essa div mano-->
         <div class="float-end moreFrom">
           <div class="float-start linhaV"></div>
-          <h1 class="topicsTitles" style="font-size: 25px;">Mais de: User</h1>
+          <h1 class="topicsTitles" style="font-size: 25px;">More from: User</h1>
           <div class="linha"></div><br>
           <!-- div que contém os pacotes-->
           <div class="container">
@@ -61,7 +61,7 @@
         <img src="/uploads/img/kitCover/<%= pacote[0].dirImg %>" class="cover float-start" />
         <!--descrição do kit-->
         <div class="container kitInfo">
-          <h1 class="subTitle text-start description">Sobre:</h1>
+          <h1 class="subTitle text-start description">About:</h1>
           <p class="subTitle text-start description" style="height: 200px;">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
             molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
@@ -95,7 +95,7 @@
       <!--parte das avaliações-->
       <div class="container">
         <div class="linha float-start" style="width: 700px;"></div><br>
-        <h1 class="subTitle text-start">Avalie esse kit!</h1>
+        <h1 class="subTitle text-start">Rate this Kit!</h1>
         <ul class="rate">
           <li class="star t" nota="1"></li>
           <li class="star" nota="2"></li>
@@ -103,13 +103,21 @@
           <li class="star" nota="4"></li>
           <li class="star" nota="5"></li>
         </ul>
-        <br>
+
+        <!--favoritar-->
+        <div class="row">
+          <a id="fav" class="text-start heart a" valor="0"></a><br>
+          <a class="text-start cart " valor="0"></a><br>
+        </div>
+
+        <a class="btn btnBase" href="/paymentMethod/<%= pacote[0].idPacote %>/<%= pacote[0].slugPack %>">$<%=
+            pacote[0].preco %></a><br>
         <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>
       </div>
 
       <!--comentários-->
       <div class="container mt-5" style="margin-bottom: 25px;">
-        <h1 class="subTitle text-start">Sessão de comentários:</h1>
+        <h1 class="subTitle text-start">Comment Section:</h1>
         <div class="linha float-start" style="width: 635px;"></div><br>
 
         <!--area pra escrever o comentário-->
@@ -126,26 +134,116 @@
         <div class="roller" id="commentSection">
           <div class="controler">
             <% for(coment of comentario){ %>
-              <a class="subTitle" href="/user">
-                <!--foto do usuario e o nome -->
-                <img src="/uploads/img/pfp/<%= coment.imgPerfil %>" class="pfp" />
-                <%= coment.login %>
-              </a>
-              <!-- texto do comentário -->
-              <p class="subTitle text-start comment">
-                <%= coment.comentario %>
-              </p>
-              <div class="linha float-start" style="width: 635px;"></div><br>
-              <% } %>
+            <a class="subTitle" href="/profile/<%= coment.slug %>/<%= coment.idCliente %>">
+              <!--foto do usuario e o nome -->
+              <img src="/uploads/img/pfp/<%= coment.imgPerfil %>" class="pfp" /><%= coment.login %></a>
+            <!-- texto do comentário -->
+            <p class="subTitle text-start comment">
+              <%= coment.comentario %>
+            </p>
+            <div class="linha float-start" style="width: 635px;"></div><br>
+            <% } %>
           </div>
-          <br>
+
+          <div class="linha float-start" style="width: 635px;"></div><br>
+
         </div>
+
       </div>
       </div>
+
       </div>
+
+      <!-- scrpit das avaliações -->
+      <script>
+        //***********************avaliacao**************************
+        //tá puxando as tags com a classe star, vulgo as estrelakkkk
+        var stars = document.querySelectorAll('.star');
+        var nota = 0;
+
+        document.addEventListener('click', function (fc) {
+          //verifica se o elemento tem a classe star, se n ele sai adicionando t em todos os outro elemento da pagina
+          if (fc.target.classList.contains('star')) {
+            var tstar = fc.target.classList;
+
+            //verifica se a estrela nao tem a classe t(essa é a classe css que faz as estrelas ficarem preenchidas, é por aí)
+            if (!tstar.contains('t')) {
+              //se a estrela clicada nao tem a classe t, ela recebe essa classe e todas as outras perdem
+              stars.forEach(function (star) {
+                star.classList.remove('t');
+              });
+              //adionando t
+              tstar.add('t');
+              nota = fc.target.getAttribute('nota');
+              controleAvalia("<%= pacote[0].idPacote %>", nota);
+
+            }
+          }
+        });
+
+        //***********************favorito**************************
+        document.addEventListener('click', function (fc) {
+
+          var verClass = fc.target.classList
+
+          //verifica se o elemento tem a class heart
+          if (verClass.contains('heart')) {
+            //se o elemento tiver a classe a, ele remove a classe e troca o valor do atributo valorkkkk
+            if (verClass.contains('a')) {
+              verClass.remove('a');
+              //mudando o valor
+              fc.target.setAttribute('valor', '1');
+              
+              controleFav("<%= pacote[0].idPacote %>",1);
+
+            } else if (!verClass.contains('a')) {
+              verClass.add('a');
+              fc.target.setAttribute('valor', '0');
+              controleFav("<%= pacote[0].idPacote %>", 0);
+            }
+          }
+          if (verClass.contains('cart')) {
+            if (verClass.contains('ca')) {
+              verClass.remove('ca');
+              fc.target.setAttribute('valor', '1');
+
+            } else if (!verClass.contains('ca')) {
+              verClass.add('ca');
+              fc.target.setAttribute('valor', '0');
+            }
+          }
+        })
+
+         //***********************comentarios**************************
+         document.getElementById('commentForm').addEventListener('submit', function (event) {
+          //como é sem consulta, isso aqui é pra cortar o envio padrao do formulario, n ficar atualizando a pagina pra sempre
+          event.preventDefault();
+
+          var commentInput = document.getElementById('comment');
+          //pega o texto do comentario
+          var commentText = commentInput.value.trim();
+
+          if (commentText) {
+            var commentSection = document.getElementById('commentSection');
+
+            var newComment = document.createElement('div');
+            newComment.classList.add('controler', 'commentPost');
+            newComment.innerHTML = `
+            <a class="subTitle" href="/profile/<%= user[0].slug %>/<%= user[0].idCliente %>">
+              <img src="/uploads/img/pfp/<%= user[0].imgPerfil %>" class="pfp"/><%= user[0].login %></a>
+            <p class="subTitle text-start comment">${commentText}</p>
+            <div class="linha float-start" style="width: 635px;"></div><br>
+          `;
+            commentSection.prepend(newComment);
+            commentInput.value = '';
+            controleComent("<%= pacote[0].idPacote %>", commentText);
+          }
+        });
+
+
+
+      </script>
+      <script type="text/javascript" src="/js/kitPageAjax.js"></script>
   </body>
-
-  <script type="text/javascript" src="/js/kitPageAjax.js"></script>
-
 
   </html>

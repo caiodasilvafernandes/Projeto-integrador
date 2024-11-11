@@ -77,16 +77,15 @@ router.get("/favs", manipulaToken.verificaToken, (req, res) => {
     });
 });
 
-router.get("/kitPage/:id/:slug",manipulaToken.verificaToken, async (req, res) => {
+router.get("/kitPage/:id/:slug", async (req, res) => {
     var { slug, id } = req.params;
-    let idUser = req.userId;
 
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let criterio = "WHERE idPacote= ? AND pacote.slug = ?;";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
     let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ?";
-    let queryComent = "SELECT comentario.comentario, comentario.idPacote, comentario.idFkCliente ,cliente.nome,cliente.imgPerfil FROM comentario  INNER JOIN cliente  ON cliente.idCliente = comentario.idFkCliente WHERE idPacote = ? ORDER BY idComentario DESC";
+    let queryComent = "SELECT comentario.comentario, comentario.idPacote, comentario.idFkCliente, cliente.idCliente, cliente.slug, cliente.login,cliente.imgPerfil FROM comentario  INNER JOIN cliente  ON cliente.idCliente = comentario.idFkCliente WHERE idPacote = ? ORDER BY idComentario DESC";
     let queryUser = "SELECT * FROM cliente WHERE idCliente = ?";
 
     var pacote = await new Promise((resolve, reject) => {
@@ -112,16 +111,25 @@ router.get("/kitPage/:id/:slug",manipulaToken.verificaToken, async (req, res) =>
             resolve(coment);
         });
     });
+    
+    if(req.cookies["jwToken"] != undefined){
+        let idUser = await manipulaToken.pegarId(req,res);
+        
+        let query = "SELECT * FROM cliente WHERE idCliente = ?;";
 
-    var user = await new Promise((resolve,reject)=>{
-        conn.query(queryUser,[idUser],(err,result)=>{
-            if(err) throw reject(err);
+        let user = await new Promise((resolve, reject)=>{
+            conn.query(query,[idUser],(err,result)=>{
+                if(err) throw reject(err);
 
-            resolve(result);
+                resolve(result);
+            });
         });
-    });
+        
+        res.render("kitPageLog", { pacote, pacotesUsuario,comentario,user });
+        return;
+    }
 
-    res.render("kitPage", { pacote, pacotesUsuario, comentario, user });
+    res.render("kitPage", { pacote, pacotesUsuario,comentario});
 });
 
 router.get("/paymentMethod/:idPacote/:slug", manipulaToken.verificaToken, (req, res) => {
@@ -179,8 +187,6 @@ router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
 
     let qrCode = qrcodeResponse.data;
     let cobranca = cobResponse.data;
-
-    console.log(cobranca);
 
     res.render("pixPayment", { qrCode, cobranca });
 });

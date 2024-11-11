@@ -83,10 +83,27 @@ router.post("/controleComent/:idPack/:coment", manipulaToken.verificaToken, (req
     }
 });
 
+router.post("/ControleCarrinho/:idPack/:car",manipulaToken.verificaToken,(req,res)=>{
+    let { idPack, car } = req.params;
+    let idCliente = req.userId;
+
+    if(idCliente){
+        if(car == 1){
+            let queryInsert = "INSERT INTO pacotesFav_Comp (idFKPacote,idFkCliente,tipo) VALUES (?,?,?)";
+
+            conn.query(queryInsert,[idPack,idCliente,"car"]);
+        }else{
+            let queryDelete = "DELETE FROM pacotesFav_Comp WHERE idFkPacote = ? AND idFkCliente = ? AND tipo = ?;";
+
+            conn.query(queryDelete,[idPack,idCliente,"car"]);
+        }
+    }
+});
+
 router.delete("/deletaPacote/:id", (req, res) => {
     let { id } = req.params;
 
-    let query = "DELETE FROM pacote WHERE = ?";
+    let query = "DELETE FROM pacote WHERE id = ?";
 
     try {
         conn.query(query, [id]);

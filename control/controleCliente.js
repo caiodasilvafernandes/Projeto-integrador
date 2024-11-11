@@ -20,25 +20,25 @@ router.get("/singUp", (req, res) => {
     let queryEstado = "SELECT * FROM estado";
     let queryCidade = "SELECT * FROM cidade";
 
-    let pais = new Promise((resolve,reject)=>{
-        conn.query(queryPais,(err,pais)=>{
-            if(err) throw resolve(err);
+    let pais = new Promise((resolve, reject) => {
+        conn.query(queryPais, (err, pais) => {
+            if (err) throw resolve(err);
 
             resolve(pais);
         });
     });
 
-    let estado = new Promise((resolve,reject)=>{
-        conn.query(queryEstado,(err,estado)=>{
-            if(err) throw resolve(err);
+    let estado = new Promise((resolve, reject) => {
+        conn.query(queryEstado, (err, estado) => {
+            if (err) throw resolve(err);
 
             resolve(estado);
         });
     });
 
-    let cidade = new Promise((resolve,reject)=>{
-        conn.query(queryCidade,(err,cidade)=>{
-            if(err) throw resolve(err);
+    let cidade = new Promise((resolve, reject) => {
+        conn.query(queryCidade, (err, cidade) => {
+            if (err) throw resolve(err);
 
             resolve(cidade);
         })
@@ -80,11 +80,11 @@ router.get("/editProfile", manipulaToken.verificaToken, (req, res) => {
     })
 });
 
-router.put("/editProfile", manipulaToken.verificaToken,upload.single("pfp"), (req, res) => {
+router.put("/editProfile", manipulaToken.verificaToken, upload.single("pfp"), (req, res) => {
     let { username, password, bio } = req.body;
-    
+
     let imgPerfil = req.file.filename;
-    let id = req.userId;    
+    let id = req.userId;
 
     let salt = bcrypt.genSaltSync(10);
     let senhaHash = bcrypt.hashSync(password, salt);
@@ -109,14 +109,51 @@ router.delete("/deleteCliente/:id", (req, res) => {
     });
 });
 
-router.post("/loginCliente", (req, res) => {
-    let { email, senha } = req.body;
-
-    manipulaToken.logarUser(email, senha, res);
-})
-
-router.get("/profile", manipulaToken.verificaToken, async(req, res) => {
+router.get("/profile",manipulaToken.verificaToken, async (req, res) => {
     let id = req.userId;
+
+    var queryCliente = "SELECT nome,login,email,dataNasc,bio,idCidade,imgPerfil FROM cliente WHERE idCliente = ?;";
+    var queryPacote = "SELECT * FROM pacote WHERE idCliente = ?;";
+
+
+    var cliente = await new Promise((resolve, reject) => {
+        conn.query(queryCliente, [id], (err, cliente) => {
+            if (err) throw reject(err);
+
+            console.log(cliente);
+
+            if (cliente[0].bio == null) {
+                cliente[0].bio = "Crie uma bio na edição de perfil"
+            }
+            resolve(cliente)
+        });
+    });
+
+    var pacote = await new Promise((resolve, reject) => {
+        conn.query(queryPacote, [id], (err, pack) => {
+            if (err) throw reject(err);
+
+            resolve(selects.getMediaETotal(pack));
+        });
+    });
+
+    res.render("myProfile", { cliente, pacote });
+});
+
+router.get("/profile/:slug/:id", async (req, res) => {
+    let { id } = req.params;
+    let render = "";
+    let idUser = await manipulaToken.pegarId(req,res);
+
+    if (req.cookies["jwToken"]) {
+        if (idUser == req.params.id) {
+            render = "myProfile";
+        }else{
+            render = "profile";
+        }
+    }else{
+        render = "profile";
+    }
 
     var queryCliente = "SELECT nome,login,email,dataNasc,bio,idCidade,imgPerfil FROM cliente WHERE idCliente = ?;";
     var queryPacote = "SELECT * FROM pacote WHERE idCliente = ?;";
@@ -140,7 +177,8 @@ router.get("/profile", manipulaToken.verificaToken, async(req, res) => {
             resolve(selects.getMediaETotal(pack));
         });
     });
-    res.render("myProfile", { cliente, pacote });
+
+    res.render(render, { cliente, pacote });
 });
 
 router.get("/logOut", (req, res) => {
