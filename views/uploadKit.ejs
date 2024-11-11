@@ -9,28 +9,28 @@
     <div class="col-md-6 d-flex justify-content-center align-items-center">
       <form class="form-control pForm" method="post" action="/uploadKit" enctype="multipart/form-data">
 
-      <h1 class="title">Upload a Kit!</h1>
-      <p class="subTitle"> Upload your kit and sell it.</p>
+      <h1 class="title">Fazer upload de um kit!</h1>
+      <p class="subTitle"> Envie seu kit e venda-o!.</p>
 
       <div class="linha"></div>
       <!-- titulo do kit, o nome do produto-->
       <div class="row ">
-      <p class="text-start subTitle col-3 ">Title</p> <input name="title" id="title" placeholder="kit's title..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="nomeeeee do pacoteeeeeeeeeeee">
+      <p class="text-start subTitle col-3 ">Título</p> <input name="title" id="title" placeholder="título do kit..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="nomeeeee do pacoteeeeeeeeeeee">
       </div>
 
       <!-- tipo do kit, gênero, oque vai conter nele: loops? bateria?-->
       <div class="row">
-        <p class="text-start subTitle col-3">Kit type:</p><select name="type" id="type" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
+        <p class="text-start subTitle col-3">Tipo de kit</p><select name="type" id="type" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
           <option value="Loops" >Loops</option>
           <option value="Drums" >Drums</option>
-          <option value="Drums and Loops" >Drums and Loops</option>
+          <option value="Drums and Loops" >Drums e Loops</option>
           <option value="Others" >Other</option>
           </select>
       </div>
 
       <!-- capa do kit -->
       <div class="row">
-        <p class="text-start subTitle col">Cover</p> <input type="file" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="capaaaa">
+        <p class="text-start subTitle col">Capa</p> <input type="file" name="cover" id="cover" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="capaaaa">
       </div>  
       <!-- input da imagem-->
       <div class="row">
@@ -38,17 +38,17 @@
       </div>      
       <!-- mostra o nome dos arquivos slecionados pelo user-->
       <div class="row">
-        <p class="text-start subTitle col">Kit file: kit.zip </p> <input type="file" name="pack" id="pack" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="arquivo do pacoteeeeee">
+        <p class="text-start subTitle col">Arquivo do kit: kit.zip </p> <input type="file" name="pack" id="pack" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="arquivo do pacoteeeeee">
        </div>
       <div class="row">
-        <p class="text-start subTitle col">Kit demo: demo.zip</p> <input type="file" name="demo" id="demo" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="demo do pacoteeee">
+        <p class="text-start subTitle col">Demo do kit: demo.zip</p> <input type="file" name="demo" id="demo" class="form-control-sm form-control justify-content-center align-items-center btnGrey btnBase" value="..." style="height: 31px;" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="demo do pacoteeee">
       </div>
       <div class="row">
-        <p class="text-start subTitle col-3">Price: </p> <input type="number" name="price" id="price" placeholder="kit's price..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="precooooooooooooooo">
+        <p class="text-start subTitle col-3">Preço </p> <input type="number" name="price" id="price" placeholder="preço do kit..." class="inputForm form-control form-control-sm col" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="precooooooooooooooo">
       </div>
       <!--botao do form-->
       <div class="row d-flex justify-content-center">
-      <button type="submit" class="btn btnBase" id="btnKitpost">Submit</button>
+      <button type="submit" class="btn btnBase" id="btnKitpost">Enviar</button>
       </div>
     </form>
   </div>
