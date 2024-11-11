@@ -6,7 +6,7 @@
 
     <div class="row g-0 imgDir">
     <div class="col-md-6 d-flex justify-content-center align-items-center">
-        <form class="form-control pForm" method="post">
+        <form action="/cadastrarCliente" class="form-control pForm" method="post">
     
           <h1 class="title">Account Creation</h1>
           <p class="subTitle"> Create you account!</p>
@@ -58,7 +58,7 @@
           <!--cidade-->
           <div class="row">
             <p class="text-start subTitle col-4">City:</p><select name="city" id="city" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
-            <option value="city1" >cidade1</option>
+            <option value="1" >cidade1</option>
             </select>
         </div>
           <!--ja tem  conta-->
@@ -100,6 +100,8 @@
 
 <script>
 // ativar os popovers do bootstrap
+
+/*
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
 
@@ -134,7 +136,7 @@ document.addEventListener('click', function() {
   if (!selectElement.contains(event.target)) {
   selectElement.classList.remove('active');
   }
-});
+});*/
 
   </script>
   </body>
