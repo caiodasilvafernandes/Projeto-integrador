@@ -5,7 +5,7 @@
   <link rel="stylesheet" type="text/css" href="/CSS/kitPage.css" />
 
   <body>
-    <%- include("partials/hudLog")%>
+    <%- include("partials/hudNoLog")%>
 
       <div class="container">
         <br />
@@ -93,17 +93,8 @@
         </div>
       </div>
       <!--parte das avaliações-->
+      <br>
       <div class="container">
-        <div class="linha float-start" style="width: 700px;"></div><br>
-        <h1 class="subTitle text-start">Avalie esse kit!</h1>
-        <ul class="rate">
-          <li class="star t" nota="1"></li>
-          <li class="star" nota="2"></li>
-          <li class="star" nota="3"></li>
-          <li class="star" nota="4"></li>
-          <li class="star" nota="5"></li>
-        </ul>
-        <br>
         <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>
       </div>
 
@@ -111,17 +102,7 @@
       <div class="container mt-5" style="margin-bottom: 25px;">
         <h1 class="subTitle text-start">Sessão de comentários:</h1>
         <div class="linha float-start" style="width: 635px;"></div><br>
-
-        <!--area pra escrever o comentário-->
-        <form id="commentForm">
-          <button type="submit" class="sendComment float-start" id="btnComment"><img src="/img/icons/send.png"
-              style="width: 25px;height: 25px;" /></button>
-
-          <textarea type="text" name="comment" id="comment" placeholder="comment..."
-            class="inputForm form-control-sm commentInput text-start"></textarea>
-        </form>
-        <div class="linha float-start" style="width: 635px;"></div><br>
-
+        
         <!-- onde ficam os comentários -->
         <div class="roller" id="commentSection">
           <div class="controler">

@@ -24,14 +24,3 @@ function controleComent(id, coment){
     xhttp.open("post", `/controleComent/${id}/${coment}`);
     xhttp.send();
 }
-
-function gerarComent(){
-    let href = location.href.split("/");
-    href.reverse();
-    let slug = href[0];
-    let id = href[1];
-
-    
-}
-
-gerarComent();

@@ -41,7 +41,7 @@ class manipulaJWT {
 
         const token = await jwt.sign({ id: req.userId }, process.env.SECRET_TOKEN);
 
-        await res.cookie("jwToken", token, { maxAge: 1800000, overwrite: true });
+        await res.cookie("jwToken", token, { maxAge: 3600000, overwrite: true });
 
         return next();
     }

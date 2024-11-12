@@ -2,15 +2,14 @@
   <link rel="stylesheet" type="text/css" href="CSS/index.css" />
 
   <body>
-    <%- include("partials/hudLog") %>
+    <%- include("partials/hudLog")%>
 
       <!-- O texto com a foto, Welcome to the drumbay -->
       <div class="container indexDiv">
         <div>
           <img src="/img/illustrations/welcomeImage.png" class="float-start imgWelcome" /><br>
-          <h1>Welcome to the drum bay!</h1>
-          <p class="welcomeSubtitle"><strong>Take a look on the fresh
-              kits that we have today!</strong>
+          <h1>Bem vindo a Drum Bay!</h1>
+          <p class="welcomeSubtitle"><strong>Dê uma olhada nos kits novinhos de hoje!</strong>
           <p>
         </div>
       </div>
@@ -21,17 +20,14 @@
         <br>
 
         <!-- novos pacotes: -->
-        <h1 class="topicsTitles text-start">Brand New</h1>
+        <h1 class="topicsTitles text-start">Novos</h1>
         <div class="linha"></div>
         <br>
         <!-- fileira 1 dos pacotes -->
         <div class="row container">
-
-          <!-- isso é um pacote (comeco) -->
           <% for(packR of pacoteRecente){%>
             <!-- isso é um pacote (comeco) -->
-            <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col"
-              style="text-decoration: none;">
+            <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col" style="text-decoration: none;">
               <div class="card pacoteCard" style="width: 18rem;">
                 <img src="/uploads/img/kitCover/<%= packR.dirImg %>" class="imgCard" alt="...">
                 <div class="cardBody">
@@ -65,11 +61,9 @@
         <br>
         <!-- fileira 1 dos pacotes -->
         <div class="row container">
-
           <!-- isso é um pacote (comeco) -->
           <% for(packP of pacotesPopulares){ %>
-            <a href="/kitPage/<%= packP.idPacote %>/<%= packP.slug %>" class="col"
-              style="text-decoration: none;">
+            <a href="/kitPage/<%= packP.idPacote %>/<%= packP.slug %>" class="col" style="text-decoration: none;">
               <div class="card pacoteCard" style="width: 18rem;">
                 <img src="/uploads/img/kitCover/<%= packP.dirImg %>" class="imgCard" alt="...">
                 <div class="cardBody">
@@ -93,11 +87,9 @@
               </div>
             </a>
             <% } %>
-          <!-- isso é um pacote (fim) -->
+
         </div>
       </div>
-
-
   </body>
 
   </html>

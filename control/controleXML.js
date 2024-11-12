@@ -87,12 +87,14 @@ router.post("/ControleCarrinho/:idPack/:car",manipulaToken.verificaToken,(req,re
     let { idPack, car } = req.params;
     let idCliente = req.userId;
 
+    console.log(car);
+
     if(idCliente){
         if(car == 1){
             let queryInsert = "INSERT INTO pacotesFav_Comp (idFKPacote,idFkCliente,tipo) VALUES (?,?,?)";
 
             conn.query(queryInsert,[idPack,idCliente,"car"]);
-        }else{
+        }else if(car == 0){
             let queryDelete = "DELETE FROM pacotesFav_Comp WHERE idFkPacote = ? AND idFkCliente = ? AND tipo = ?;";
 
             conn.query(queryDelete,[idPack,idCliente,"car"]);

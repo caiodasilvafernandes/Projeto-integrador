@@ -143,13 +143,14 @@ router.get("/profile",manipulaToken.verificaToken, async (req, res) => {
 router.get("/profile/:slug/:id", async (req, res) => {
     let { id } = req.params;
     let render = "";
-    let idUser = await manipulaToken.pegarId(req,res);
+    let idUser = 0;
 
     if (req.cookies["jwToken"]) {
-        if (idUser == req.params.id) {
+        if (await manipulaToken.pegarId(req,res) == req.params.id) {
+            idUser = await manipulaToken.pegarId(req,res)
             render = "myProfile";
         }else{
-            render = "profile";
+            render = "profileLog";
         }
     }else{
         render = "profile";
