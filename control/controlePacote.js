@@ -209,6 +209,9 @@ router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
 
+router.get("/carrinho", (req,res) =>{
+    res.render("cart");
+})
 
 
 module.exports = router;
