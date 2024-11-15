@@ -7,19 +7,20 @@
         <h1>Carrinho de Compras</h1>
         <div class="contCart">
             <!-- priemira row de pacote -->
+            <% for(pack of pacote){ %>
             <div class="row productRow">
                 <div class="col-6 col-md-3">
-                    <img src="/uploads\img\pfp\travisScott.jpg" class="kitCart" alt="Produto 1">
+                    <img src="/uploads/img/kitCover/<%= pack.dirImg %>" class="kitCart" alt="Produto 1">
                 </div>
                 <div class="col-6 col-md-4">
-                    <p class="topicsTitles">Pacote lorem</p>
+                    <p class="topicsTitles"><%= pack.nome %></p>
                     <img src="/img/icons/star.png" class="cardStar float-start">
         <p class="cardTxt">
-            00
+            <%= pack.media %>
         </p>
                 </div>
                 <div class="col-6 col-md-2 text-right">
-                    <p class="price">R$17,98</p>
+                    <p class="price">R$<%= pack.preco %></p>
                 </div>
                 <div class="col-6 col-md-2">
                     <input type="checkbox" id="prod">
@@ -29,7 +30,7 @@
                 </div>
                 <div class="linha"></div>
             </div>
-            
+            <% } %>
 
         <!-- total e prosseguir -->
         <div class="d-flex justify-content-between mt-4 total">

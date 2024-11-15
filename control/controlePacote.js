@@ -77,6 +77,20 @@ router.get("/favs", manipulaToken.verificaToken, (req, res) => {
     });
 });
 
+router.get("/carrinho", manipulaToken.verificaToken, (req, res) => {
+    let id = req.userId;
+
+    let query = "SELECT * FROM pacotesfav_comp INNER JOIN pacote ON pacotesfav_comp.idFkPacote = pacote.idPacote WHERE pacotesfav_comp.tipo = 'car' AND pacotesfav_comp.idFkCliente = ?;";
+
+    conn.query(query, [id], async (err, pacote) => {
+        if (err) throw err;
+
+        pacote = await selects.getMediaETotal(pacote);
+
+        res.render("cart", { pacote });
+    });
+})
+
 router.get("/kitPage/:id/:slug", async (req, res) => {
     var { slug, id } = req.params;
 
@@ -104,32 +118,32 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
         });
     });
 
-    var comentario = await new Promise((resolve,reject)=>{
-        conn.query(queryComent,[pacote[0].idPacote],(err,coment)=>{
-            if(err) throw reject(err);
+    var comentario = await new Promise((resolve, reject) => {
+        conn.query(queryComent, [pacote[0].idPacote], (err, coment) => {
+            if (err) throw reject(err);
 
             resolve(coment);
         });
     });
-    
-    if(req.cookies["jwToken"] != undefined){
-        let idUser = await manipulaToken.pegarId(req,res);
-        
+
+    if (req.cookies["jwToken"] != undefined) {
+        let idUser = await manipulaToken.pegarId(req, res);
+
         let query = "SELECT * FROM cliente WHERE idCliente = ?;";
 
-        let user = await new Promise((resolve, reject)=>{
-            conn.query(query,[idUser],(err,result)=>{
-                if(err) throw reject(err);
+        let user = await new Promise((resolve, reject) => {
+            conn.query(query, [idUser], (err, result) => {
+                if (err) throw reject(err);
 
                 resolve(result);
             });
         });
-        
-        res.render("kitPageLog", { pacote, pacotesUsuario,comentario,user });
+
+        res.render("kitPageLog", { pacote, pacotesUsuario, comentario, user });
         return;
     }
 
-    res.render("kitPage", { pacote, pacotesUsuario,comentario});
+    res.render("kitPage", { pacote, pacotesUsuario, comentario });
 });
 
 router.get("/paymentMethod/:idPacote/:slug", manipulaToken.verificaToken, (req, res) => {
@@ -149,9 +163,30 @@ router.post("/tipoPagamento/:idPacote/:slug", manipulaToken.verificaToken, (req,
 });
 
 router.post("/pesquisa", async (req, res) => {
-    let { pesquisa } = req.body;
+    let { pesquisa } = req.body;    
+
+    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
+    let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
+    let criterio = `WHERE pacote.nome LIKE ${pesquisa}%`;
+    let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
+
+    try {
+        let pesquisaResult = await new Promise((resolve, reject) => {
+            conn.query(query, pesquisa, async (err, pacotes) => {
+                if (err) throw reject(err);
+
+                resolve(await selects.getMediaETotal(pacotes));
+            });
+        });
+    } catch (err) {
+        console.log(err);
+
+    }
+
+    console.log(pesquisaResult);
 
 
+    res.render("searchResults", { pesquisaResult });
 });
 
 router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
@@ -195,7 +230,7 @@ router.get("/pagamentoCartao/:idPacote/:packSlug", (req, res) => {
     /*let { idPacote, packSlug } = req.params;
     let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";*/
 
-    
+
     res.render("debitPayment")
 });
 
@@ -208,10 +243,5 @@ router.post("/webhook(/pix)?", (req, res) => {
 router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
-
-router.get("/carrinho", (req,res) =>{
-    res.render("cart");
-})
-
 
 module.exports = router;
