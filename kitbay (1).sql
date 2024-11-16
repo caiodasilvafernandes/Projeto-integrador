@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Nov-2024 às 15:30
+-- Tempo de geração: 27-Out-2024 às 13:50
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 7.4.33
 
@@ -42,8 +42,7 @@ CREATE TABLE `avaliacao` (
 INSERT INTO `avaliacao` (`idAvalia`, `avaliacao`, `idPacote`, `dataAvaliacao`, `idCliente`) VALUES
 (2, '4', 4, '2024-10-23 14:01:38', 1),
 (3, '4', 10, '2024-10-23 14:40:21', 1),
-(4, '2', 10, '2024-10-23 14:40:50', 1),
-(5, '5', 11, '2024-11-08 11:15:32', 1);
+(4, '2', 10, '2024-10-23 14:40:50', 1);
 
 -- --------------------------------------------------------
 
@@ -5684,8 +5683,7 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `nome`, `login`, `senha`, `email`, `bio`, `idCidade`, `dataNasc`, `slug`, `imgPerfil`) VALUES
-(1, 'Caio da Silva Fernandes', 'capysman22', '$2a$10$CB7svc3lzdjvSHLA7Y0K/.MbhH8VKCTQQknoMRvtWM5T.NcMP/4HS', 'caio@gmail.com', ' sbjiwefln ler ', 1, '2006-12-08', 'capysman22', '762Captura de Tela (36).png'),
-(2, 'enzo', 'front', '$2a$10$bkMmBfgjqtwZaNv.oP4dsu6EeZsEvOuWbmxC96sppKLbmXttvJZX6', 'enzo@hingst.com', 'Gosto de homens fortes', 1, '2006-10-03', 'front', '512Captura de Tela (43).png');
+(1, 'Caio da Silva Fernandes', 'capysman2', '$2a$10$nI2mM25AVKDUmqa4TYemP.I8PC1JJxSUrEcoxDCUDZqwAKNgA9rh2', 'caio@gmail.com', 'brockhampton', 1, '2006-12-08', 'capysman2', '98Captura de Tela (33).png');
 
 -- --------------------------------------------------------
 
@@ -5699,25 +5697,6 @@ CREATE TABLE `comentario` (
   `idPacote` int(11) NOT NULL,
   `idFkCliente` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `comentario`
---
-
-INSERT INTO `comentario` (`idComentario`, `comentario`, `idPacote`, `idFkCliente`) VALUES
-(1, 'hefveqr', 12, 1),
-(2, 'v2o vo´2n', 12, 1),
-(3, 'h hub', 12, 1),
-(4, 'vwioe', 12, 1),
-(5, 'erijvr', 12, 1),
-(6, 'cuqerrbvipbj4 2k', 12, 1),
-(7, 'vr qjkbqvtw', 12, 1),
-(8, 'vybqipeib', 12, 1),
-(9, 'grR', 12, 1),
-(10, 'v kerb', 12, 1),
-(11, 'bvrtkl', 12, 1),
-(12, 'bqbibi', 12, 1),
-(13, 'voje voer o evo evo reoer er erov ervioervoipvoipevopervperp voerpviopvop ov ropv p vo3wp vio er erioov ip3', 12, 2);
 
 -- --------------------------------------------------------
 
@@ -5801,8 +5780,7 @@ INSERT INTO `pacote` (`idPacote`, `nome`, `dirImg`, `dirPacote`, `idCliente`, `d
 (9, 'Cfigvi', '240Captura de Tela (35).png', '240808.zip', 1, '240808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 1, 'cfigvi', '', '2024-10-06 17:48:19'),
 (10, 'vanvá', '614Captura de Tela (28).png', '614808.zip', 1, '614808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 3, 'vanva', 'Others', '2024-10-06 17:48:19'),
 (11, 'fasfjasf', '604Captura de Tela (32).png', '604808.zip', 1, '604808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 23, 'fasfjasf', 'Loops', '2024-10-06 17:48:19'),
-(12, 'OOOOOOOOO', '439Captura de Tela (52).png', '439808.zip', 1, '439808.zip', 1, 'ooooooooo', 'Loops', '2024-10-27 12:27:06'),
-(13, 'caio', '762Captura de Tela (41).png', '762Captura de Tela (39).png', 1, '762Captura de Tela (32).png', 34, 'caio', 'Drums', '2024-11-08 11:17:40');
+(12, 'OOOOOOOOO', '439Captura de Tela (52).png', '439808.zip', 1, '439808.zip', 1, 'ooooooooo', 'Loops', '2024-10-27 12:27:06');
 
 -- --------------------------------------------------------
 
@@ -5815,7 +5793,7 @@ CREATE TABLE `pacotesfav_comp` (
   `idFkPacote` int(11) NOT NULL,
   `idFkCliente` int(11) NOT NULL,
   `dataCompra` timestamp NOT NULL DEFAULT current_timestamp(),
-  `tipo` enum('fav','comp','car') DEFAULT NULL
+  `tipo` enum('fav','comp') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5827,8 +5805,7 @@ INSERT INTO `pacotesfav_comp` (`idPacoteFav`, `idFkPacote`, `idFkCliente`, `data
 (3, 6, 1, '2024-10-26 12:11:04', 'fav'),
 (4, 5, 1, '2024-09-10 12:10:52', 'comp'),
 (5, 1, 1, '2024-09-10 12:10:52', 'comp'),
-(6, 4, 1, '2024-09-10 12:10:52', 'comp'),
-(8, 11, 1, '2024-11-08 11:15:37', 'fav');
+(6, 4, 1, '2024-09-10 12:10:52', 'comp');
 
 -- --------------------------------------------------------
 
@@ -6190,31 +6167,31 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  MODIFY `idAvalia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idAvalia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `idComentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idComentario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `pacote`
 --
 ALTER TABLE `pacote`
-  MODIFY `idPacote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idPacote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `pacotesfav_comp`
 --
 ALTER TABLE `pacotesfav_comp`
-  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`

@@ -119,9 +119,7 @@ router.get("/profile",manipulaToken.verificaToken, async (req, res) => {
     var cliente = await new Promise((resolve, reject) => {
         conn.query(queryCliente, [id], (err, cliente) => {
             if (err) throw reject(err);
-
-            console.log(cliente);
-
+            
             if (cliente[0].bio == null) {
                 cliente[0].bio = "Crie uma bio na edição de perfil"
             }
@@ -143,14 +141,13 @@ router.get("/profile",manipulaToken.verificaToken, async (req, res) => {
 router.get("/profile/:slug/:id", async (req, res) => {
     let { id } = req.params;
     let render = "";
-    let idUser = 0;
+    let idUser = await manipulaToken.pegarId(req,res);
 
     if (req.cookies["jwToken"]) {
-        if (await manipulaToken.pegarId(req,res) == req.params.id) {
-            idUser = await manipulaToken.pegarId(req,res)
+        if (idUser == req.params.id) {
             render = "myProfile";
         }else{
-            render = "profileLog";
+            render = "profile";
         }
     }else{
         render = "profile";

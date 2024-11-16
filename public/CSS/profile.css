@@ -19,3 +19,21 @@
   margin-top: 0px;
   font-size: 50px;
 }
+
+.deleteBtn{
+  background-color: red;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-color: #fff;
+  border-width: 2px !important;
+  right: 100%;
+  translate: 430% 60%;
+  transition: transform 0.3s;
+  padding: 2.5px;
+}
+
+.deleteBtn:hover{
+  transform: scale(1.15);
+  cursor: pointer;
+}
