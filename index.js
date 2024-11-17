@@ -4,7 +4,8 @@ const port = 3000;
 const conn = require("./database/bd");
 const controleUsuario = require("./control/constroleUsuario");
 const controleCliente = require("./control/controleCliente");
-const controlePacote = require("./control/controlePacote")
+const controlePacote = require("./control/controlePacote");
+const controleLocais = require("./control/controleLocais")
 const cookieParser = require("cookie-parser");
 const selects = require("./model/selects");
 const controleXML = require("./control/controleXML");
@@ -53,5 +54,6 @@ app.use("/", controleUsuario);
 app.use("/", controleCliente);
 app.use("/", controlePacote);
 app.use("/", controleXML);
+app.use("/", controleLocais);
 
 app.listen(port);
