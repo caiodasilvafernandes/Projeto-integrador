@@ -5,8 +5,6 @@ const slug = require("slug");
 const methodOver = require("method-override");
 const conn = require("../database/bd");
 const manipulaToken = require("../model/token");
-const GNRequest = require("../model/gerencianet");
-//const reqGNAlready = GNRequest;
 const upload = require("../model/multer");
 const selects = require("../model/selects");
 
@@ -184,41 +182,10 @@ router.post("/pesquisa", async (req, res) => {
     res.render("searchResults", { pesquisaResult });
 });
 
-/*router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
-    const reqGN = await reqGNAlready;
-    let { idPacote, packSlug } = req.params;
-    let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";
+router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
+    
 
-    let pacote = await new Promise((resolve, reject) => {
-        conn.query(query, [idPacote, packSlug], (err, pacote) => {
-            if (err) throw reject(err);
-
-            resolve(pacote)
-        });
-    });
-
-    let preco = pacote[0].preco;
-    preco = preco.toFixed(2);
-
-    const dataCob = {
-        "calendario": {
-            "expiracao": 300
-        },
-        "valor": {
-            "original": `${preco}`
-        },
-        "chave": "(48)99672-9147",
-        "solicitacaoPagador": "Cobrança da venda."
-    };
-
-    const cobResponse = await reqGN.post("/v2/cob", dataCob);
-
-    const qrcodeResponse = await reqGN.get(`/v2/loc/${cobResponse.data.loc.id}/qrcode`);
-
-    let qrCode = qrcodeResponse.data;
-    let cobranca = cobResponse.data;
-
-    res.render("pixPayment", { qrCode, cobranca });
+    res.render("pixPayment");
 });
 
 router.get("/pagamentoCartao/:idPacote/:packSlug", (req, res) => {
@@ -228,12 +195,6 @@ router.get("/pagamentoCartao/:idPacote/:packSlug", (req, res) => {
 
     res.render("debitPayment")
 });
-
-router.post("/webhook(/pix)?", (req, res) => {
-    console.log(req.body);
-    res.status(200);
-
-});*/
 
 router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
