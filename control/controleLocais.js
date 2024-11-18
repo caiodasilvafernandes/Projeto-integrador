@@ -16,6 +16,7 @@ router.get("/getEstado/:paisId", (req, res) => {
   const query = "SELECT * FROM estado WHERE idPais = ?";
   db.query(query, [paisId], (err, suc) => {
     if (err) return res.status(500).json({ error: err.message });
+
     res.json(suc);
   });
 });
@@ -26,6 +27,7 @@ router.get("/getCidade/:estadoId", (req, res) => {
   const query = "SELECT * FROM cidade WHERE idEstado = ?";
   db.query(query, [estadoId], (err, suc) => {
     if (err) return res.status(500).json({ error: err.message });
+    
     res.json(suc);
   });
 });

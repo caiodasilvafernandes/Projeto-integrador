@@ -183,7 +183,6 @@ router.post("/pesquisa", async (req, res) => {
 });
 
 router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
-    
 
     res.render("pixPayment");
 });

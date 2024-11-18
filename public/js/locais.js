@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       conexao(`/getCidade/${estadoId}`).then((cidades) => {
         cidades.forEach((city) => {
           const option = document.createElement("option");
-          option.value = city.id;
+          option.value = city.idCidade;
           option.textContent = city.nome;
           cidadeSelect.appendChild(option);
         });
