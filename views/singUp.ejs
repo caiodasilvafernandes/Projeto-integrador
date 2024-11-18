@@ -44,21 +44,20 @@
           </div>         
           <!--país-->
           <div class="row">
-            <p class="text-start subTitle col-4">País</p>
-              <select name="pais" id="pais" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
-              <option value="0" >Selecione um país</option>
-              </select>
+            <select name="pais" id="pais" class="dropdown inputForm form-control form-control-sm col selectForm">
+              <option value="0">Selecione um país</option>
+            </select>
           </div>
           <!--estado-->
           <div class="row">
-              <p class="text-start subTitle col-4">Estado</p><select name="estate" id="estate" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
-              <option value="estado1" >Estado1</option>
-              </select>
+          <select name="estate" id="estate" class="dropdown inputForm form-control form-control-sm col selectForm">
+            <option value="0">Selecione um estado</option>
+          </select>
           </div>
           <!--cidade-->
           <div class="row">
-            <p class="text-start subTitle col-4">Cidade</p><select name="city" id="city" class="dropdown inputForm form-control form-control-sm col selectForm"  type="button" data-bs-toggle="dropdown">
-            <option value="city1" >cidade1</option>
+            <select name="city" id="city" class="dropdown inputForm form-control form-control-sm col selectForm">
+              <option value="0">Selecione uma cidade</option>
             </select>
         </div>
           <!--ja tem  conta-->
@@ -98,45 +97,47 @@
 
 
 
-<script>
-// ativar os popovers do bootstrap
+  <script>
+    // ativar os popovers do bootstrap
+    
+    /*
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    
+    // funçao para mostrar os popovers
+    function showPopovers() {
+      popoverTriggerList.forEach(popoverTriggerEl => {
+        const popoverInstance = bootstrap.Popover.getOrCreateInstance(popoverTriggerEl);
+        popoverInstance.show(); // exibe o popover
+      });
+    }
+    
+    const toastTrigger = document.getElementById('singUpBtn');
+    const toastLiveExample = document.getElementById('liveToast');
+    
+    if (toastTrigger) {
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+      toastTrigger.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        showPopovers(); 
+        toastBootstrap.show();
+      });
+    }
+    
+    //script do dropDownButton, fodaci
+    const selectElement = document.getElementById('type');
+    
+    selectElement.addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
+    
+    document.addEventListener('click', function() {
+      if (!selectElement.contains(event.target)) {
+      selectElement.classList.remove('active');
+      }
+    });*/
+    
+      </script>
 
-/*
-const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
-
-// funçao para mostrar os popovers
-function showPopovers() {
-  popoverTriggerList.forEach(popoverTriggerEl => {
-    const popoverInstance = bootstrap.Popover.getOrCreateInstance(popoverTriggerEl);
-    popoverInstance.show(); // exibe o popover
-  });
-}
-
-const toastTrigger = document.getElementById('singUpBtn');
-const toastLiveExample = document.getElementById('liveToast');
-
-if (toastTrigger) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-  toastTrigger.addEventListener('click', (e) => {
-    e.preventDefault(); 
-    showPopovers(); 
-    toastBootstrap.show();
-  });
-}
-
-//script do dropDownButton, fodaci
-const selectElement = document.getElementById('type');
-
-selectElement.addEventListener('click', function() {
-  this.classList.toggle('active');
-});
-
-document.addEventListener('click', function() {
-  if (!selectElement.contains(event.target)) {
-  selectElement.classList.remove('active');
-  }
-});*/
-
-  </script>
+  <script src="js\locais.js"></script>
   </body>
