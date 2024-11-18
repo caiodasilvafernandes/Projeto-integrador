@@ -1,4 +1,4 @@
-const axios = require("axios");
+/*const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 const https = require("https");
@@ -66,4 +66,4 @@ const GNRequest = async () => {
     res.render("pixPayment");
     console.log(qrcodeResponse.data);
 }); */
-module.exports = GNRequest();
+//module.exports = GNRequest();

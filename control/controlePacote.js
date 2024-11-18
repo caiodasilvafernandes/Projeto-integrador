@@ -6,7 +6,7 @@ const methodOver = require("method-override");
 const conn = require("../database/bd");
 const manipulaToken = require("../model/token");
 const GNRequest = require("../model/gerencianet");
-const reqGNAlready = GNRequest;
+//const reqGNAlready = GNRequest;
 const upload = require("../model/multer");
 const selects = require("../model/selects");
 
@@ -163,33 +163,28 @@ router.post("/tipoPagamento/:idPacote/:slug", manipulaToken.verificaToken, (req,
 });
 
 router.post("/pesquisa", async (req, res) => {
-    let { pesquisa } = req.body;    
+    let { pesquisa } = req.body;
 
-    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
+
+    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,pacote.idCliente as donoPack,cliente.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
-    let criterio = `WHERE pacote.nome LIKE ${pesquisa}%`;
-    let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
+    let criterio = "WHERE pacote.nome LIKE ?;";
+    let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ${pesquisa}%;`;
 
-    try {
         let pesquisaResult = await new Promise((resolve, reject) => {
-            conn.query(query, pesquisa, async (err, pacotes) => {
-                if (err) throw reject(err);
-
+            conn.query(query, async (err, pacotes) => {
+                if (err) reject(err);
+                
                 resolve(await selects.getMediaETotal(pacotes));
             });
         });
-    } catch (err) {
-        console.log(err);
-
-    }
 
     console.log(pesquisaResult);
-
 
     res.render("searchResults", { pesquisaResult });
 });
 
-router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
+/*router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
     const reqGN = await reqGNAlready;
     let { idPacote, packSlug } = req.params;
     let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";
@@ -227,8 +222,8 @@ router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
 });
 
 router.get("/pagamentoCartao/:idPacote/:packSlug", (req, res) => {
-    /*let { idPacote, packSlug } = req.params;
-    let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";*/
+    let { idPacote, packSlug } = req.params;
+    let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";
 
 
     res.render("debitPayment")
@@ -238,7 +233,7 @@ router.post("/webhook(/pix)?", (req, res) => {
     console.log(req.body);
     res.status(200);
 
-});
+});*/
 
 router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
