@@ -157,3 +157,11 @@ body {
 .underSAnima:hover::after {
   width: 100%;
 }
+
+.dropdown{
+  color: #fff;
+}
+
+.dropdown option{
+  color: #fff;
+}
