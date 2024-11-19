@@ -9,6 +9,7 @@ const controleLocais = require("./control/controleLocais")
 const cookieParser = require("cookie-parser");
 const selects = require("./model/selects");
 const controleXML = require("./control/controleXML");
+
 require("dotenv").config();
 
 app.set("view engine", "ejs");

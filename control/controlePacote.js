@@ -84,7 +84,7 @@ router.get("/carrinho", manipulaToken.verificaToken, (req, res) => {
         if (err) throw err;
 
         pacote = await selects.getMediaETotal(pacote);
-
+        
         res.render("cart", { pacote });
     });
 })

@@ -26,7 +26,8 @@
                     <input type="checkbox" id="prod">
                 </div>
                 <div class="col-6 col-md-1 text-right">
-                    <a href="#" class="subTitle">Excluir</a><br>
+                    <button class="btnBase" id="btnDelete" name="<%= pack.idFkCliente %>, <%= pack.idFkPacote %>">Excluir</button>
+                    <br>
                 </div>
                 <div class="linha"></div>
             </div>
@@ -35,7 +36,8 @@
         <!-- total e prosseguir -->
         <div class="d-flex justify-content-between mt-4 total">
             <p class="subTitle"> Total: <strong class="price">R$17,98</strong></p>
-            <button class="btnBase">Continuar</button>
+            <button class="btnBase" type="submit">Continuar</button>
         </div>
     </div>
 </body>
+<script type="text/javascript" src="/js/cart.js"></script>

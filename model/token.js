@@ -32,11 +32,11 @@ class manipulaJWT {
 
         jwt.verify(verificaToken, process.env.SECRET_TOKEN, (err, decoded) => {
             if (err) {
-                res.status(500).send({ auth: false, message: "Token inválido." });
+                res.render("/");
                 return;
             }
-
             req.userId = decoded.id;
+            return;
         });
 
         const token = await jwt.sign({ id: req.userId }, process.env.SECRET_TOKEN);

@@ -112,4 +112,12 @@ router.delete("/deletaPacote/:id", (req, res) => {
     }
 });
 
+router.delete("/deleteCar/:idCliente/:idPack",manipulaToken.verificaToken,(req,res)=>{
+    let { idCliente,idPack } = req.params;
+
+    let query = `DELETE FROM pacotesfav_comp WHERE idFkCliente = ${idCliente} AND idFkPacote = ${idPack} AND tipo = "car"`
+
+    conn.query(query);
+}); 
+
 module.exports = router;
