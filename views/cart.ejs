@@ -8,7 +8,7 @@
         <div class="contCart">
             <!-- priemira row de pacote -->
             <% for(pack of pacote){ %>
-            <div class="row productRow">
+            <div class="row productRow" id="<%= pack.idFkPacote %>">
                 <div class="col-6 col-md-3">
                     <img src="/uploads/img/kitCover/<%= pack.dirImg %>" class="kitCart" alt="Produto 1">
                 </div>
