@@ -109,9 +109,10 @@
           <a id="fav" class="text-start heart a" valor="0"></a><br>
           <a class="text-start cart" valor="0"></a><br>
         </div>
-
-        <a class="btn btnBase" href="/paymentMethod/<%= pacote[0].idPacote %>">$<%=
-            pacote[0].preco %></a><br>
+        <form action="/paymentMethod">
+          <input type="hidden" value="<%= pacote[0].idPacote %>">
+          <button type="submit" class="btn btnBase">$<%= pacote[0].preco %></button><br>
+        </form>
         <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>
       </div>
 
@@ -134,15 +135,17 @@
         <div class="roller" id="commentSection">
           <div class="controler">
             <% for(coment of comentario){ %>
-            <a class="subTitle" href="/profile/<%= coment.slug %>/<%= coment.idCliente %>">
-              <!--foto do usuario e o nome -->
-              <img src="/uploads/img/pfp/<%= coment.imgPerfil %>" class="pfp" /><%= coment.login %></a>
-            <!-- texto do comentário -->
-            <p class="subTitle text-start comment">
-              <%= coment.comentario %>
-            </p>
-            <div class="linha float-start" style="width: 635px;"></div><br>
-            <% } %>
+              <a class="subTitle" href="/profile/<%= coment.slug %>/<%= coment.idCliente %>">
+                <!--foto do usuario e o nome -->
+                <img src="/uploads/img/pfp/<%= coment.imgPerfil %>" class="pfp" />
+                <%= coment.login %>
+              </a>
+              <!-- texto do comentário -->
+              <p class="subTitle text-start comment">
+                <%= coment.comentario %>
+              </p>
+              <div class="linha float-start" style="width: 635px;"></div><br>
+              <% } %>
           </div>
 
           <div class="linha float-start" style="width: 635px;"></div><br>
@@ -193,8 +196,8 @@
               verClass.remove('a');
               //mudando o valor
               fc.target.setAttribute('valor', '1');
-              
-              controleFav("<%= pacote[0].idPacote %>",1);
+
+              controleFav("<%= pacote[0].idPacote %>", 1);
 
             } else if (!verClass.contains('a')) {
               verClass.add('a');
@@ -205,24 +208,24 @@
           if (verClass.contains('cart')) {
             if (verClass.contains('ca')) {
               verClass.remove('ca');
-              controleCar("<%= pacote[0].idPacote %>",0);
+              controleCar("<%= pacote[0].idPacote %>", 0);
               fc.target.setAttribute('valor', '1');
 
             } else if (!verClass.contains('ca')) {
               verClass.add('ca');
-              controleCar("<%= pacote[0].idPacote %>",1);
+              controleCar("<%= pacote[0].idPacote %>", 1);
               fc.target.setAttribute('valor', '0');
-              
+
             } else if (!verClass.contains('ca')) {
               verClass.add('ca');
-              controleCar("<%= pacote[0].idPacote %>",1);
+              controleCar("<%= pacote[0].idPacote %>", 1);
               fc.target.setAttribute('valor', '1');
             }
           }
         })
 
-         //***********************comentarios**************************
-         document.getElementById('commentForm').addEventListener('submit', function (event) {
+        //***********************comentarios**************************
+        document.getElementById('commentForm').addEventListener('submit', function (event) {
           //como é sem consulta, isso aqui é pra cortar o envio padrao do formulario, n ficar atualizando a pagina pra sempre
           event.preventDefault();
 

@@ -1,4 +1,4 @@
-const valor = document.getElementById("search").value;
+const valor = document.getElementById("pesquisa").value;
 
 function autoComplete(pacote) {
   const destino = ["caio", "enzo", "pacote"];
@@ -43,7 +43,7 @@ sug.addEventListener("input", ({ target }) => {
       </p>
   </div>
 
-</div></li>`;
+</div></li>`
             })
             .join("")}
          `;

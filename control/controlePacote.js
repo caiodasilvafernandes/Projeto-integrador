@@ -84,7 +84,7 @@ router.get("/carrinho", manipulaToken.verificaToken, (req, res) => {
         if (err) throw err;
 
         pacote = await selects.getMediaETotal(pacote);
-        
+
         res.render("cart", { pacote });
     });
 })
@@ -144,8 +144,8 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     res.render("kitPage", { pacote, pacotesUsuario, comentario });
 });
 
-router.get("/paymentMethod/:idPacote/", manipulaToken.verificaToken, (req, res) => {
-    let { idPacote } = req.params;
+router.get("/paymentMethod", manipulaToken.verificaToken, (req, res) => {
+    let { idPacote } = req.body;
     res.render("paymentMethod", { idPacote });
 });
 
@@ -166,20 +166,15 @@ router.post("/pesquisa", async (req, res) => {
 
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,pacote.idCliente as donoPack,cliente.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
-    let criterio = "WHERE pacote.nome LIKE ?;";
-    let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ${pesquisa}%;`;
+    let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ?;`
 
-        let pesquisaResult = await new Promise((resolve, reject) => {
-            conn.query(query, async (err, pacotes) => {
-                if (err) reject(err);
-                
-                resolve(await selects.getMediaETotal(pacotes));
-            });
-        });
+    conn.query(query, [pesquisa+"%"], async (err, pacotes) => {
+        if (err) throw err;
 
-    console.log(pesquisaResult);
+        pacotes = await selects.getMediaETotal(pacotes);
 
-    res.render("searchResults", { pesquisaResult });
+        res.render("searchResults", { pacotes });
+    });
 });
 
 router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
