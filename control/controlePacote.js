@@ -144,20 +144,20 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     res.render("kitPage", { pacote, pacotesUsuario, comentario });
 });
 
-router.get("/paymentMethod/:idPacote/:slug", manipulaToken.verificaToken, (req, res) => {
-    let pacote = req.params;
-    res.render("paymentMethod", { pacote });
+router.get("/paymentMethod/:idPacote/", manipulaToken.verificaToken, (req, res) => {
+    let { idPacote } = req.params;
+    res.render("paymentMethod", { idPacote });
 });
 
-router.post("/tipoPagamento/:idPacote/:slug", manipulaToken.verificaToken, (req, res) => {
+router.post("/tipoPagamento/:idPacote", manipulaToken.verificaToken, (req, res) => {
     let { metodo } = req.body;
-    let pacote = req.params;
+    let { idPacote } = req.params;
 
     if (metodo === "pix") {
-        res.redirect(`/pagamentoPix/${pacote.idPacote}/${pacote.slug}`);
+        res.redirect(`/pagamentoPix/${idPacote}/${pacote.slug}`);
         return;
     }
-    res.redirect(`/pagamentoCartao/${pacote.idPacote}/${pacote.slug}`)
+    res.redirect(`/pagamentoCartao/${pacote.idPacote}`)
 });
 
 router.post("/pesquisa", async (req, res) => {

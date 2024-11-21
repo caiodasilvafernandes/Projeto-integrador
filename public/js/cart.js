@@ -1,5 +1,6 @@
 const xhttp = new XMLHttpRequest();
 var btnDelete = document.getElementById("btnDelete");
+var btnContinuar = document.getElementById("btnContinuar");
 
 function deleteCar(idCliente,idPack){
     idCliente = parseInt(idCliente); 
@@ -17,4 +18,13 @@ btnDelete.addEventListener("click",(event)=>{
     
     let div = document.getElementById(idPack);
     closest(".row productRow").remove();
+});
+
+btnContinuar.addEventListener("click",()=>{
+    let checkbox = document.querySelectorAll("input[type='checkbox']:checked");
+
+    for(check of checkbox){
+
+    }
+    
 });
