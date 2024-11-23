@@ -8,6 +8,14 @@ const manipulaToken = require("../model/token");
 const upload = require("../model/multer");
 const selects = require("../model/selects");
 
+// SDK do Mercado Pago
+const { MercadoPagoConfig, Payment } = require("mercadopago");
+
+const client = new MercadoPagoConfig({
+  accessToken: "a",
+});
+
+
 require("dotenv").config();
 
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -174,7 +182,39 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
 router.get("/paymentMethod", manipulaToken.verificaToken, (req, res) => {
     let { idPacote } = req.body;
     res.render("paymentMethod", { idPacote });
+  }
+);
+
+router.post("/process_payment", (req, res) => {
+  const payment = new Payment(client);
+
+  const body = {
+    transaction_amount: 12.34,
+    description: "<DESCRIPTION>",
+    payment_method_id: "pix",
+    payer: {
+      email: "ngmsemexe@gmail.com",
+    },
+  };
+
+  payment
+    .create({
+      body: {
+        transaction_amount: 12.34,
+        description: "<DESCRIPTION>",
+        payment_method_id: "pix",
+        payer: {
+          email: "<EMAIL>",
+        },
+      },
+      requestOptions: { idempotencyKey: "<SOME_UNIQUE_VALUE>" },
+    })
+    .then(console.log)
+    .catch(console.log);
+
+  payment.create({ body }).then(console.log).catch(console.log);
 });
+
 
 router.post("/tipoPagamento/:idPacote", manipulaToken.verificaToken, (req, res) => {
     let { metodo } = req.body;
