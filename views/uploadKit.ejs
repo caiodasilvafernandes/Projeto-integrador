@@ -3,7 +3,7 @@
   <link rel="stylesheet" type="text/css" href="CSS/index.css"/>
 
   <body style="overflow-y: auto !important; overflow-x: none !important;">
-    <%- include("partials/hudAdm")%>
+    <%- include("partials/hudLog")%>
 
     <div class="row g-0 imgDir">
     <div class="col-md-6 d-flex justify-content-center align-items-center">
@@ -34,7 +34,7 @@
       </div>  
       <!-- input da imagem-->
       <div class="row">
-      <img class="imgUpload"/>
+      <img class="imgUpload" id="previewCapa"/>
       </div>      
       <!-- mostra o nome dos arquivos slecionados pelo user-->
       <div class="row">
@@ -75,6 +75,26 @@
     </div>
   </div>
 </div>
+
+<script>
+  var capa = document.getElementById("cover");
+  var previewCapa = document.getElementById("previewCapa");
+  capa.addEventListener("input",(e)=>{
+    let img = event.target.files[0];
+
+    if(img){
+      let reader = new FileReader();
+
+      reader.onload = (e)=>{
+        previewCapa.src = e.target.result;
+      }
+
+      reader.readAsDataURL(img)
+    }else{
+      previewCapa.src = "";
+    }
+  });
+</script>
 
 <!--<script>
 // ativar os popovers do bootstrap

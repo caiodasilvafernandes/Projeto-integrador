@@ -102,6 +102,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     let queryFav = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'fav'";
     let queryCar = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'car'";
     let queryComp = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'comp'";
+    let queryAvalia = "SELECT * FROM avaliacao WHERE idCliente = ? AND idPacote = ?;";
 
     var pacote = await new Promise((resolve, reject) => {
         conn.query(query, [id, slug], (err, pack) => {
@@ -127,7 +128,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
         });
     });
 
-    if (req.cookies["jwToken"] != undefined) {
+    if (req.cookies["jwToken"] !== undefined) {
         let idUser = await manipulaToken.pegarId(req, res);
 
         let query = "SELECT * FROM cliente WHERE idCliente = ?;";
@@ -138,33 +139,41 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
 
                 resolve(result);
             });
-
-            let fav = new Promise((resolve, reject) => {
-                conn.query(queryFav, [idCliente, idPacote], (err, result) => {
-                    if (err) reject(err);
-
-                    resolve(result)
-                });
-            });
-
-            let car = new Promise((resolve, reject) => {
-                conn.query(queryCar, [idCliente, idPacote], (err, result) => {
-                    if (err) reject(err);
-
-                    resolve(result)
-                });
-            });
-
-            let comp = new Promise((resolve, reject) => {
-                conn.query(queryComp, [idCliente, idPacote], (err, result) => {
-                    if (err) reject(err);
-
-                    resolve(result)
-                });
+        });
+        
+        let fav = await new Promise((resolve, reject) => {
+            conn.query(queryFav, [idUser, pacote[0].idPacote], (err, result) => {
+                if (err) reject(err);
+                
+                resolve(result)
             });
         });
 
-        res.render("kitPageLog", { pacote, pacotesUsuario, comentario, user, fav, car, comp });
+        let car = await new Promise((resolve, reject) => {
+            conn.query(queryCar, [idUser, pacote[0].idPacote], (err, result) => {
+                if (err) reject(err);
+
+                resolve(result)
+            });
+        });
+
+        let comp = await new Promise((resolve, reject) => {
+            conn.query(queryComp, [idUser, pacote[0].idPacote], (err, result) => {
+                if (err) reject(err);
+
+                resolve(result)
+            });
+        });
+
+        let avalia = await new Promise((resolve, reject) => {
+            conn.query(queryAvalia, [idUser, pacote[0].idPacote], (err, result) => {
+                if (err) reject(err);
+
+                resolve(result)
+            });
+        });
+
+        res.render("kitPageLog", { pacote, pacotesUsuario, comentario, user, fav, car, comp, avalia });
         return;
     }
 

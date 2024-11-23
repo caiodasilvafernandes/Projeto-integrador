@@ -33,8 +33,8 @@ class manipulaJWT {
         jwt.verify(verificaToken, process.env.SECRET_TOKEN, (err, decoded) => {
             if (err) {
                 res.render("/");
-                return;
             }
+            
             req.userId = decoded.id;
             return;
         });
