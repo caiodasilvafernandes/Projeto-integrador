@@ -91,6 +91,7 @@ router.get("/carrinho", manipulaToken.verificaToken, (req, res) => {
 
 router.get("/kitPage/:id/:slug", async (req, res) => {
     var { slug, id } = req.params;
+    var idCliente = req.userId;
 
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
@@ -98,7 +99,9 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
     let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ?";
     let queryComent = "SELECT comentario.comentario, comentario.idPacote, comentario.idFkCliente, cliente.idCliente, cliente.slug, cliente.login,cliente.imgPerfil FROM comentario  INNER JOIN cliente  ON cliente.idCliente = comentario.idFkCliente WHERE idPacote = ? ORDER BY idComentario DESC";
-    let queryUser = "SELECT * FROM cliente WHERE idCliente = ?";
+    let queryFav = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'fav'";
+    let queryCar = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'car'";
+    let queryComp = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'comp'";
 
     var pacote = await new Promise((resolve, reject) => {
         conn.query(query, [id, slug], (err, pack) => {
@@ -135,9 +138,33 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
 
                 resolve(result);
             });
+
+            let fav = new Promise((resolve, reject) => {
+                conn.query(queryFav, [idCliente, idPacote], (err, result) => {
+                    if (err) reject(err);
+
+                    resolve(result)
+                });
+            });
+
+            let car = new Promise((resolve, reject) => {
+                conn.query(queryCar, [idCliente, idPacote], (err, result) => {
+                    if (err) reject(err);
+
+                    resolve(result)
+                });
+            });
+
+            let comp = new Promise((resolve, reject) => {
+                conn.query(queryComp, [idCliente, idPacote], (err, result) => {
+                    if (err) reject(err);
+
+                    resolve(result)
+                });
+            });
         });
 
-        res.render("kitPageLog", { pacote, pacotesUsuario, comentario, user });
+        res.render("kitPageLog", { pacote, pacotesUsuario, comentario, user, fav, car, comp });
         return;
     }
 
@@ -168,12 +195,15 @@ router.post("/pesquisa", async (req, res) => {
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ?;`
 
-    conn.query(query, [pesquisa+"%"], async (err, pacotes) => {
+    conn.query(query, [pesquisa + "%"], async (err, pacotes) => {
         if (err) throw err;
 
         pacotes = await selects.getMediaETotal(pacotes);
 
-        res.render("searchResults", { pacotes });
+        if (req.cookies["jwToken"]) {
+            res.render("searchResultsLog", { pacotes, pesquisa });
+        }
+        res.render("searchResults", { pacotes, pesquisa });
     });
 });
 

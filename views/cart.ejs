@@ -23,7 +23,7 @@
                     <p class="price">R$<%= pack.preco %></p>
                 </div>
                 <div class="col-6 col-md-2">
-                    <input type="checkbox" id="<%= pack.idPacote %>" value="<%= pack.preco %>">
+                    <input type="checkbox" name="prod" id="<%= pack.idPacote %>" value="<%= pack.preco %>">
                 </div>
                 <div class="col-6 col-md-1 text-right">
                     <button class="btnBase" id="btnDelete" name="<%= pack.idFkCliente %>, <%= pack.idFkPacote %>">Excluir</button>
