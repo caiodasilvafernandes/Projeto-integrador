@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     paises.forEach((pais) => {
       const option = document.createElement("option");
       option.value = pais.idPais;
-      option.textContent = pais.nome;
+      option.textContent = pais.nome_pt;
       paisSelect.appendChild(option);
     });
   });

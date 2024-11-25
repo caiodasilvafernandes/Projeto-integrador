@@ -118,12 +118,16 @@
             <a class="text-start cart ca" valor="0"></a><br>
           <% } %>
         </div>
-        <% if(car != null){ %>
+        <% if(comp == []){ %>
           <a class="text-start cart" valor="0"></a><br>
-          <a href="/uploads/pack/<%= pacote[0].dirPack %>"><button class="btn btnBase">Baixar pacote</button></a>
+          <a href="/uploads/pack/<%= pacote[0].dirPacote %>"><button class="btn btnBase">Baixar pacote</button></a>
         <% }else{ %>
-          <form action="/paymentMethod">
-            <input type="hidden" value="<%= pacote[0].idPacote %>">
+          <form action="/paymentMethod" method="post">
+            <input type="hidden" name="idPacote" value="<%= pacote[0].idPacote %>">
+            <input type="hidden" name="nomeProd" value="<%= pacote[0].nome %>">
+            <input type="hidden" name="preco" value="<%= pacote[0].preco %>">
+            <input type="hidden" name="cliente" value="<%= pacote[0].nomeCliente %>">
+            <input type="hidden" name="email" value="<%= pacote[0].email %>">
             <button type="submit" class="btn btnBase">$<%= pacote[0].preco %></button><br>
           </form>
         <% } %>
@@ -176,7 +180,6 @@
         //***********************avaliacao**************************
         //tá puxando as tags com a classe star, vulgo as estrelakkkk
         var stars = document.querySelectorAll('.star');
-        var nota = "<%= avalia[0].avaliacao %>"; 
 
         document.addEventListener('click', function (fc) {
           //verifica se o elemento tem a classe star, se n ele sai adicionando t em todos os outro elemento da pagina

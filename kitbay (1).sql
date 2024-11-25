@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16-Nov-2024 às 15:54
+-- Tempo de geração: 25-Nov-2024 às 01:02
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 7.4.33
 
@@ -40,10 +40,56 @@ CREATE TABLE `avaliacao` (
 --
 
 INSERT INTO `avaliacao` (`idAvalia`, `avaliacao`, `idPacote`, `dataAvaliacao`, `idCliente`) VALUES
-(2, '4', 4, '2024-10-23 14:01:38', 1),
-(3, '4', 10, '2024-10-23 14:40:21', 1),
-(4, '2', 10, '2024-10-23 14:40:50', 1),
-(5, '5', 11, '2024-11-08 11:15:32', 1);
+(1, '4', 19, '2024-11-24 21:38:37', 1),
+(2, '3', 18, '2024-11-24 21:38:53', 1),
+(3, '5', 17, '2024-11-24 21:39:00', 1),
+(4, '3', 16, '2024-11-24 21:39:05', 1),
+(5, '4', 15, '2024-11-24 21:39:10', 1),
+(6, '5', 14, '2024-11-24 21:39:21', 1),
+(7, '2', 13, '2024-11-24 21:39:28', 1),
+(8, '5', 12, '2024-11-24 21:39:52', 1),
+(9, '5', 19, '2024-11-24 21:41:24', 1),
+(10, '2', 18, '2024-11-24 21:41:31', 1),
+(11, '5', 17, '2024-11-24 21:41:36', 1),
+(12, '3', 16, '2024-11-24 21:41:43', 1),
+(13, '3', 12, '2024-11-24 21:41:51', 1),
+(14, '5', 12, '2024-11-24 21:41:52', 1),
+(15, '5', 13, '2024-11-24 21:41:59', 1),
+(16, '3', 14, '2024-11-24 21:42:05', 1),
+(17, '2', 15, '2024-11-24 21:42:11', 1),
+(18, '3', 19, '2024-11-24 21:56:16', 6),
+(19, '5', 18, '2024-11-24 21:56:24', 6),
+(20, '2', 17, '2024-11-24 21:56:30', 6),
+(21, '5', 12, '2024-11-24 21:56:55', 6),
+(22, '5', 13, '2024-11-24 21:57:01', 6),
+(23, '2', 14, '2024-11-24 21:57:09', 6),
+(24, '2', 15, '2024-11-24 21:57:32', 6),
+(25, '5', 19, '2024-11-24 21:59:13', 7),
+(26, '4', 18, '2024-11-24 21:59:22', 7),
+(27, '3', 17, '2024-11-24 21:59:27', 7),
+(28, '5', 16, '2024-11-24 21:59:32', 7),
+(29, '5', 15, '2024-11-24 21:59:40', 7),
+(30, '5', 14, '2024-11-24 21:59:49', 7),
+(31, '5', 12, '2024-11-24 21:59:54', 7),
+(32, '5', 19, '2024-11-24 22:02:40', 9),
+(33, '3', 18, '2024-11-24 22:02:44', 9),
+(34, '5', 17, '2024-11-24 22:02:49', 9),
+(35, '5', 16, '2024-11-24 22:02:54', 9),
+(36, '5', 12, '2024-11-24 22:03:01', 9),
+(37, '3', 13, '2024-11-24 22:03:06', 9),
+(38, '5', 14, '2024-11-24 22:03:12', 9),
+(39, '5', 15, '2024-11-24 22:03:17', 9),
+(40, '5', 19, '2024-11-24 22:03:29', 9),
+(41, '5', 19, '2024-11-24 22:06:42', 8),
+(42, '5', 18, '2024-11-24 22:06:48', 8),
+(43, '3', 17, '2024-11-24 22:06:53', 8),
+(44, '5', 16, '2024-11-24 22:06:59', 8),
+(45, '5', 12, '2024-11-24 22:07:08', 8),
+(46, '5', 13, '2024-11-24 22:07:14', 8),
+(47, '5', 14, '2024-11-24 22:07:22', 8),
+(48, '5', 15, '2024-11-24 22:07:27', 8),
+(49, '4', 11, '2024-11-24 22:19:30', 1),
+(50, '5', 12, '2024-11-24 22:19:43', 1);
 
 -- --------------------------------------------------------
 
@@ -5684,8 +5730,11 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `nome`, `login`, `senha`, `email`, `bio`, `idCidade`, `dataNasc`, `slug`, `imgPerfil`) VALUES
-(1, 'Caio da Silva Fernandes', 'capysman22', '$2a$10$CB7svc3lzdjvSHLA7Y0K/.MbhH8VKCTQQknoMRvtWM5T.NcMP/4HS', 'caio@gmail.com', ' sbjiwefln ler ', 1, '2006-12-08', 'capysman22', '762Captura de Tela (36).png'),
-(2, 'enzo', 'front', '$2a$10$bkMmBfgjqtwZaNv.oP4dsu6EeZsEvOuWbmxC96sppKLbmXttvJZX6', 'enzo@hingst.com', 'Gosto de homens fortes', 1, '2006-10-03', 'front', '512Captura de Tela (43).png');
+(1, 'Caio da Silva Fernandes', 'capysman22', '$2a$10$0POV9..6Hm61Q7Lrv4oO3ORBtxtNAxP52WwzZz5Dn3OFd5UoT2IQy', 'caio@gmail.com', 'Apenas um dos criadores do site', 1, '2006-12-08', 'capysman22', NULL),
+(6, 'Enzo de Souza Hingst', '4god', '$2a$10$f.MxJe71EvWgCPm0OjIEY.cpDdiMJDpTkXprvjNxvBfL80Ttw4bL6', 'enzo@gmail.com', 'Apenas um criador do site', 0, '2006-10-04', '4god', '7614godpfp.png'),
+(7, 'Tyler Okonma', 'Tyler, the creator', '$2a$10$2/Cm2HnOhta7B/rF6iqxiui5wLRRWHTnLXMERw4mwfOv7pOj1dh3W', 'okonma@gmail.com', 'CRHOMAKOPIA', 0, '1988-06-23', 'tyler-the-creator', '761tylerPfp.jpg'),
+(8, 'Otis Jackson', 'madlib', '$2a$10$.MZ7CW7vOUNM5O2IO0.NderT6aD8q2rXPSfamSDcNZm5A3LakXiRC', 'jackson@gmail.com', 'Madvilain', 0, '1981-07-19', 'madlib', '761madlibPfp.jpg'),
+(9, 'Michael George Dean', 'Mike Dean', '$2a$10$tk0rWBXpJMGtXdUpnWWGf.X7WkGMxCnlu6XIEsbS5MpLHmWTDWkjy', 'michael@gmail.com', '.', 0, '1965-07-14', 'mike-dean', '761mikepfp2.jpg');
 
 -- --------------------------------------------------------
 
@@ -5705,19 +5754,7 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`idComentario`, `comentario`, `idPacote`, `idFkCliente`) VALUES
-(1, 'hefveqr', 12, 1),
-(2, 'v2o vo´2n', 12, 1),
-(3, 'h hub', 12, 1),
-(4, 'vwioe', 12, 1),
-(5, 'erijvr', 12, 1),
-(6, 'cuqerrbvipbj4 2k', 12, 1),
-(7, 'vr qjkbqvtw', 12, 1),
-(8, 'vybqipeib', 12, 1),
-(9, 'grR', 12, 1),
-(10, 'v kerb', 12, 1),
-(11, 'bvrtkl', 12, 1),
-(12, 'bqbibi', 12, 1),
-(13, 'voje voer o evo evo reoer er erov ervioervoipvoipevopervperp voerpviopvop ov ropv p vo3wp vio er erioov ip3', 12, 2);
+(1, 'Seus kits são mt bons mano, cria mais pra venda.', 19, 1);
 
 -- --------------------------------------------------------
 
@@ -5790,14 +5827,25 @@ CREATE TABLE `pacote` (
 --
 
 INSERT INTO `pacote` (`idPacote`, `nome`, `dirImg`, `dirPacote`, `idCliente`, `dirDemo`, `preco`, `slug`, `tipo`, `dataCriacao`) VALUES
-(1, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
-(2, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
-(3, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
-(4, 'caio', 'function getHours() { [native code] }function getMilliseconds() { [native code] }Captura de Tela (28).png', 'function getHours() { [native code] }function getMilliseconds() { [native code] }808.zip', 1, '0', 1, 'caio', NULL, '2024-10-06 17:48:19'),
-(10, 'vanvá', '614Captura de Tela (28).png', '614808.zip', 1, '614808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 3, 'vanva', 'Others', '2024-10-06 17:48:19'),
-(11, 'fasfjasf', '604Captura de Tela (32).png', '604808.zip', 1, '604808_Cowbell_Oneshot_WCHipHop_drum_BANDLAB.zip', 23, 'fasfjasf', 'Loops', '2024-10-06 17:48:19'),
-(12, 'OOOOOOOOO', '439Captura de Tela (52).png', '439808.zip', 1, '439808.zip', 1, 'ooooooooo', 'Loops', '2024-10-27 12:27:06'),
-(13, 'caio', '762Captura de Tela (41).png', '762Captura de Tela (39).png', 1, '762Captura de Tela (32).png', 34, 'caio', 'Drums', '2024-11-08 11:17:40');
+(1, '2022 melody pack', '2022MelodyPack.webp', 'drumkit1.zip', 9, '808.zip', 30, '2022-melody-pack', 'Others', '2024-10-15 12:23:07'),
+(2, 'Chaos dum kit', 'Beats24-7-Chaos-Drum-Kit.jpg', 'drumkit1.zip', 6, '808.zip', 45, 'chaos-dum-kit', 'Drums', '2024-10-03 17:49:55'),
+(3, 'divine guitar', 'Beats24-7-Divine-Guitars.jpg', 'drumkit1.zip', 1, '808.zip', 50, 'beats-divine-guitar', 'Others', '2024-10-02 18:30:00'),
+(4, 'Quality drums', 'Beats24-7-Quality-Drums.jpg', 'drumkit1.zip', 7, '808.zip', 25, 'quality-drums', 'Drums', '2024-10-20 12:22:34'),
+(5, 'Cloud pluggnb drum kit', 'cloud-pluggnb-drum-kit.avif', 'drumkit1.zip', 6, '808.zip', 45, 'cloud-pluggnb-drum-kit', 'Drums and Loops', '2024-10-26 19:55:13'),
+(6, 'Cobra Hip Hop', 'cobraHipHop.webp', 'drumkit1.zip', 8, '808.zip', 60, 'cobra-hip-hop', 'Drums and Loops', '2024-10-19 22:54:39'),
+(7, 'Dilla pack', 'dillaPack.jpg', 'drumkit1.zip', 8, '808.zip', 25, 'dilla-pack', 'Drums and Loops', '2024-10-19 19:23:41'),
+(8, 'Tyler, The Creator drum kit', 'download.jpg', 'drumkit1.zip', 7, '808.zip', 35, 'tyler,-the-creator-drum-kit', 'Drums', '2024-10-18 07:29:12'),
+(9, 'Escape lo-fi drum kit', 'escape-lofi-drum-kit.avif', 'drumkit1.zip', 1, '808.zip', 59, 'escape-lo-fi-drum-kit', 'Drums and Loops', '2024-11-16 15:34:11'),
+(10, 'Gambit trap drum kit', 'gambit-trap-drum-kit.avif', 'drumkit1.zip', 6, '808.zip', 40, 'gambit-trap-drum-kit', 'Drums', '2024-11-18 20:43:09'),
+(11, 'Jazz kit', 'jazzKit.jpg', 'drumkit1.zip', 8, '808.zip', 35, 'jazz-kit', 'Drums and Loops', '2024-11-26 09:14:12'),
+(12, 'Kanye West drum kit', 'kanye_west_kit.webp', '', 9, '', 25, 'kanye-west-drum-kit', 'Drums and Loops', '2024-11-12 17:31:54'),
+(13, 'Neptunian drumz', 'neptunianDrumz.jpg', 'drumkit1.zip', 9, '808.zip', 40, 'neptunian-drumz', 'Drums', '2024-11-23 15:32:54'),
+(14, 'Orchid premium', 'orchidPremium.webp', 'drumkit1.zip', 8, '808.zip', 60, 'orchid-premium', 'Others', '2024-11-20 19:54:12'),
+(15, 'OVO sessions', 'ovo-sessions.avif', 'drumkit1.zip', 6, '808.zip', 40, 'ovo-sessions', 'Others', '2024-11-12 15:38:11'),
+(16, 'Saturn rnb drum kit', 'saturn-rnb-drum-kit.avif', 'drumkit1.zip', 1, '808.zip', 35, 'saturn-rnb-drum-kit', 'Drums and Loops', '2024-11-16 11:12:43'),
+(17, 'TRAP house', 'trapHouse.jpg', '808.zip', 9, 'drumkit1.zip', 20, 'trap-house', 'Drums and Loops', '2024-11-14 16:11:42'),
+(18, 'Real trap kit', 'trapKit.jpg', 'drumkit1.zip', 6, '808.zip', 30, 'real-trap-kit', 'Drums and Loops', '2024-11-01 17:08:01'),
+(19, 'Whitney vintage drum kit', 'whitney-vintage-drum-kit.avif', 'drumkit1.zip', 8, '808.zip', 45, 'whitney-vintage-drum-kit', 'Drums', '2024-11-14 17:22:22');
 
 -- --------------------------------------------------------
 
@@ -5818,12 +5866,10 @@ CREATE TABLE `pacotesfav_comp` (
 --
 
 INSERT INTO `pacotesfav_comp` (`idPacoteFav`, `idFkPacote`, `idFkCliente`, `dataCompra`, `tipo`) VALUES
-(2, 10, 1, '2024-10-26 12:10:54', 'fav'),
-(5, 1, 1, '2024-09-10 12:10:52', 'comp'),
-(6, 4, 1, '2024-09-10 12:10:52', 'comp'),
-(8, 11, 1, '2024-11-08 11:15:37', 'fav'),
-(17, 13, 1, '2024-11-12 17:02:16', 'car'),
-(18, 12, 1, '2024-11-12 17:02:21', 'car');
+(1, 19, 1, '2024-11-24 22:19:13', 'car'),
+(2, 18, 1, '2024-11-24 22:19:20', 'car'),
+(3, 11, 1, '2024-11-24 22:19:28', 'car'),
+(4, 12, 1, '2024-11-24 22:19:42', 'car');
 
 -- --------------------------------------------------------
 
@@ -6185,31 +6231,31 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  MODIFY `idAvalia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idAvalia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `idComentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idComentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `pacote`
 --
 ALTER TABLE `pacote`
-  MODIFY `idPacote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idPacote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `pacotesfav_comp`
 --
 ALTER TABLE `pacotesfav_comp`
-  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idPacoteFav` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`

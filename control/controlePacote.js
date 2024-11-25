@@ -7,8 +7,16 @@ const conn = require("../database/bd");
 const manipulaToken = require("../model/token");
 const upload = require("../model/multer");
 const selects = require("../model/selects");
+const { MercadoPagoConfig, Payment } = require("mercadopago");
+const { preferenceData } = require("../model/mp");
+const mp = ("../model/mp");
 
 require("dotenv").config();
+
+const client = new MercadoPagoConfig({
+  accessToken: process.env.ACCESS_TOKEN_MP,
+});
+
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(express.json());
@@ -93,7 +101,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     var { slug, id } = req.params;
     var idCliente = req.userId;
 
-    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
+    let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil, cliente.email, cliente.nome as nomeCliente";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let criterio = "WHERE idPacote= ? AND pacote.slug = ?;";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
@@ -160,7 +168,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
         let comp = await new Promise((resolve, reject) => {
             conn.query(queryComp, [idUser, pacote[0].idPacote], (err, result) => {
                 if (err) reject(err);
-
+                
                 resolve(result)
             });
         });
@@ -180,10 +188,53 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     res.render("kitPage", { pacote, pacotesUsuario, comentario });
 });
 
-router.get("/paymentMethod", manipulaToken.verificaToken, (req, res) => {
-    let { idPacote } = req.body;
-    res.render("paymentMethod", { idPacote });
+router.post("/paymentMethod", manipulaToken.verificaToken, async (req, res) => {
+    let { idPacote,cliente,email,nomeProd,preco } = req.body;
+    let preference = "";
+
+    let listaProd = [{
+        idPacote:idPacote,
+        cliente:cliente,
+        email:email,
+        nomeProd:nomeProd,
+        preco:preco
+    }];
+
+    preference = await preferenceData(listaProd,MercadoPagoConfig);
+
+    res.render("paymentMethod", { listaProd,preference });
+  }
+);
+
+router.post("/process_payment", (req, res) => {
+    console.log(req.body);
+    
+  const payment = new Payment(client);
+  var idKey = Date.now().toString();
+
+  /*const body = {
+    transaction_amount: 12.34,
+    payment_method_id: "pix",
+    payer: {
+      email: "ngmsemexe@gmail.com",
+    },
+  };
+*/
+  payment
+    .create({
+      body: {
+        transaction_amount: 12.24,
+        payment_method_id: "pix",
+        payer: {
+          email: "ngmsemexe@gmail.com",
+        },
+      },
+      requestOptions: { idempotencyKey: idKey  },
+    })
+    .then(console.log)
+    .catch(console.log);
 });
+
 
 router.post("/tipoPagamento/:idPacote", manipulaToken.verificaToken, (req, res) => {
     let { metodo } = req.body;

@@ -83,7 +83,8 @@ router.get("/editProfile", manipulaToken.verificaToken, (req, res) => {
 router.put("/editProfile", manipulaToken.verificaToken, upload.single("pfp"), (req, res) => {
     let { username, password, bio } = req.body;
 
-    let imgPerfil = req.file.filename;
+    let imgPerfil = req.file?.filename;
+    
     let id = req.userId;
 
     let salt = bcrypt.genSaltSync(10);
