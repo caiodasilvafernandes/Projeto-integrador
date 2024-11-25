@@ -35,11 +35,11 @@ sug.addEventListener("input", async ({ target }) => {
                   </div>
                   <div class="col">
                     <img src="/img/icons/star.png" class="searchInputIcons float-start">
-                    <p class="cardTxt">${pack.preco}</p>
+                    <p class="cardTxt">${pack.media}</p>
                   </div>
                   <div class="col-4">
                     <img src="/img/icons/buyers.png" class="searchInputIcons float-start">
-                    <p class="cardTxt">${pack.preco}</p>
+                    <p class="cardTxt">${pack.totalCompras}</p>
                   </div>
                 </div>
               </li>

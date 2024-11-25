@@ -14,7 +14,7 @@ const mp = ("../model/mp");
 require("dotenv").config();
 
 const client = new MercadoPagoConfig({
-  accessToken: process.env.ACCESS_TOKEN_MP,
+    accessToken: process.env.ACCESS_TOKEN_MP,
 });
 
 
@@ -148,11 +148,11 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
                 resolve(result);
             });
         });
-        
+
         let fav = await new Promise((resolve, reject) => {
             conn.query(queryFav, [idUser, pacote[0].idPacote], (err, result) => {
                 if (err) reject(err);
-                
+
                 resolve(result)
             });
         });
@@ -168,7 +168,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
         let comp = await new Promise((resolve, reject) => {
             conn.query(queryComp, [idUser, pacote[0].idPacote], (err, result) => {
                 if (err) reject(err);
-                
+
                 resolve(result)
             });
         });
@@ -189,50 +189,50 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
 });
 
 router.post("/paymentMethod", manipulaToken.verificaToken, async (req, res) => {
-    let { idPacote,cliente,email,nomeProd,preco } = req.body;
+    let { idPacote, cliente, email, nomeProd, preco } = req.body;
     let preference = "";
 
     let listaProd = [{
-        idPacote:idPacote,
-        cliente:cliente,
-        email:email,
-        nomeProd:nomeProd,
-        preco:preco
+        idPacote: idPacote,
+        cliente: cliente,
+        email: email,
+        nomeProd: nomeProd,
+        preco: preco
     }];
 
-    preference = await preferenceData(listaProd,MercadoPagoConfig);
+    preference = await preferenceData(listaProd, MercadoPagoConfig);
 
-    res.render("paymentMethod", { listaProd,preference });
-  }
+    res.render("paymentMethod", { listaProd, preference });
+}
 );
 
 router.post("/process_payment", (req, res) => {
     console.log(req.body);
-    
-  const payment = new Payment(client);
-  var idKey = Date.now().toString();
 
-  /*const body = {
-    transaction_amount: 12.34,
-    payment_method_id: "pix",
-    payer: {
-      email: "ngmsemexe@gmail.com",
-    },
-  };
-*/
-  payment
-    .create({
-      body: {
-        transaction_amount: 12.24,
-        payment_method_id: "pix",
-        payer: {
-          email: "ngmsemexe@gmail.com",
-        },
+    const payment = new Payment(client);
+    var idKey = Date.now().toString();
+
+    /*const body = {
+      transaction_amount: 12.34,
+      payment_method_id: "pix",
+      payer: {
+        email: "ngmsemexe@gmail.com",
       },
-      requestOptions: { idempotencyKey: idKey  },
-    })
-    .then(console.log)
-    .catch(console.log);
+    };
+  */
+    payment
+        .create({
+            body: {
+                transaction_amount: 12.24,
+                payment_method_id: "pix",
+                payer: {
+                    email: "ngmsemexe@gmail.com",
+                },
+            },
+            requestOptions: { idempotencyKey: idKey },
+        })
+        .then(console.log)
+        .catch(console.log);
 });
 
 
@@ -254,7 +254,7 @@ router.post("/pesquisa", async (req, res) => {
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ?;`
 
-    conn.query(query, [pesquisa + "%"], async (err, pacotes) => {
+    conn.query(query, ["%" + pesquisa + "%"], async (err, pacotes) => {
         if (err) throw err;
 
         pacotes = await selects.getMediaETotal(pacotes);
@@ -285,12 +285,12 @@ router.get("/debitpayment", (req, res) => {
 
 router.get("/autocomplete", (req, res) => {
     const { pesq } = req.query;
-  
+
     if (!pesq) {
-      res.json([]);
-      return;
+        res.json([]);
+        return;
     }
-  
+
     const query = `
   SELECT idPacote, nome, dirImg, preco 
   FROM pacote 
@@ -298,14 +298,11 @@ router.get("/autocomplete", (req, res) => {
   LIMIT 10;
 `;
 
-  
-    conn.query(query, [`%${pesq}%`], (err, resultados) => {
-        
-      res.json(resultados);
+
+    conn.query(query, [`%${pesq}%`], async (err, resultados) => {
+
+        res.json(await selects.getMediaETotal(resultados));
     });
-  });
-  
-
-
+});
 
 module.exports = router;

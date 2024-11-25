@@ -24,13 +24,11 @@ router.get("/getEstado/:paisId", (req, res) => {
 // Rota para obter as cidades com base no estado
 router.get("/getCidade/:estadoId", (req, res) => {
   const estadoId = req.params.estadoId;
-  const query = `SELECT * FROM cidade WHERE idEstado = ${estadoId}`;
+  const query = `SELECT * FROM cidade WHERE uf = ${estadoId}`;
 
   db.query(query, (err, suc) => {
     if (err) return res.status(500).json({ error: err.message });
 
-    console.log(suc);
-    
     res.json(suc);
   });
 });
