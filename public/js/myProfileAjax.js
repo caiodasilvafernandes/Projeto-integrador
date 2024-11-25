@@ -10,7 +10,7 @@ document.querySelectorAll('.deleteBtn').forEach(button => {
         xhttp.open("delete",`/deletaPacote/${idPacote}`);
         xhttp.send();
         this.closest('.col').remove();
-        /*fetch(`/deletaPacote/${idPacote}`, {
+        fetch(`/deletaPacote/${idPacote}`, {
           method: 'DELETE',
         })
         .then(response => response.json())
@@ -23,10 +23,6 @@ document.querySelectorAll('.deleteBtn').forEach(button => {
             alert('Erro ao excluir o pacote!');
           }
         })
-        .catch(error => {
-          console.error('Erro:', error);
-          alert('Ocorreu um erro ao tentar excluir o pacote.');
-        });*/
       }
     });
   });

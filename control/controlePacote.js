@@ -264,6 +264,28 @@ router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
 
+router.get("/autocomplete", (req, res) => {
+    const { pesq } = req.query;
+  
+    if (!pesq) {
+      res.json([]);
+      return;
+    }
+  
+    const query = [`
+      SELECT idPacote, nome, dirImg, preco 
+      FROM pacote 
+      WHERE nome LIKE ? 
+      LIMIT 10;
+    `, ];
+  
+    conn.query(query, [`%${pesq}%`], (err, resultados) => {
+  
+      res.json(resultados);
+    });
+  });
+  
+
 
 
 module.exports = router;
