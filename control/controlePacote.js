@@ -250,7 +250,6 @@ router.post("/tipoPagamento/:idPacote", manipulaToken.verificaToken, (req, res) 
 router.post("/pesquisa", async (req, res) => {
     let { pesquisa } = req.body;
 
-
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,pacote.idCliente as donoPack,cliente.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ?;`
@@ -283,6 +282,28 @@ router.get("/pagamentoCartao/:idPacote/:packSlug", (req, res) => {
 router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
+
+router.get("/autocomplete", (req, res) => {
+    const { pesq } = req.query;
+  
+    if (!pesq) {
+      res.json([]);
+      return;
+    }
+  
+    const query = [`
+      SELECT idPacote, nome, dirImg, preco 
+      FROM pacote 
+      WHERE nome LIKE ? 
+      LIMIT 10;
+    `, ];
+  
+    conn.query(query, [`%${pesq}%`], (err, resultados) => {
+        
+      res.json(resultados);
+    });
+  });
+  
 
 
 

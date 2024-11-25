@@ -6,8 +6,8 @@
       
       </div>
     
-      <form class="input-group mb-1 searchBar justify-content-center col" action="/pesquisa" method="post" enctype="application/x-www-form-urlencoded">
-        <input type="text" name="pesquisa" class="form-control form-control-sm inputSearch" placeholder="search...">
+      <form class="input-group mb-1 searchBar justify-content-center col" action="/pesquisa" method="post">
+        <input type="text" id="pesquisa" name="pesquisa" class="form-control form-control-sm inputSearch sug" placeholder="search...">
         <button class="btn buttonSearch" type="submit" id="btnSearch" ><img src="/img/icons/search.png" class="searchIcon"></button>
       </form>
       <div class="col">
@@ -28,5 +28,6 @@
 
       </div>
     </div>
+    <ul class="kit sug"></ul>
 </navbar>
 <script src="\js\pesquisa.js"></script>
