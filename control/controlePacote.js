@@ -244,7 +244,7 @@ router.get("/autocomplete", (req, res) => {
     }
 
     const query = `
-  SELECT idPacote, nome, dirImg, preco 
+  SELECT idPacote, nome, dirImg, preco, slug, idCliente 
   FROM pacote 
   WHERE nome LIKE ? 
   LIMIT 10;
