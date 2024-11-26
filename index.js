@@ -51,8 +51,6 @@ app.get("/", async (req, res) => {
         return b.totalCompras - a.totalCompras;
     });
 
-    console.log(pacotesPopulares);
-    
     let pacoteRecente = await new Promise((resolve, reject) => {
         conn.query(query, (err, pacote) => {
             if (err) throw reject(err);

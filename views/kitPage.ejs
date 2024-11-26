@@ -27,26 +27,26 @@
           <!-- div que contém os pacotes-->
           <div class="container">
 
-            <% for(let i=0;i <=3 - 1;i++){ %><!-- isso é um pacote (comeco) -->
-              <a href="/kitPage/<%= pacotesUsuario[i].idPacote %>/<%= pacotesUsuario[i].slug %>" class="row"
+            <% for(packUser of pacotesUsuario){ %><!-- isso é um pacote (comeco) -->
+              <a href="/kitPage/<%= packUser.idPacote %>/<%= packUser.slug %>" class="row"
                 style="text-decoration: none;">
                 <div class="card pacoteCard" style="width: 18rem;">
-                  <img src="/uploads/img/kitCover/<%= pacotesUsuario[i].dirImg %>" class="imgCard" alt="...">
+                  <img src="/uploads/img/kitCover/<%= packUser.dirImg %>" class="imgCard" alt="...">
                   <div class="cardBody">
                     <h5 class="cardTitle">
-                      <%= pacotesUsuario[i].nome %>
+                      <%= packUser.nome %>
                     </h5>
 
                     <div class="linha"></div>
 
                     <img src="/img/icons/star.png" class="cardStar float-start">
                     <p class="cardTxt">
-                      <%= pacotesUsuario[i].media %>
+                      <%= packUser.media %>
                     </p>
 
                     <img src="/img/icons/buyers.png" class="cardStar float-start">
                     <p class="cardTxt">
-                      <%= pacotesUsuario[i].totalCompras %>
+                      <%= packUser.totalCompras %>
                     </p>
                     <br>
                   </div>
@@ -61,19 +61,6 @@
         <img src="/uploads/img/kitCover/<%= pacote[0].dirImg %>" class="cover float-start" />
         <!--descrição do kit-->
         <div class="container kitInfo">
-          <h1 class="subTitle text-start description">Sobre:</h1>
-          <p class="subTitle text-start description" style="height: 200px;">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-            aut. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit sunt
-            molestiae laudantium? Laudantium, at quibusdam? Ex neque delectus
-            recusandae eos omnis a ullam quidem ab unde architecto voluptatem, dolorum
-            aut.
-          </p>
-          <br>
-
-
           <!--perfil do merdao q fez o kit-->
           <a class="subTitle username userAnim" href="/profile/<%= pacote[0].slug %>/<%= pacote[0].idCliente%>">
             <img src="/uploads/img/pfp/<%= pacote[0].imgPerfil %>" class="pfp" />

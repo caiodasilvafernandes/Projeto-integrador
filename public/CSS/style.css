@@ -28,6 +28,9 @@ body {
 
 .cardTitle {
   color: #ffff;
+  height: 50px;
+  text-wrap:wrap;
+  hyphenate-character: 28;
 }
 
 .topicsTitles {

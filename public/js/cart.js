@@ -1,5 +1,6 @@
 const xhttp = new XMLHttpRequest();
 var btnDelete = document.getElementById("btnDelete");
+var btnContinuar = document.getElementById("btnContinuar");
 var formCart = document.getElementById("formCart");
 const checkboxes = document.querySelectorAll('input[name="prod"]');
 const precoTotal = document.getElementById("precoTotal");
@@ -43,7 +44,7 @@ checkboxes.forEach((checkbox) => {
     });
 });
 
-formCart.addEventListener("submit", (e) => {
+btnContinuar.addEventListener("click", (e) => {
     e.preventDefault;
 
     let checkbox = document.querySelectorAll("input[type='checkbox']:checked");
@@ -59,5 +60,5 @@ formCart.addEventListener("submit", (e) => {
     quant.value = parseInt(quantComp);
     preco.value = parseInt(precoTotal);
 
-    e.submit();
+    formCart.submit();
 });
