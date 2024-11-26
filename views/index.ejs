@@ -27,7 +27,7 @@
         <div class="row container">
           <% for(packR of pacoteRecente){%>
             <!-- isso é um pacote (comeco) -->
-            <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col" style="text-decoration: none;">
+            <a href="/kitPage/<%= packR.idPacote %>/<%= packR.slug %>" class="col-6 col-md-4 col-lg-2" style="text-decoration: none;">
               <div class="card pacoteCard" style="width: 18rem;">
                 <img src="/uploads/img/kitCover/<%= packR.dirImg %>" class="imgCard" alt="...">
                 <div class="cardBody">
@@ -63,7 +63,7 @@
         <div class="row container">
           <!-- isso é um pacote (comeco) -->
           <% for(packP of pacotesPopulares){ %>
-            <a href="/kitPage/<%= packP.idPacote %>/<%= packP.slug %>" class="col" style="text-decoration: none;">
+            <a href="/kitPage/<%= packP.idPacote %>/<%= packP.slug %>" class="col-6 col-md-4 col-lg-2" style="text-decoration: none;">
               <div class="card pacoteCard" style="width: 18rem;">
                 <img src="/uploads/img/kitCover/<%= packP.dirImg %>" class="imgCard" alt="...">
                 <div class="cardBody">

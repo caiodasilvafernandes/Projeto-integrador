@@ -18,69 +18,29 @@
 
 <body>
   <%- include("partials/hudLog")%>
-<h1>Finalize seu pagamento</h1>
-<div id="paymentBrick_container"></div>
 
-<script>
-const mp = new MercadoPago('z'); // access token
-const bricksBuilder = mp.bricks();
+  <div class="steps container">
+    <div class="step">1</div>
+  </div>
 
-const renderPaymentBrick = async (bricksBuilder) => {
-  const settings = {
-    initialization: {
-      amount: 100, 
-      preferenceId: "<PREFERENCE_ID>", //e
-    },
-    customization: {
-      paymentMethods: {
-        ticket: "all",
-        bankTransfer: "all",
-        creditCard: "all",
-        debitCard: "all",
-        mercadoPago: "all",
-      },
-    },
-    callbacks: {
-      onReady: () => {
-     
-      },
-      onSubmit: ({ selectedPaymentMethod, formData }) => {
-        return new Promise((resolve, reject) => {
-          fetch("/process_payment", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          })
-            .then((response) => response.json())
-            .then((response) => {
-              resolve();
-            })
-            .catch((error) => {
-              reject();
-            });
-        });
-      },
-      onError: (error) => {
-        console.error(error);
-      },
-    },
-  };
+  <form class="container pForm form-control" action="/tipoPagamento/<%= pacote.idPacote %>" method="post">
+  <form class="container pForm form-control" action="/tipoPagamento" method="post">
+    <h1 class="title" style="color: #fff">Escolha seu método de pagamento</h1>
+    <div class="linha"></div>
 
-  window.paymentBrickController = await bricksBuilder.create(
-    "payment",
-    "paymentBrick_container",
-    settings
-  );
-};
+  <div class="float-start method">
+  <input type="radio" id="pix" name="metodo" value="pix" class="bola" required>
+    <label for="pix" class="subTitle">Pix</label>
+  </div>
+  <br><br>
+    <div class="float-start method">
+      <input type="radio" id="debitCard" name="metodo" value="deditCard" class="bola" required>
+        <label for="creditCard" class="subTitle">Cartão de débito</label>
+      </div><br><br>
+    <button class="btn btnBase btnLog" type="submit">Continuar</button>
+  </div>
 
-renderPaymentBrick(bricksBuilder);
-
-  
-
-
-
-</script>
-
+<div class="row">
+</div>
+  </form>
 </body>
