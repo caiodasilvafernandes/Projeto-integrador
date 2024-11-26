@@ -105,7 +105,7 @@
             <a class="text-start cart ca" valor="0"></a><br>
           <% } %>
         </div>
-        <form action="/paymentMethod/<%= pacote[0].idPacote %>/<%= pacote[0].slug %>">
+        <form action="/paymentMethod" method="post">
           <input type="hidden" value="<%= pacote[0].idPacote %>">
           <button type="submit" class="btn btnBase">$<%= pacote[0].preco %></button><br>
         </form>
