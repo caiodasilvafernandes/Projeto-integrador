@@ -116,4 +116,10 @@
   .searchResult{
     margin: 5px;
     width: 600px !important;
+
+    transition: transform 0.3s;
+  }
+
+  .searchResult:hover{
+    transform: scale(1.1);
   }
