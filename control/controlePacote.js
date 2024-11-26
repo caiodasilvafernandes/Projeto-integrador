@@ -102,7 +102,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     let queryCar = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'car'";
     let queryComp = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'comp'";
     let queryAvalia = "SELECT * FROM avaliacao WHERE idCliente = ? AND idPacote = ?;";
-
+    
     var pacote = await new Promise((resolve, reject) => {
         conn.query(query, [id, slug], async (err, pack) => {
             if (err) throw reject(err);
