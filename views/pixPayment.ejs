@@ -36,15 +36,21 @@
 
     <div class="linha"></div>
 
-    <img class="qr" src="<%= qrCode.imagemQrcode%>"/>
+    <img class="qr" src="\img\illustrations\qr.png"/>
     <p class="subTitle">A cobrança do pix ficara disponível por 5 minutos.</p>
 
     <div class="linha"></div>
 
     <h1 class="subTitle">or</h1>
     <p class="subTitle" style=" overflow-wrap: break-word; height: fit-content;">
-      <%= cobranca.pixCopiaECola %>
+      00020126420014BR.GOV.BCB.PIX0120enzohingst@gmail.com52040000530398654042.005802BR5920Enzo de Souza Hingst6009SAO PAULO62140510psGQ1SHEEH6304B25D
     </p>
   </form>
 </div>
+<script>
+  setTimeout(function() {
+    window.location.href = "/purchaseSuccess/:idPacote";
+  }, 5000); 
+</script>
+
 </body>

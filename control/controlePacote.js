@@ -7,16 +7,8 @@ const conn = require("../database/bd");
 const manipulaToken = require("../model/token");
 const upload = require("../model/multer");
 const selects = require("../model/selects");
-const { MercadoPagoConfig, Payment } = require("mercadopago");
-const { preferenceData } = require("../model/mp");
-const mp = ("../model/mp");
 
 require("dotenv").config();
-
-const client = new MercadoPagoConfig({
-    accessToken: process.env.ACCESS_TOKEN_MP,
-});
-
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(express.json());
@@ -39,6 +31,7 @@ router.post("/uploadKit", upload.fields([{ name: "cover" }, { name: "pack" }, { 
     let dirImg = req.files.cover[0].filename;
     let dirPacote = req.files.pack[0].filename;
     let dirDemo = req.files.demo[0].filename;
+
 
     var queryInsert = "INSERT INTO pacote (nome,dirImg,dirPacote,dirDemo,idCliente,preco,slug,tipo) VALUES (?,?,?,?,?,?,?,?);";
 
@@ -187,57 +180,15 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     res.render("kitPage", { pacote, pacotesUsuario, comentario });
 });
 
-router.post("/paymentMethod", manipulaToken.verificaToken, async (req, res) => {
-    let { idPacote, cliente, email, nomeProd, preco } = req.body;
-    let preference = "";
-
-    let listaProd = [{
-        idPacote: idPacote,
-        cliente: cliente,
-        email: email,
-        nomeProd: nomeProd,
-        preco: preco
-    }];
-
-    preference = await preferenceData(listaProd, MercadoPagoConfig);
-
-    res.render("paymentMethod", { listaProd, preference });
-}
-);
-
-router.post("/process_payment", (req, res) => {
-    console.log(req.body);
-
-    const payment = new Payment(client);
-    var idKey = Date.now().toString();
-
-    /*const body = {
-      transaction_amount: 12.34,
-      payment_method_id: "pix",
-      payer: {
-        email: "ngmsemexe@gmail.com",
-      },
-    };
-  */
-    payment
-        .create({
-            body: {
-                transaction_amount: 12.24,
-                payment_method_id: "pix",
-                payer: {
-                    email: "ngmsemexe@gmail.com",
-                },
-            },
-            requestOptions: { idempotencyKey: idKey },
-        })
-        .then(console.log)
-        .catch(console.log);
+router.get("/paymentMethod/:idPacote/:slug", manipulaToken.verificaToken, (req, res) => {
+    let pacote = req.params;
+    res.render("paymentMethod", { pacote });
 });
 
 router.post("/tipoPagamento/:idPacote", manipulaToken.verificaToken, (req, res) => {
     let { metodo } = req.body;
     let { idPacote } = req.params;
-
+    let pacote = req.params;
     if (metodo === "pix") {
         res.redirect(`/pagamentoPix/${idPacote}/${pacote.slug}`);
         return;
@@ -248,21 +199,24 @@ router.post("/tipoPagamento/:idPacote", manipulaToken.verificaToken, (req, res) 
 router.post("/pesquisa", async (req, res) => {
     let { pesquisa } = req.body;
 
+
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,pacote.idCliente as donoPack,cliente.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ?;`
 
-    conn.query(query, ["%" + pesquisa + "%"], async (err, pacotes) => {
+    conn.query(query, [pesquisa+"%"], async (err, pacotes) => {
+    conn.query(query, [pesquisa + "%"], async (err, pacotes) => {
         if (err) throw err;
 
         pacotes = await selects.getMediaETotal(pacotes);
 
+        res.render("searchResults", { pacotes });
         if (req.cookies["jwToken"]) {
             res.render("searchResultsLog", { pacotes, pesquisa });
         }
         res.render("searchResults", { pacotes, pesquisa });
     });
-});
+});});
 
 router.get("/pagamentoPix/:idPacote/:packSlug", async (req, res) => {
 
@@ -283,12 +237,12 @@ router.get("/debitpayment", (req, res) => {
 
 router.get("/autocomplete", (req, res) => {
     const { pesq } = req.query;
-
+  
     if (!pesq) {
-        res.json([]);
-        return;
+      res.json([]);
+      return;
     }
-
+  
     const query = `
   SELECT idPacote, nome, dirImg, preco 
   FROM pacote 
@@ -296,11 +250,17 @@ router.get("/autocomplete", (req, res) => {
   LIMIT 10;
 `;
 
-
-    conn.query(query, [`%${pesq}%`], async (err, resultados) => {
-
-        res.json(await selects.getMediaETotal(resultados));
+  
+    conn.query(query, [`%${pesq}%`], (err, resultados) => {
+  
+      res.json(resultados);
     });
-});
+  });
+  
+  router.get("/purchaseSuccess/:idPacote", (req, res) => {
+    const { idPacote} = req.params;
+  
+    res.render("purchaseSuccess", { idPacote});
+  });
 
 module.exports = router;

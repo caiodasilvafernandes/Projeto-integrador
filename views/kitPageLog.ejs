@@ -22,7 +22,7 @@
         <!-- mais do autor, minimiza essa div mano-->
         <div class="float-end moreFrom">
           <div class="float-start linhaV"></div>
-          <h1 class="topicsTitles" style="font-size: 25px;">Mais de: <%= pacote[0].login %></h1>
+          <h1 class="topicsTitles" style="font-size: 25px;">Mais de: User</h1>
           <div class="linha"></div><br>
           <!-- div que contém os pacotes-->
           <div class="container">
@@ -106,31 +106,13 @@
 
         <!--favoritar-->
         <div class="row">
-          <% if(fav[0] == undefined){ %>
-            <a id="fav" class="text-start heart a" valor="0"></a><br>
-          <% }else{ %>
-            <a id="fav" class="text-start heart" valor="1"></a><br>
-          <% } %>
-
-          <% if(car[0] == null){ %>
-            <a class="text-start cart" valor="1"></a><br>
-          <% }else{ %>
-            <a class="text-start cart ca" valor="0"></a><br>
-          <% } %>
-        </div>
-        <% if(comp == []){ %>
+          <a id="fav" class="text-start heart a" valor="0"></a><br>
           <a class="text-start cart" valor="0"></a><br>
-          <a href="/uploads/pack/<%= pacote[0].dirPacote %>"><button class="btn btnBase">Baixar pacote</button></a>
-        <% }else{ %>
-          <form action="/paymentMethod" method="post">
-            <input type="hidden" name="idPacote" value="<%= pacote[0].idPacote %>">
-            <input type="hidden" name="nomeProd" value="<%= pacote[0].nome %>">
-            <input type="hidden" name="preco" value="<%= pacote[0].preco %>">
-            <input type="hidden" name="cliente" value="<%= pacote[0].nomeCliente %>">
-            <input type="hidden" name="email" value="<%= pacote[0].email %>">
-            <button type="submit" class="btn btnBase">$<%= pacote[0].preco %></button><br>
-          </form>
-        <% } %>
+        </div>
+        <form action="/paymentMethod/<%= pacote[0].idPacote %>/<%= pacote[0].slug %>">
+          <input type="hidden" value="<%= pacote[0].idPacote %>">
+          <button type="submit" class="btn btnBase">$<%= pacote[0].preco %></button><br>
+        </form>
         <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>
       </div>
 
@@ -180,6 +162,7 @@
         //***********************avaliacao**************************
         //tá puxando as tags com a classe star, vulgo as estrelakkkk
         var stars = document.querySelectorAll('.star');
+        var nota = 0;
 
         document.addEventListener('click', function (fc) {
           //verifica se o elemento tem a classe star, se n ele sai adicionando t em todos os outro elemento da pagina
@@ -194,7 +177,6 @@
               });
               //adionando t
               tstar.add('t');
-              
               nota = fc.target.getAttribute('nota');
               controleAvalia("<%= pacote[0].idPacote %>", nota);
 
