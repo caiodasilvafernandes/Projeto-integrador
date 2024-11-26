@@ -89,7 +89,7 @@ router.get("/carrinho", manipulaToken.verificaToken, (req, res) => {
     });
 })
 
-router.get("rs", async (req, res) => {
+router.get("/kitPage/:id/:slug", async (req, res) => {
     var { slug, id } = req.params;
     var idCliente = req.userId;
 
