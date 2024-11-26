@@ -18,6 +18,7 @@
 
 <body>
   <%- include("partials/hudLog")%>
+<<<<<<< HEAD
 <h1>Finalize seu pagamento</h1>
 <div id="paymentBrick_container"></div>
 <input type="hidden" value="<%= preference.data.id %>" id="pref">
@@ -67,16 +68,39 @@ const renderPaymentBrick = async (bricksBuilder) => {
       },
     },
   };
+=======
 
-  window.paymentBrickController = await bricksBuilder.create(
-    "payment",
-    "paymentBrick_container",
-    settings
-  );
-};
+  <div class="steps container">
+    <div class="step">1</div>
+  </div>
 
+  <form class="container pForm form-control" action="/tipoPagamento/<%= pacote.idPacote %>" method="post">
+  <form class="container pForm form-control" action="/tipoPagamento" method="post">
+    <h1 class="title" style="color: #fff">Escolha seu método de pagamento</h1>
+    <div class="linha"></div>
+>>>>>>> c3e8e9f8523629f5cc1b85126e3dfe4bea81dbf8
+
+  <div class="float-start method">
+  <input type="radio" id="pix" name="metodo" value="pix" class="bola" required>
+    <label for="pix" class="subTitle">Pix</label>
+  </div>
+  <br><br>
+    <div class="float-start method">
+      <input type="radio" id="debitCard" name="metodo" value="deditCard" class="bola" required>
+        <label for="creditCard" class="subTitle">Cartão de débito</label>
+      </div><br><br>
+    <button class="btn btnBase btnLog" type="submit">Continuar</button>
+  </div>
+
+<<<<<<< HEAD
 renderPaymentBrick(bricksBuilder);
 
 </script>
 
 </body>
+=======
+<div class="row">
+</div>
+  </form>
+</body>
+>>>>>>> c3e8e9f8523629f5cc1b85126e3dfe4bea81dbf8

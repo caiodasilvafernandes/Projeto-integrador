@@ -19,12 +19,12 @@
 
     <h1 style="margin-left: 26px; color: #FFFF;">Criações de USER:</h1>
     <!-- pacotes do usuario: -->
-    <div class="row container">
+    <div class="row container g-0">
 
       <!-- isso é um pacote (comeco) -->
 
       <% for(pack of pacote){ %>
-        <a href="/kitPage/<%= pack.idPacote %>/<%= pack.slug %>" class="col" style="text-decoration: none;">
+        <a href="/kitPage/<%= pack.idPacote %>/<%= pack.slug %>" class="col-6 col-md-4 col-lg-2" style="text-decoration: none;">
           <div class="card pacoteCard" style="width: 18rem;">
             <img src="/uploads/img/kitCover/<%= pack.dirImg %>" class="imgCard" alt="...">
             <div class="cardBody">
