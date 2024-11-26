@@ -1,43 +1,53 @@
 <%- include("partials/header")%>
-<%- include("partials/hudLog")%>
-<link rel="stylesheet" type="text/css" href="/CSS/cart.css" />
-<link rel="stylesheet" type="text/css" href="/CSS/index.css"/>
-<body>
-    <div class="container my-4 ">
-        <h1>Carrinho de Compras</h1>
-        <div class="contCart">
-            <!-- priemira row de pacote -->
-            <% for(pack of pacote){ %>
-            <div class="row productRow" id="<%= pack.idFkPacote %>">
-                <div class="col-6 col-md-3">
-                    <img src="/uploads/img/kitCover/<%= pack.dirImg %>" class="kitCart" alt="Produto 1">
-                </div>
-                <div class="col-6 col-md-4">
-                    <p class="topicsTitles"><%= pack.nome %></p>
-                    <img src="/img/icons/star.png" class="cardStar float-start">
-        <p class="cardTxt">
-            <%= pack.media %>
-        </p>
-                </div>
-                <div class="col-6 col-md-2 text-right">
-                    <p class="price">R$<%= pack.preco %></p>
-                </div>
-                <div class="col-6 col-md-2">
-                    <input type="checkbox" name="prod" id="<%= pack.idPacote %>" value="<%= pack.preco %>">
-                </div>
-                <div class="col-6 col-md-1 text-right">
-                    <button class="btnBase" id="btnDelete" name="<%= pack.idFkCliente %>, <%= pack.idFkPacote %>">Excluir</button>
-                    <br>
-                </div>
-                <div class="linha"></div>
-            </div>
-            <% } %>
+    <%- include("partials/hudLog")%>
+        <link rel="stylesheet" type="text/css" href="/CSS/cart.css" />
+        <link rel="stylesheet" type="text/css" href="/CSS/index.css" />
 
-        <!-- total e prosseguir -->
-        <div class="d-flex justify-content-between mt-4 total">
-            <p class="subTitle"> Total: <strong class="price" id="precoTotal">R$0</strong></p>
-            <button class="btnBase" type="submit" id="btnContinuar">Continuar</button>
-        </div>
-    </div>
-</body>
-<script type="text/javascript" src="/js/cart.js"></script>
+        <body>
+            <div class="container my-4 ">
+                <h1>Carrinho de Compras</h1>
+                <div class="contCart">
+                    <!-- priemira row de pacote -->
+                    <% for(pack of pacote){ %>
+                        <div class="row productRow" id="<%= pack.idFkPacote %>">
+                            <div class="col-6 col-md-3">
+                                <img src="/uploads/img/kitCover/<%= pack.dirImg %>" class="kitCart" alt="Produto 1">
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <p class="topicsTitles">
+                                    <%= pack.nome %>
+                                </p>
+                                <img src="/img/icons/star.png" class="cardStar float-start">
+                                <p class="cardTxt">
+                                    <%= pack.media %>
+                                </p>
+                            </div>
+                            <div class="col-6 col-md-2 text-right">
+                                <p class="price">R$<%= pack.preco %>
+                                </p>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <input type="checkbox" name="prod" id="<%= pack.idPacote %>" value="<%= pack.preco %>">
+                            </div>
+                            <div class="col-6 col-md-1 text-right">
+                                <button class="btnBase" id="btnDelete"
+                                    name="<%= pack.idFkCliente %>, <%= pack.idFkPacote %>">Excluir</button>
+                                <br>
+                            </div>
+                            <div class="linha"></div>
+                        </div>
+                        <% } %>
+
+                            <!-- total e prosseguir -->
+                            <form action="/paymentMethod" method="post" id="formCart">
+                                <div class="d-flex justify-content-between mt-4 total">
+                                    <p class="subTitle"> Total: <strong class="price" id="precoTotal">R$0</strong></p>
+                                    <input type="hidden" id="preco" value="">
+                                    <input type="hidden" id="idPacote" value="">
+                                    <input type="hidden" id="quant" value="">
+                                    <button class="btnBase" type="submit" id="btnContinuar">Continuar</button>
+                                </div>
+                            </form>
+                </div>
+        </body>
+        <script type="text/javascript" src="/js/cart.js"></script>

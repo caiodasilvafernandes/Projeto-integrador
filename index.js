@@ -24,18 +24,35 @@ app.get("/", async (req, res) => {
     //select dos pacotes populares recentes
     let select = "SELECT *,pacotesfav_comp.dataCompra,pacotesfav_comp.tipo FROM pacote";
     let innerJoin = "INNER JOIN pacotesfav_comp ON pacote.idPacote = pacotesfav_comp.idFkPacote";
-    let criterio = "WHERE MONTH(CURRENT_TIMESTAMP()) > MONTH(dataCompra) - 1 AND pacotesfav_comp.tipo = 'comp' order by idFkPacote desc LIMIT 8;";
+    let criterio = "WHERE pacotesfav_comp.tipo = 'comp'";
 
     let queryPopular = `${select} ${innerJoin} ${criterio}`;
 
     let pacotesPopulares = await new Promise((resolve, reject) => {
         conn.query(queryPopular, (err, pacote) => {
             if (err) throw reject(err);
+            let pacoteUnico = [];
 
-            resolve(selects.getMediaETotal(pacote));
+            for (let i = 0; i <= pacote.length - 1; i++) {
+                let j = i + 1;
+
+                    if (pacote[i].idFkPacote != pacote[j]?.idFkPacote) {
+                        pacoteUnico[i] = pacote[i];
+                }
+            }
+
+            pacoteUnico = pacoteUnico.filter((item)=> item != undefined && item != null);
+
+            resolve(selects.getMediaETotal(pacoteUnico));
         });
     });
 
+    pacotesPopulares.sort((a,b)=>{
+        return b.totalCompras - a.totalCompras;
+    });
+
+    console.log(pacotesPopulares);
+    
     let pacoteRecente = await new Promise((resolve, reject) => {
         conn.query(query, (err, pacote) => {
             if (err) throw reject(err);

@@ -40,7 +40,6 @@ router.post("/uploadKit", upload.fields([{ name: "cover" }, { name: "pack" }, { 
     let dirPacote = req.files.pack[0].filename;
     let dirDemo = req.files.demo[0].filename;
 
-
     var queryInsert = "INSERT INTO pacote (nome,dirImg,dirPacote,dirDemo,idCliente,preco,slug,tipo) VALUES (?,?,?,?,?,?,?,?);";
 
     conn.query(queryInsert, [title, dirImg, dirPacote, dirDemo, idCliente, price, slug(title), type], (err, result) => {
@@ -234,7 +233,6 @@ router.post("/process_payment", (req, res) => {
         .then(console.log)
         .catch(console.log);
 });
-
 
 router.post("/tipoPagamento/:idPacote", manipulaToken.verificaToken, (req, res) => {
     let { metodo } = req.body;

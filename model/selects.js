@@ -4,8 +4,9 @@ class Select {
     async getMediaETotal(pacote) {
         let queryMedia = "SELECT (SELECT sum(avaliacao))/(SELECT count(idAvalia)) AS media FROM avaliacao WHERE idPacote = ?;";
         let queryTotalCompra = "SELECT idPacoteFav,count(idPacoteFav) AS totalCompra FROM pacotesfav_comp WHERE idFkPacote = ? AND tipo = ?;";
-
+        
         for (let i = 0; i <= pacote.length - 1; i++) {
+
 
             var getAvalia = new Promise((resolve, reject) => {
                 conn.query(queryMedia, [pacote[i].idPacote], (err, avalia) => {

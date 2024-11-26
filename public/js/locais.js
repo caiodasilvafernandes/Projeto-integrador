@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return [];
     }
   }
-
+  
   conexao("/getPais").then((paises) => {
     paisSelect.innerHTML = '<option value="0">Selecione um país</option>';
     paises.forEach((pais) => {

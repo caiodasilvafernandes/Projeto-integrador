@@ -1,8 +1,11 @@
 const xhttp = new XMLHttpRequest();
 var btnDelete = document.getElementById("btnDelete");
-var btnContinuar = document.getElementById("btnContinuar");
+var formCart = document.getElementById("formCart");
 const checkboxes = document.querySelectorAll('input[name="prod"]');
 const precoTotal = document.getElementById("precoTotal");
+const preco = document.getElementById("preco");
+const quant = document.getElementById("quant");
+const idPacote = document.getElementById("idPacote");
 var comprarPack = [];
 
 function deleteCar(idCliente, idPack) {
@@ -40,14 +43,21 @@ checkboxes.forEach((checkbox) => {
     });
 });
 
-btnContinuar.addEventListener("click", () => {
+formCart.addEventListener("submit", (e) => {
+    e.preventDefault;
+
     let checkbox = document.querySelectorAll("input[type='checkbox']:checked");
-    let comprarPack = [];
+    let idPack = [];
     let quantComp = checkbox.length;
     let precoTotal = precoTotal.textContent;
     
     for (check of checkbox) {
-        comprarPack.push(check.id);
+        idPack.push(check.id);
     }
 
+    idPacote.value = parseInt(idPack);
+    quant.value = parseInt(quantComp);
+    preco.value = parseInt(precoTotal);
+
+    e.submit();
 });
