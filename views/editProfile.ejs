@@ -53,7 +53,7 @@
 
             <div class="row d-flex justify-content-center">
               <button type="submit" class="btn btnBase btnLog">Finalizar</button>
-              <a class="btn btnBase btnLog btnDelete">Deletar conta!</a>
+              <a href="javascript:void(0);" class="btn btnBase btnLog btnDelete" onclick="deleteAccount('<%= result[0].idCliente %>')">Deletar conta!</a>
             </div>
           </form>
         </div>
@@ -86,9 +86,12 @@
 
     var btndelete = document.getElementsByClassName("btndelete");
 
-    function pinto(){
-        btndelete[i].addEventListener("click", ()=>{
-          confirm("Deseja mesmo deletar sua conta?")            
-        });
+    function deleteAccount(userId) {
+    if (confirm("Deseja mesmo deletar sua conta?")) {
+      fetch(`/deleteUser/${userId}`, {
+        method: 'DELETE',
+      })
+      window.location.href = "/logOut";
     }
+  }
   </script>

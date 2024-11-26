@@ -30,7 +30,7 @@ body {
   margin-bottom: 5px;
 }
 
-.inputForm {
+.inputForm, .inputForm:focus {
   width: 75%;
   margin-bottom: 15px;
   border-radius: 25px;
