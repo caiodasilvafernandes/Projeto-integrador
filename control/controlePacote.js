@@ -89,7 +89,7 @@ router.get("/carrinho", manipulaToken.verificaToken, (req, res) => {
     });
 })
 
-router.get("/kitPage/:id/:slug", async (req, res) => {
+router.get("rs", async (req, res) => {
     var { slug, id } = req.params;
     var idCliente = req.userId;
 
@@ -237,12 +237,12 @@ router.get("/debitpayment", (req, res) => {
 
 router.get("/autocomplete", (req, res) => {
     const { pesq } = req.query;
-  
+
     if (!pesq) {
-      res.json([]);
-      return;
+        res.json([]);
+        return;
     }
-  
+
     const query = `
   SELECT idPacote, nome, dirImg, preco 
   FROM pacote 
@@ -250,12 +250,12 @@ router.get("/autocomplete", (req, res) => {
   LIMIT 10;
 `;
 
-  
-    conn.query(query, [`%${pesq}%`], (err, resultados) => {
-  
-      res.json(resultados);
+
+    conn.query(query, [`%${pesq}%`], async (err, resultados) => {
+
+        res.json(await selects.getMediaETotal(resultados));
     });
-  });
+});
   
   router.get("/purchaseSuccess/:idPacote", (req, res) => {
     const { idPacote} = req.params;

@@ -18,7 +18,7 @@ sug.addEventListener("input", async ({ target }) => {
   if (pesq.length > 0) {
     try {
       const resposta = await fetch(`/autocomplete?pesq=${encodeURIComponent(pesq)}`);
-      
+
       const resultados = await resposta.json();
 
       if (resultados.length > 0) {
@@ -26,22 +26,24 @@ sug.addEventListener("input", async ({ target }) => {
           .map(
             (pack) => `
               <li>
+              <a href="/pesquisa">
                 <div class="searchResult row">
                   <div class="col-1">
                     <img src="/uploads/img/kitCover/${pack.dirImg}" class="imgSearchInput" alt="${pack.nome}">
                   </div>
-                  <div class="col">
+                  <div class="col-6">
                     <h1 class="subTitle titleSearchInput">${pack.nome}</h1>
                   </div>
                   <div class="col">
                     <img src="/img/icons/star.png" class="searchInputIcons float-start">
                     <p class="cardTxt">${pack.media}</p>
                   </div>
-                  <div class="col-4">
+                  <div class="col">
                     <img src="/img/icons/buyers.png" class="searchInputIcons float-start">
                     <p class="cardTxt">${pack.totalCompras}</p>
                   </div>
                 </div>
+                </a>
               </li>
             `
           )
