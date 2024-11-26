@@ -91,13 +91,12 @@ router.get("/carrinho", manipulaToken.verificaToken, (req, res) => {
 
 router.get("/kitPage/:id/:slug", async (req, res) => {
     var { slug, id } = req.params;
-    var idCliente = req.userId;
 
     let campos = "idPacote,preco,pacote.nome,dirImg,dirPacote,dirDemo,pacote.idCliente,pacote.slug as slugPack,tipo,dataCriacao,cliente.login,cliente.slug,cliente.imgPerfil, cliente.email, cliente.nome as nomeCliente";
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let criterio = "WHERE idPacote= ? AND pacote.slug = ?;";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} ${criterio}`;
-    let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ?";
+    let queryPacotes = "SELECT * FROM pacote WHERE idCliente = ? limit 3";
     let queryComent = "SELECT comentario.comentario, comentario.idPacote, comentario.idFkCliente, cliente.idCliente, cliente.slug, cliente.login,cliente.imgPerfil FROM comentario  INNER JOIN cliente  ON cliente.idCliente = comentario.idFkCliente WHERE idPacote = ? ORDER BY idComentario DESC";
     let queryFav = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'fav'";
     let queryCar = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'car'";
@@ -119,6 +118,9 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
             resolve(selects.getMediaETotal(pacoteUser));
         });
     });
+
+    console.log(pacotesUsuario);
+    
 
     var comentario = await new Promise((resolve, reject) => {
         conn.query(queryComent, [pacote[0].idPacote], (err, coment) => {
