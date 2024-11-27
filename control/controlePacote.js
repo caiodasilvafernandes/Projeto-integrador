@@ -219,14 +219,6 @@ router.get("/pagamentoPix", async (req, res) => {
     res.render("pixPayment");
 });
 
-router.get("/pagamentoCartao", (req, res) => {
-
-    res.render("debitPayment")
-});
-
-router.get("/debitpayment", (req, res) => {
-    res.render("debitPayment");
-});
 
 router.get("/autocomplete", (req, res) => {
     const { pesq } = req.query;

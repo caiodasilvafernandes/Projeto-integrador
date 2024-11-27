@@ -28,10 +28,10 @@
   </div>
 
   <!--form do cartao-->
-  <form class="container pForm form-control" style="height: fit-content !important;">
+  <form class="container pForm form-control" method="post" style="height: fit-content !important;" action="/purchaseSuccess">
     <h1 class="title">Crédito</h1>
     <div class="linha"></div>
-
+    <input type="hidden" name="idPacote" value="<%= idPacote %>">
     <!--numero do cartao-->
     <div class="row">
       <label class="text-start subTitle col-3">Número:</label> <input name="cNumber" id="cNumber" placeholder="Número do cartão..." class="inputForm form-control form-control-sm col" maxlength="16" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid card number">
@@ -45,12 +45,12 @@
     <!--cvv-->
     <div class="row">
       <label class="text-start subTitle col-3">CVV:</label> <input name="cvv" id="cvv" placeholder="CVV" class="inputForm form-control form-control-sm col" maxlength="3" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid CVV">
-    
+
       <label class="text-start subTitle col-3">Validade:</label> <input name="validade" id="validade" placeholder="XX/XX" class="inputForm form-control form-control-sm col" maxlength="5" data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Insert a valid date">
     </div>
 
     <div class="row d-flex justify-content-center">
-      <a href="/purchaseSuccess/:idPacote" class="btn btnBase" id="btnDebit">Prosseguir</a>
+      <button onclick="submit()" class="btn btnBase" id="btnDebit">Prosseguir</button>
     </div>
   </form>
 
@@ -80,6 +80,12 @@
     });
     }
     */
-    
+
+    let form = document.getElementsByTagName("form");
+
+    function submit() {
+      
+    form.submit();
+  }; 
     </script>
 </body>
