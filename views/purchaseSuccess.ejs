@@ -1,29 +1,32 @@
 <%- include("partials/header")%>
-<link rel="stylesheet" type="text/css" href="/CSS/index.css" />
-<link rel="stylesheet" type="text/css" href="/CSS/payment.css" />
+  <link rel="stylesheet" type="text/css" href="/CSS/index.css" />
+  <link rel="stylesheet" type="text/css" href="/CSS/payment.css" />
 
-<style>
+  <style>
+    .subTitle {
+      padding: 0;
+      font-size: 25px;
+    }
+  </style>
 
-  .subTitle {
-    padding: 0;
-    font-size: 25px;
-  }
-</style>
+  <body>
+    <%- include("partials/hudLog")%>
+      <% for(pack of pacote){ %>
+        <a style="display: none;" href="/uploads/pack/<%= pack[0].dirPacote %>" name="linkPacote"></a>
+        <% } %>
+          <form class="container">
+            <h1 class="title">Obrigado pela compra!</h1>
+            <div class="linha"></div>
+            <a class="subTitle underSAnima" style="color: #fff" href="/">Voltar para home</a>
+            <div class="linha"></div>
+            <img src="/img/illustrations/purchaseSuccess.png" class="imgSuccess" />
+          </form>
+  </body>
+  <script>
+    var link = document.getElementsByName("linkPacote");
 
-<body>
-  <%- include("partials/hudLog")%>
+    link.forEach((l) => {
 
-  <form class="container">
-    <h1 class="title">Obrigado pela compra!</h1>
-    <div class="linha"></div>
-    <a class="subTitle underSAnima" style="color: #fff" href="/kitPage"
-      >Avalie o produto!</a
-    >
-    <br />
-    <p class="subTitle">ou</p>
-    <br />
-    <a class="subTitle underSAnima" style="color: #fff" href="/">Voltar para home</a>
-    <div class="linha"></div>
-    <img src="/img/illustrations/purchaseSuccess.png" class="imgSuccess" />
-  </form>
-</body>
+      l.click();
+    });
+  </script>

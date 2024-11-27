@@ -26,7 +26,7 @@ sug.addEventListener("input", async ({ target }) => {
           .map(
             (pack) => `
               <li>
-              <a href="/pesquisa">
+              <a href="/kitPage/${pack.idPacote}/${pack.slug}">
                 <div class="searchResult row">
                   <div class="col-1">
                     <img src="/uploads/img/kitCover/${pack.dirImg}" class="imgSearchInput" alt="${pack.nome}">

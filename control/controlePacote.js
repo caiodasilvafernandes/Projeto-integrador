@@ -102,7 +102,7 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
     let queryCar = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'car'";
     let queryComp = "SELECT * FROM pacotesfav_comp WHERE idFkCliente = ? AND idFkPacote = ? AND tipo = 'comp'";
     let queryAvalia = "SELECT * FROM avaliacao WHERE idCliente = ? AND idPacote = ?;";
-    
+
     var pacote = await new Promise((resolve, reject) => {
         conn.query(query, [id, slug], async (err, pack) => {
             if (err) throw reject(err);
@@ -180,17 +180,19 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
 });
 
 router.post("/paymentMethod", manipulaToken.verificaToken, (req, res) => {
-    let idPacote = req.body;
+    let { idPacote } = req.body;
+
     res.render("paymentMethod", { idPacote });
 });
 
 router.post("/tipoPagamento", manipulaToken.verificaToken, (req, res) => {
-    let { metodo,idPacote } = req.body;
+    let { metodo, idPacote } = req.body;
+
     if (metodo === "pix") {
-        res.redirect(`/pagamentoPix`);
+        res.render("pixPayment", { idPacote });
         return;
     }
-    res.redirect(`/pagamentoCartao`)
+    res.render("debitPayment", { idPacote });
 });
 
 router.post("/pesquisa", async (req, res) => {
@@ -200,8 +202,7 @@ router.post("/pesquisa", async (req, res) => {
     let innerJoin = "INNER JOIN cliente ON pacote.idCliente = cliente.idCliente";
     let query = `SELECT ${campos} FROM pacote ${innerJoin} WHERE pacote.nome LIKE ?;`
 
-    pacote = req.params; 
-    conn.query(query, [pesquisa + "%"], async (err, pacotes) => {
+    conn.query(query, ["%" + pesquisa + "%"], async (err, pacotes) => {
         if (err) throw err;
 
         pacotes = await selects.getMediaETotal(pacotes);
@@ -211,19 +212,6 @@ router.post("/pesquisa", async (req, res) => {
         }
         res.render("searchResults", { pacotes, pesquisa });
     });
-});
-
-router.get("/pagamentoPix", async (req, res) => {
-
-    res.render("pixPayment");
-});
-
-router.get("/pagamentoCartao", (req, res) => {
-    let { idPacote, packSlug } = req.params;
-    let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";
-
-
-    res.render("debitPayment")
 });
 
 router.get("/debitpayment", (req, res) => {
@@ -239,7 +227,7 @@ router.get("/autocomplete", (req, res) => {
     }
 
     const query = `
-  SELECT idPacote, nome, dirImg, preco 
+  SELECT idPacote, nome, dirImg, preco, idCliente, slug
   FROM pacote 
   WHERE nome LIKE ? 
   LIMIT 10;
@@ -251,11 +239,36 @@ router.get("/autocomplete", (req, res) => {
         res.json(await selects.getMediaETotal(resultados));
     });
 });
-  
-  router.get("/purchaseSuccess/:idPacote", (req, res) => {
-    const { idPacote} = req.params;
-  
-    res.render("purchaseSuccess", { idPacote});
-  });
+
+router.post("/purchaseSuccess", manipulaToken.verificaToken, async (req, res) => {
+    var { idPacote } = req.body;
+    let idCliente = req.userId;
+    var pacote = [];
+
+    idPacote = idPacote.toString();
+    idPacote = idPacote.split(",");
+
+    let query = "INSERT INTO pacotesfav_comp (idFkPacote,idFkCliente,tipo) VALUES (?,?,?);";
+    let queryPacote = "SELECT idPacote,dirPacote,slug FROM pacote WHERE idPacote = ?"
+
+    for (let i = 0; i <= idPacote.length - 1; i++) {
+        idPacote[i] = parseInt(idPacote[i]);
+
+        conn.query(query, [idPacote[i], idCliente, "comp"], (err, result) => {
+            if (err) throw err;
+        });
+
+        pacote[i] = await new Promise((resolve, reject) => {
+            conn.query(queryPacote, [idPacote[i]], (err, pacote) => {
+                if (err) throw err;
+
+                resolve(pacote);
+            });
+
+        });
+    }
+
+    res.render("purchaseSuccess", { pacote });
+});
 
 module.exports = router;

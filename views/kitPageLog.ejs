@@ -106,7 +106,7 @@
           <% } %>
         </div>
         <form action="/paymentMethod" method="post">
-          <input type="hidden" value="<%= pacote[0].idPacote %>">
+          <input type="hidden" value="<%= pacote[0].idPacote %>" name="idPacote">
           <button type="submit" class="btn btnBase">$<%= pacote[0].preco %></button><br>
         </form>
         <a class="btn btnBase" href="/uploads/pack/<%= pacote[0].dirDemo %>">Download Demo</a>

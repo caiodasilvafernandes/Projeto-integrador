@@ -26,7 +26,7 @@
             <!-- bio -->
             <div class="row">
               <label class="text-start subTitle col-4">Bio</label>
-              <textarea type="text" name="bio" id="bio" placeholder="bio"
+              <textarea type="text" name="bio" id="bio" placeholder="bio" value="<%= result[0].bio %>"
                 class="inputForm form-control-sm form-control col" maxlength="256"
                 style="resize: none; border-radius: 15px;"></textarea>
             </div>
@@ -41,6 +41,7 @@
 
             <div class="row d-flex justify-content-center">
               <button type="submit" class="btn btnBase btnLog">Finalizar</button>
+              <button type="submit" class="btn btnBase btnLog" style="background-color: red !important;">Excluir conta!</button>
             </div>
           </form>
         </div>
@@ -55,6 +56,7 @@
   <script>
     var pfp = document.getElementById("pfp");
     var previewPfp = document.getElementById("previewPfp");
+
     pfp.addEventListener("input",(e)=>{
       let img = event.target.files[0];
   
@@ -70,4 +72,5 @@
         previewPfp.src = "./img/icons/profilepic.png";
       }
     });
+
   </script>

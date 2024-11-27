@@ -1,56 +1,62 @@
 <%- include("partials/header")%>
-<link rel="stylesheet" type="text/css" href="/CSS/form.css" />
-<link rel="stylesheet" type="text/css" href="/CSS/index.css" />
-<link rel="stylesheet" type="text/css" href="/CSS/payment.css" />
+  <link rel="stylesheet" type="text/css" href="/CSS/form.css" />
+  <link rel="stylesheet" type="text/css" href="/CSS/index.css" />
+  <link rel="stylesheet" type="text/css" href="/CSS/payment.css" />
 
-<style>
-  @media (max-height: 765px) {
-    body {
-      overflow-y: visible;
+  <style>
+    @media (max-height: 765px) {
+      body {
+        overflow-y: visible;
+      }
     }
-  }
-  .qr {
-    width: 250px;
-    height: 250px;
-  }
-  .container {
-    margin: 0 auto;
-    text-align: center;
-    width: 600px;
-  }
-</style>
 
-<body>
-  <%- include("partials/hudLog")%>
+    .qr {
+      width: 250px;
+      height: 250px;
+    }
 
-  <div class="steps container">
-    <div class="step">1</div>
-    <div class="line step"></div>
-    <div class="step step">2</div>
-  </div>
+    .container {
+      margin: 0 auto;
+      text-align: center;
+      width: 600px;
+    }
+  </style>
 
-  <div align="center">
-  <form class="pForm form-control" style="height: fit-content;">
-    <h1 class="title">Pix</h1>
-    <p class="subTitle">Escaneie o QR code</p>
+  <body>
+    <%- include("partials/hudLog")%>
 
-    <div class="linha"></div>
+      <div class="steps container">
+        <div class="step">1</div>
+        <div class="line step"></div>
+        <div class="step step">2</div>
+      </div>
+      <form action="/purchaseSuccess" method="post" id="formId">
+      <input type="hidden" name="idPacote" value="<%= idPacote %>">
+    </form>
+      <div align="center">
+        <form class="pForm form-control" style="height: fit-content;">
+          <h1 class="title">Pix</h1>
+          <p class="subTitle">Escaneie o QR code</p>
 
-    <img class="qr" src="\img\illustrations\qr.png"/>
-    <p class="subTitle">A cobrança do pix ficara disponível por 5 minutos.</p>
+          <div class="linha"></div>
 
-    <div class="linha"></div>
+          <img class="qr" src="\img\illustrations\qr.png" />
+          <p class="subTitle">A cobrança do pix ficara disponível por 5 minutos.</p>
 
-    <h1 class="subTitle">or</h1>
-    <p class="subTitle" style=" overflow-wrap: break-word; height: fit-content;">
-      00020126420014BR.GOV.BCB.PIX0120enzohingst@gmail.com52040000530398654042.005802BR5920Enzo de Souza Hingst6009SAO PAULO62140510psGQ1SHEEH6304B25D
-    </p>
-  </form>
-</div>
-<script>
-  setTimeout(function() {
-    window.location.href = "/purchaseSuccess/:idPacote";
-  }, 5000); 
-</script>
+          <div class="linha"></div>
 
-</body>
+          <h1 class="subTitle">or</h1>
+          <p class="subTitle" style=" overflow-wrap: break-word; height: fit-content;">
+            00020126420014BR.GOV.BCB.PIX0120enzohingst@gmail.com52040000530398654042.005802BR5920Enzo de Souza
+            Hingst6009SAO PAULO62140510psGQ1SHEEH6304B25D
+          </p>
+        </form>
+      </div>
+      <script>
+        let form = document.getElementById("formId")
+        setTimeout(async function () {
+          form.submit();
+        }, 5000); 
+      </script>
+
+  </body>

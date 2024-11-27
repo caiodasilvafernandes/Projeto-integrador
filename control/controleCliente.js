@@ -72,14 +72,16 @@ router.put("/editProfile", manipulaToken.verificaToken, upload.single("pfp"), (r
     });
 });
 
-router.delete("/deleteCliente/:id", (req, res) => {
+router.delete("/deleteCliente/:id",manipulaToken.verificaToken, (req, res) => {
     let { id } = req.params;
     var query = "DELETE FROM cliente WHERE idCliente = ?;";
+
+    res.cookie["jwToken"] = null;
 
     conn.query(query, [id], (err, result) => {
         if (err) throw err;
 
-        res.status(200).json("funfa");
+        res.render("/");
     });
 });
 

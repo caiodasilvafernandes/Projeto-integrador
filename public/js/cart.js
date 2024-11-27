@@ -35,11 +35,11 @@ checkboxes.forEach((checkbox) => {
         if (this.checked) {
             valor += parseInt(this.value);
 
-            precoTotal.textContent ="R$" + valor;
+            precoTotal.textContent = "R$" + valor;
         } else {
             valor -= parseInt(this.value);
 
-            precoTotal.textContent ="R$" + valor;
+            precoTotal.textContent = "R$" + valor;
         }
     });
 });
@@ -50,15 +50,25 @@ btnContinuar.addEventListener("click", (e) => {
     let checkbox = document.querySelectorAll("input[type='checkbox']:checked");
     let idPack = [];
     let quantComp = checkbox.length;
-    let precoTotal = precoTotal.textContent;
-    
-    for (check of checkbox) {
-        idPack.push(check.id);
-    }
 
-    idPacote.value = parseInt(idPack);
-    quant.value = parseInt(quantComp);
-    preco.value = parseInt(precoTotal);
+    for (let i = 0; i <= checkbox.length - 1; i++) {
+
+        if (checkbox[i]) {
+            let input = document.createElement("input");
+
+            input.type = "hidden";
+            input.value = checkbox[i].id;
+            input.name = "idPacote";
+
+            console.log(input);
+
+
+            formCart.appendChild(input);   
+        } else {
+            console.log("i invalida", i);
+
+        }
+    }
 
     formCart.submit();
 });
