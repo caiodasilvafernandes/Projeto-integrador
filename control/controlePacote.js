@@ -214,6 +214,16 @@ router.post("/pesquisa", async (req, res) => {
     });
 });
 
+router.get("/pagamentoPix", async (req, res) => {
+
+    res.render("pixPayment");
+});
+
+router.get("/pagamentoCartao", (req, res) => {
+
+    res.render("debitPayment")
+});
+
 router.get("/debitpayment", (req, res) => {
     res.render("debitPayment");
 });
@@ -227,7 +237,7 @@ router.get("/autocomplete", (req, res) => {
     }
 
     const query = `
-  SELECT idPacote, nome, dirImg, preco, idCliente, slug
+  SELECT idPacote, nome, dirImg, preco, slug, idCliente 
   FROM pacote 
   WHERE nome LIKE ? 
   LIMIT 10;

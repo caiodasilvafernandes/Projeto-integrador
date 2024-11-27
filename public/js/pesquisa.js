@@ -24,7 +24,9 @@ sug.addEventListener("input", async ({ target }) => {
       if (resultados.length > 0) {
         kit.innerHTML = resultados
           .map(
-            (pack) => `
+            (pack) => 
+              //console.log(pack)
+              `
               <li>
               <a href="/kitPage/${pack.idPacote}/${pack.slug}">
                 <div class="searchResult row">

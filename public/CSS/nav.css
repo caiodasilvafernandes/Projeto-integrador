@@ -58,16 +58,16 @@
         color: #00C6E0;
         margin-left: 45px;
         width: 175px;
-        height: 65px;
+        height: 90px;
     }
   .searchBar{
     width: 500px;
   }
-  .inputSearch{
+  .inputSearch, .inputSearch:focus, .inputSearch::placeholder{
     border-start-start-radius: 20px;
     border-end-start-radius: 20px;
     background-color: #121212;
-    color: #606060;
+    color: #fff;
     border-color: #606060;
   }
   .buttonSearch{

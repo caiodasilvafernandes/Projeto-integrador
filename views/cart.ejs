@@ -10,10 +10,10 @@
                     <!-- priemira row de pacote -->
                     <% for(pack of pacote){ %>
                         <div class="row productRow" id="<%= pack.idFkPacote %>">
-                            <div class="col-6 col-md-3">
+                            <div class="col-6 col-md-2">
                                 <img src="/uploads/img/kitCover/<%= pack.dirImg %>" class="kitCart" alt="Produto 1">
                             </div>
-                            <div class="col-6 col-md-4">
+                            <div class="col-6 col-md-4"> <!--se no teu monito n tiver certo muda a class "col-md-4" pra "col-md-3"-->
                                 <p class="topicsTitles">
                                     <%= pack.nome %>
                                 </p>

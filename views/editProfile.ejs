@@ -1,6 +1,18 @@
 <%- include("partials/header")%>
   <link rel="stylesheet" type="text/css" href="CSS/form.css" />
 
+  <style>
+    .btnDelete{
+      background-color: rgb(255, 0, 0) !important;
+      transition: box-shadow 0.3 ease;
+    }
+    .btnDelete:hover{ 
+      box-shadow: 0 0px 30px rgba(255, 0, 0);
+     }
+
+
+  </style>
+
   <body>
     <%- include("partials/hudLog")%>
 
@@ -41,7 +53,7 @@
 
             <div class="row d-flex justify-content-center">
               <button type="submit" class="btn btnBase btnLog">Finalizar</button>
-              <button type="submit" class="btn btnBase btnLog" style="background-color: red !important;">Excluir conta!</button>
+              <a href="javascript:void(0);" class="btn btnBase btnLog btnDelete" onclick="deleteAccount('<%= result[0].idCliente %>')">Deletar conta!</a>
             </div>
           </form>
         </div>
@@ -73,4 +85,14 @@
       }
     });
 
+    var btndelete = document.getElementsByClassName("btndelete");
+
+    function deleteAccount(userId) {
+    if (confirm("Deseja mesmo deletar sua conta?")) {
+      fetch(`/deleteUser/${userId}`, {
+        method: 'DELETE',
+      })
+      window.location.href = "/logOut";
+    }
+  }
   </script>

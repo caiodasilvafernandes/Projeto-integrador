@@ -66,14 +66,33 @@ router.put("/updateUser/:id", (req, res) => {
 router.delete("/deleteUser/:id", (req, res) => {
     let { id } = req.params;
 
-    var sql = "DELETE FROM usuario WHERE idUser = ?;"
+    let sql1 = "DELETE FROM pacote WHERE idCliente = ?";
+    conn.query(sql1, [id], (err, result) => {
+        if (err) {
 
-    conn.query(sql, [id], (err, result) => {
-        if (err) throw err;
+            return res.status(500).json({ error: 'erro pacote', details: err.message });
+        }
 
-        res.status(200).json("funfa",result);
+        let sql2 = "DELETE FROM comentario WHERE idFkCliente = ?";
+        conn.query(sql2, [id], (err, result) => {
+            if (err) {
+               
+                return res.status(500).json({ error: 'erro comentario', details: err.message });
+            }
+
+            let sql3 = "DELETE FROM cliente WHERE idCliente = ?";
+            conn.query(sql3, [id], (err, result) => {
+                if (err) {
+               
+                    return res.status(500).json({ error: 'erro cliente', details: err.message });
+                }
+                res.clearCookie("jwToken");
+                res.clearCookie("jwRefreshToken");
+                res.redirect("/");
+            });
+        });
     });
-
 });
+
 
 module.exports = router;
