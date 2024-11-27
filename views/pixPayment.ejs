@@ -52,8 +52,10 @@
   </form>
 </div>
 <script>
-  setTimeout(function() {
-    window.location.href = "/purchaseSuccess/:idPacote";
+  let form = document.getElementById("formId");
+
+  setTimeout(function () {
+    form.submit();
   }, 5000); 
 </script>
 
