@@ -40,6 +40,12 @@ body {
   color: #fff;
 }
 
+.inputForm:focus{
+  option{
+    color: #606060;
+    background-color: #121212;
+  }
+}
 .inputForm::placeholder {
   color: #606060;
   opacity: 1;

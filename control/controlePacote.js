@@ -219,9 +219,6 @@ router.get("/pagamentoPix", async (req, res) => {
 });
 
 router.get("/pagamentoCartao", (req, res) => {
-    let { idPacote, packSlug } = req.params;
-    let query = "SELECT idPacote,preco,slug FROM pacote WHERE idPacote = ? AND slug = ?;";
-
 
     res.render("debitPayment")
 });
