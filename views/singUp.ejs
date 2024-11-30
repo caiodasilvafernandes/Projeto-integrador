@@ -1,6 +1,13 @@
 <%- include("partials/header")%>
   <link rel="stylesheet" type="text/css" href="CSS/form.css"/>
 
+  <style>
+    body{
+      overflow-y: visible;
+      padding-top: 100px;
+    }
+  </style>
+
   <body>
     <%- include("partials/hudNoLog")%>
 
@@ -30,12 +37,12 @@
           <!--senha-->
           <div class="row">
           <label class="text-start subTitle col-4">Senha</label>
-          <input type="text" name="password" id="password" placeholder="crie uma senha..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover"data-bs-content="Senha com no minímo 8 caractéres">
+          <input type="password" name="password" id="password" placeholder="crie uma senha..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover"data-bs-content="Senha com no minímo 8 caractéres">
           </div>
           <!--confirmação da senha-->
           <div class="row">
           <label class="text-start subTitle col-4">Confirme</label>
-          <input type="text" name="passwordConfirm" id="passwordConfirm" placeholder="confirme sua senha..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Repita a senha a cima">
+          <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="confirme sua senha..." class="inputForm form-control form-control-sm col"  data-bs-toggle="popover" data-bs-trigger="manual" data-bs-custom-class="custom-popover" data-bs-content="Repita a senha a cima">
           </div>
           <!-- aniversario -->
           <div class="row">

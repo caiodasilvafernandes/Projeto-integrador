@@ -62,13 +62,13 @@
         <!--descrição do kit-->
         <div class="container kitInfo">
           <!--perfil do merdao q fez o kit-->
-          <a class="subTitle username userAnim" href="/profile/<%= pacote[0].slug %>/<%= pacote[0].idCliente%>">
+          <a class="subTitle username userAnim" href="/profile/<%= pacote[0].slug %>/<%= pacote[0].idCliente%>"style="text-wrap: nowrap;">
             <img src="/uploads/img/pfp/<%= pacote[0].imgPerfil %>" class="pfp" />
             <%= pacote[0].login %>
           </a>
           <br><br>
 
-          <a class="subTitle username aling-items-center">
+          <a class="subTitle username aling-items-center" style="width: fit-content; text-wrap: nowrap;">
             <!--média das avaliações-->
             <img src="/img/icons/star.png" class="pfp" />
             <%= pacote[0].media%>

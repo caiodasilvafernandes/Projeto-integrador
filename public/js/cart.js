@@ -24,7 +24,7 @@ btnDelete.addEventListener("click", (event) => {
     deleteCar(idCliente, idPack);
 
     let div = document.getElementById(idPack);
-    closest(".row productRow").remove();
+    div.closest(".row productRow").remove();
 });
 
 checkboxes.forEach((checkbox) => {

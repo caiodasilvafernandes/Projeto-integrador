@@ -164,6 +164,9 @@ router.get("/kitPage/:id/:slug", async (req, res) => {
             });
         });
 
+        console.log(comp);
+        
+
         let avalia = await new Promise((resolve, reject) => {
             conn.query(queryAvalia, [idUser, pacote[0].idPacote], (err, result) => {
                 if (err) reject(err);
@@ -252,6 +255,7 @@ router.get("/autocomplete", (req, res) => {
 
 router.post("/purchaseSuccess", manipulaToken.verificaToken, async (req, res) => {
     var { idPacote } = req.body;
+    
     let idCliente = req.userId;
     var pacote = [];
 
@@ -277,6 +281,8 @@ router.post("/purchaseSuccess", manipulaToken.verificaToken, async (req, res) =>
 
         });
     }
+    console.log(pacote);
+    
 
     res.render("purchaseSuccess", { pacote });
 });

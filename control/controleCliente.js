@@ -127,7 +127,7 @@ router.get("/profile/:slug/:id", async (req, res) => {
         }
     }else{
         render = "profile";
-    }
+    }    
 
     var queryCliente = "SELECT nome,login,email,dataNasc,bio,idCidade,imgPerfil FROM cliente WHERE idCliente = ?;";
     var queryPacote = "SELECT * FROM pacote WHERE idCliente = ?;";
