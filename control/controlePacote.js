@@ -7,7 +7,6 @@ const conn = require("../database/bd");
 const manipulaToken = require("../model/token");
 const upload = require("../model/multer");
 const selects = require("../model/selects");
-
 require("dotenv").config();
 
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -281,9 +280,6 @@ router.post("/purchaseSuccess", manipulaToken.verificaToken, async (req, res) =>
 
         });
     }
-    console.log(pacote);
-    
-
     res.render("purchaseSuccess", { pacote });
 });
 
