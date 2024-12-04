@@ -30,9 +30,9 @@
                                 <input type="checkbox" name="prod" id="<%= pack.idPacote %>" value="<%= pack.preco %>">
                             </div>
                             <div class="col-6 col-md-1 text-right">
-                                <button class="btnBase" id="btnDelete"
-                                    name="<%= pack.idFkCliente %>, <%= pack.idFkPacote %>">Excluir</button>
-                                <br>
+                                <a href="\js\cart.js" class="btnDelete btnBase btn"   data-cliente-id="<%= pack.idFkCliente %>"   data-pack-id="<%= pack.idFkPacote %>">
+                                    Excluir
+                                </a>
                             </div>
                             <div class="linha"></div>
                         </div>
