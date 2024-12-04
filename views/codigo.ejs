@@ -1,0 +1,27 @@
+<form action="/verificaCodigo" method="post" id="form">
+    <h1>Digite o código recebido por email:</h1>
+    <input type="text" name="codigo" id="codigo">
+    <input type="hidden" name="email" value="<%= email %>">
+    <input type="hidden" id="verifCodigo" value="<%= codigo %>">
+    <button id="btnForm">Enviar</button>
+</form>
+
+<script>
+    var btnForm = document.getElementById("btnForm");
+    var form = document.getElementById("form");
+
+    btnForm.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        var verificaCodico = document.getElementById("verifCodigo").value;
+        var codigo = document.getElementById("codigo").value;
+        verificaCodico = verificaCodico.trim();
+        codigo = codigo.trim()
+
+        if (codigo !== verificaCodico) {
+            alert("Codigo errado, verifique se escreveu corretamente");
+        } else {
+            form.submit();
+        }
+    })
+</script>

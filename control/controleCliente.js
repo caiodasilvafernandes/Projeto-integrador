@@ -9,6 +9,8 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const selects = require("../model/selects");
 const upload = require("../model/multer");
+const mailer = require("nodemailer");
+const transp = require("../model/nodemailer");
 
 router.use(cookieParser());
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -57,7 +59,7 @@ router.put("/editProfile", manipulaToken.verificaToken, upload.single("pfp"), (r
     let { username, password, bio } = req.body;
 
     let imgPerfil = req.file?.filename;
-    
+
     let id = req.userId;
 
     let salt = bcrypt.genSaltSync(10);
@@ -72,7 +74,7 @@ router.put("/editProfile", manipulaToken.verificaToken, upload.single("pfp"), (r
     });
 });
 
-router.delete("/deleteCliente/:id",manipulaToken.verificaToken, (req, res) => {
+router.delete("/deleteCliente/:id", manipulaToken.verificaToken, (req, res) => {
     let { id } = req.params;
     var query = "DELETE FROM cliente WHERE idCliente = ?;";
 
@@ -85,7 +87,7 @@ router.delete("/deleteCliente/:id",manipulaToken.verificaToken, (req, res) => {
     });
 });
 
-router.get("/profile",manipulaToken.verificaToken, async (req, res) => {
+router.get("/profile", manipulaToken.verificaToken, async (req, res) => {
     let id = req.userId;
 
     var queryCliente = "SELECT nome,login,email,dataNasc,bio,idCidade,imgPerfil FROM cliente WHERE idCliente = ?;";
@@ -95,7 +97,7 @@ router.get("/profile",manipulaToken.verificaToken, async (req, res) => {
     var cliente = await new Promise((resolve, reject) => {
         conn.query(queryCliente, [id], (err, cliente) => {
             if (err) throw reject(err);
-            
+
             if (cliente[0].bio == null) {
                 cliente[0].bio = "Crie uma bio na edição de perfil"
             }
@@ -120,15 +122,15 @@ router.get("/profile/:slug/:id", async (req, res) => {
     let idUser = 0;
 
     if (req.cookies["jwToken"]) {
-        idUser = await manipulaToken.pegarId(req,res);
+        idUser = await manipulaToken.pegarId(req, res);
         if (idUser == req.params.id) {
             render = "myProfile";
-        }else{
+        } else {
             render = "profile";
         }
-    }else{
+    } else {
         render = "profile";
-    }    
+    }
 
     var queryCliente = "SELECT nome,login,email,dataNasc,bio,idCidade,imgPerfil FROM cliente WHERE idCliente = ?;";
     var queryPacote = "SELECT * FROM pacote WHERE idCliente = ?;";
@@ -156,9 +158,49 @@ router.get("/profile/:slug/:id", async (req, res) => {
     res.render(render, { cliente, pacote });
 });
 
+router.get("/esqueceuSenha", (req, res) => {
+    res.render("esqueceuSenha");
+});
+router.post("/codigoEmail", async (req, res) => {
+    let { email } = req.body;
+    let codigo = parseInt(Math.random() * 1000000);
+
+    await transp.sendMail({
+        to: email,
+        from: process.env.GMAIL_MAILER,
+        subject: "test",
+        html: `<p> Seu código é ${codigo} </p>`
+    }, (err, info) => {
+        if (err) {
+            console.log("erro pra enviar email", err);
+            return;
+        }
+        res.render("codigo", { codigo, email });
+    });
+});
+
+router.post("/verificaCodigo", (req, res) => {
+    let { codigo, email } = req.body;
+
+    res.render("redefinirSenha", { email });
+});
+
+router.post("/redefineSenha", async (req, res) => {
+    let { senha, email } = req.body;
+    let query = "UPDATE cliente SET senha = ? WHERE email = ?;";
+
+    let salt = bcrypt.genSaltSync(10);
+    let senhaHash = bcrypt.hashSync(senha, salt);
+
+        conn.query(query, [senhaHash, email], (err, res) => {
+            if (err) throw err;
+        });
+        
+        manipulaToken.logarUser(email, senha, req, res);
+});
+
 router.get("/logOut", (req, res) => {
     res.clearCookie("jwToken");
-    res.clearCookie("jwRefreshToken")
     res.redirect("/")
 });
 

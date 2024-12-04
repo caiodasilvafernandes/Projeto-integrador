@@ -5,12 +5,15 @@ const bcrypt = require("bcryptjs");
 class manipulaJWT {
     async logarUser(login, senha, req, res) {
         var query = "SELECT * FROM cliente WHERE email = ? OR login = ?;";
+        senha = senha.toString();
         
         conn.query(query, [login, login], async (err, result) => {
             if(err) throw err;
-            let verificaSenha = bcrypt.compareSync(senha, result[0].senha);
-
+            
+            let verificaSenha = bcrypt.compareSync(senha, result[0].senha); 
+            
             if (verificaSenha) {
+
                 const token = await jwt.sign({ id: result[0].idCliente }, process.env.SECRET_TOKEN);
 
                 await res.cookie("jwToken", token, { maxAge: 1800000, overwrite: true });
